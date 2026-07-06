@@ -1,0 +1,69 @@
+{
+  "id": "bookmark-icon-visible-on-all-cards",
+  "testPlanId": "60b604ea-a15b-49ce-b336-15436d1630c7",
+  "requirementId": "036c98a1-410a-4636-b10d-cab5f56abbdc",
+  "suiteName": "Employee — Save News Articles (Functional Happy Paths)",
+  "case": {
+    "id": "bookmark-icon-visible-on-all-cards",
+    "title": "Bookmark icon is visible on each article card in Featured and Latest sections",
+    "priority": "P1",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "open-home",
+        "action": "openUrl",
+        "targetDescription": "Open Commons QA home",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "wait-home",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for home content",
+        "locatorHint": "[data-testid='home-content']"
+      },
+      {
+        "id": "scroll-featured",
+        "action": "scrollIntoView",
+        "targetDescription": "Scroll to Featured News",
+        "locatorHint": "[data-testid='featured-news']"
+      },
+      {
+        "id": "assert-featured-has-cards",
+        "action": "assertCountGreaterThan",
+        "targetDescription": "Ensure Featured section has at least one card",
+        "locatorHint": "[data-testid='featured-news'] [data-testid='news-card']"
+      },
+      {
+        "id": "assert-all-featured-cards-have-bookmark",
+        "action": "assertCount",
+        "targetDescription": "Verify there are no Featured cards missing bookmark icon",
+        "locatorHint": "[data-testid='featured-news'] [data-testid='news-card']:not(:has([data-testid='bookmark-toggle']))"
+      },
+      {
+        "id": "scroll-latest",
+        "action": "scrollIntoView",
+        "targetDescription": "Scroll to Latest News",
+        "locatorHint": "[data-testid='latest-news']"
+      },
+      {
+        "id": "assert-latest-has-cards",
+        "action": "assertCountGreaterThan",
+        "targetDescription": "Ensure Latest section has at least one card",
+        "locatorHint": "[data-testid='latest-news'] [data-testid='news-card']"
+      },
+      {
+        "id": "assert-all-latest-cards-have-bookmark",
+        "action": "assertCount",
+        "targetDescription": "Verify there are no Latest cards missing bookmark icon",
+        "locatorHint": "[data-testid='latest-news'] [data-testid='news-card']:not(:has([data-testid='bookmark-toggle']))"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}

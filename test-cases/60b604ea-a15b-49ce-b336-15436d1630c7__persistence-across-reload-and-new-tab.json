@@ -1,0 +1,103 @@
+{
+  "id": "persistence-across-reload-and-new-tab",
+  "testPlanId": "60b604ea-a15b-49ce-b336-15436d1630c7",
+  "requirementId": "036c98a1-410a-4636-b10d-cab5f56abbdc",
+  "suiteName": "Employee — Save News Articles (Functional Happy Paths)",
+  "case": {
+    "id": "persistence-across-reload-and-new-tab",
+    "title": "Saved state persists after page reload and in a new tab",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "open-home",
+        "action": "openUrl",
+        "targetDescription": "Open Commons QA home",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "wait-home",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for home content",
+        "locatorHint": "[data-testid='home-content']"
+      },
+      {
+        "id": "scroll-featured",
+        "action": "scrollIntoView",
+        "targetDescription": "Scroll to Featured News section",
+        "locatorHint": "[data-testid='featured-news']"
+      },
+      {
+        "id": "save-delta",
+        "action": "tap",
+        "targetDescription": "Save 'QA Featured Article Delta' via bookmark",
+        "locatorHint": "[data-testid='featured-news'] [data-testid='news-card'][data-title='QA Featured Article Delta'] [data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "wait-toast",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for success toast",
+        "locatorHint": "[data-testid='toast']"
+      },
+      {
+        "id": "reload-home",
+        "action": "openUrl",
+        "targetDescription": "Reload by navigating to home again",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "scroll-featured-after-reload",
+        "action": "scrollIntoView",
+        "targetDescription": "Scroll to Featured after reload",
+        "locatorHint": "[data-testid='featured-news']"
+      },
+      {
+        "id": "assert-saved-delta-after-reload",
+        "action": "assertVisible",
+        "targetDescription": "Verify saved state (filled icon) persists after reload",
+        "locatorHint": "[data-testid='featured-news'] [data-testid='news-card'][data-title='QA Featured Article Delta'] [data-testid='bookmark-filled']"
+      },
+      {
+        "id": "new-tab",
+        "action": "switchToNewTab",
+        "targetDescription": "Open a new tab"
+      },
+      {
+        "id": "open-home-new-tab",
+        "action": "openUrl",
+        "targetDescription": "Open home in new tab",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "scroll-featured-new-tab",
+        "action": "scrollIntoView",
+        "targetDescription": "Scroll to Featured in new tab",
+        "locatorHint": "[data-testid='featured-news']"
+      },
+      {
+        "id": "assert-saved-delta-new-tab",
+        "action": "assertVisible",
+        "targetDescription": "Verify saved state visible in new tab (sync across devices/browsers)",
+        "locatorHint": "[data-testid='featured-news'] [data-testid='news-card'][data-title='QA Featured Article Delta'] [data-testid='bookmark-filled']"
+      },
+      {
+        "id": "close-new-tab",
+        "action": "closeTab",
+        "targetDescription": "Close the new tab"
+      },
+      {
+        "id": "cleanup-unsave-delta",
+        "action": "tap",
+        "targetDescription": "Cleanup: Unsave the article from home",
+        "locatorHint": "[data-testid='featured-news'] [data-testid='news-card'][data-title='QA Featured Article Delta'] [data-testid='bookmark-toggle']"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}

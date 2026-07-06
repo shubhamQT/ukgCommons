@@ -1,0 +1,59 @@
+{
+  "id": "deleted_article_removed_from_my_saved_news",
+  "testPlanId": "9e86bab1-9241-481c-80d7-f1eb828d8ea0",
+  "requirementId": "036c98a1-410a-4636-b10d-cab5f56abbdc",
+  "suiteName": "Employee Save News Articles - Functional Tests",
+  "case": {
+    "id": "deleted_article_removed_from_my_saved_news",
+    "title": "Verify that a deleted or archived article is automatically removed from My Saved News",
+    "priority": "P1",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [
+      "User has a saved article that gets deleted or archived"
+    ],
+    "steps": [
+      {
+        "id": "step1",
+        "action": "openUrl",
+        "targetDescription": "Open the Commons QA homepage",
+        "value": "https://commons-qa.util.ukg.com"
+      },
+      {
+        "id": "step2",
+        "action": "tap",
+        "targetDescription": "Tap on Profile icon",
+        "locatorHint": "button[aria-label='Profile']"
+      },
+      {
+        "id": "step3",
+        "action": "tap",
+        "targetDescription": "Tap on 'My saved news' link under Profile",
+        "locatorHint": "a:has-text('My saved news')"
+      },
+      {
+        "id": "step4",
+        "action": "assertVisible",
+        "targetDescription": "Verify the saved article is visible before deletion",
+        "locatorHint": "section#saved-news-list article[data-article-id='to-be-deleted']"
+      },
+      {
+        "id": "step5",
+        "action": "wait",
+        "targetDescription": "Wait for article to be deleted or archived (simulate backend action)",
+        "value": "5000"
+      },
+      {
+        "id": "step6",
+        "action": "assertHidden",
+        "targetDescription": "Verify the deleted or archived article disappears from My Saved News list automatically",
+        "locatorHint": "section#saved-news-list article[data-article-id='to-be-deleted']"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}

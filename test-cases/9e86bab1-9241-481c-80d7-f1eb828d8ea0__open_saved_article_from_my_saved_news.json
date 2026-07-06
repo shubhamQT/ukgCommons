@@ -1,0 +1,53 @@
+{
+  "id": "open_saved_article_from_my_saved_news",
+  "testPlanId": "9e86bab1-9241-481c-80d7-f1eb828d8ea0",
+  "requirementId": "036c98a1-410a-4636-b10d-cab5f56abbdc",
+  "suiteName": "Employee Save News Articles - Functional Tests",
+  "case": {
+    "id": "open_saved_article_from_my_saved_news",
+    "title": "Open a saved article from My Saved News and verify full article view",
+    "priority": "P1",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [
+      "User has at least one saved article"
+    ],
+    "steps": [
+      {
+        "id": "step1",
+        "action": "openUrl",
+        "targetDescription": "Open the Commons QA homepage",
+        "value": "https://commons-qa.util.ukg.com"
+      },
+      {
+        "id": "step2",
+        "action": "tap",
+        "targetDescription": "Tap on Profile icon",
+        "locatorHint": "button[aria-label='Profile']"
+      },
+      {
+        "id": "step3",
+        "action": "tap",
+        "targetDescription": "Tap on 'My saved news' link under Profile",
+        "locatorHint": "a:has-text('My saved news')"
+      },
+      {
+        "id": "step4",
+        "action": "tap",
+        "targetDescription": "Tap on the first saved article in My Saved News list",
+        "locatorHint": "section#saved-news-list article:nth-of-type(1) a.article-link"
+      },
+      {
+        "id": "step5",
+        "action": "assertVisible",
+        "targetDescription": "Verify full article view is displayed",
+        "locatorHint": "article.full-article"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}

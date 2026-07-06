@@ -1,0 +1,90 @@
+{
+  "id": "save_article_from_latest_news",
+  "testPlanId": "9e86bab1-9241-481c-80d7-f1eb828d8ea0",
+  "requirementId": "036c98a1-410a-4636-b10d-cab5f56abbdc",
+  "suiteName": "Employee Save News Articles - Functional Tests",
+  "case": {
+    "id": "save_article_from_latest_news",
+    "title": "Save an article from Latest News and verify it appears in My Saved News",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "step1",
+        "action": "openUrl",
+        "targetDescription": "Open the Commons QA homepage",
+        "value": "https://commons-qa.util.ukg.com"
+      },
+      {
+        "id": "step2",
+        "action": "tap",
+        "targetDescription": "Tap 'Continue with SSO' button if visible",
+        "locatorHint": "button:has-text('Continue with SSO')",
+        "assertion": "true"
+      },
+      {
+        "id": "step3",
+        "action": "scrollIntoView",
+        "targetDescription": "Scroll to Latest News section",
+        "locatorHint": "section#latest-news"
+      },
+      {
+        "id": "step4",
+        "action": "assertVisible",
+        "targetDescription": "Verify bookmark icon is visible on a Latest News article card",
+        "locatorHint": "section#latest-news article .bookmark-icon"
+      },
+      {
+        "id": "step5",
+        "action": "tap",
+        "targetDescription": "Tap the bookmark icon on the first Latest News article",
+        "locatorHint": "section#latest-news article:nth-of-type(1) .bookmark-icon"
+      },
+      {
+        "id": "step6",
+        "action": "assertVisible",
+        "targetDescription": "Verify the bookmark icon changes to filled (saved) state",
+        "locatorHint": "section#latest-news article:nth-of-type(1) .bookmark-icon.saved"
+      },
+      {
+        "id": "step7",
+        "action": "assertContainsText",
+        "targetDescription": "Verify toast message 'News saved successfully!, View saved news under Profile' appears",
+        "locatorHint": ".toast-message",
+        "assertion": "News saved successfully!, View saved news under Profile"
+      },
+      {
+        "id": "step8",
+        "action": "tap",
+        "targetDescription": "Tap on Profile icon",
+        "locatorHint": "button[aria-label='Profile']"
+      },
+      {
+        "id": "step9",
+        "action": "tap",
+        "targetDescription": "Tap on 'My saved news' link under Profile",
+        "locatorHint": "a:has-text('My saved news')"
+      },
+      {
+        "id": "step10",
+        "action": "assertVisible",
+        "targetDescription": "Verify redirection to My Saved News page",
+        "locatorHint": "h1:has-text('My Saved News')"
+      },
+      {
+        "id": "step11",
+        "action": "assertContainsText",
+        "targetDescription": "Verify the saved article appears in My Saved News list",
+        "locatorHint": "section#saved-news-list article",
+        "assertion": "true"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}

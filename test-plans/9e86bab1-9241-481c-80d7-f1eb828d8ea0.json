@@ -1,0 +1,327 @@
+{
+  "id": "9e86bab1-9241-481c-80d7-f1eb828d8ea0",
+  "requirementId": "036c98a1-410a-4636-b10d-cab5f56abbdc",
+  "model": "gpt-4.1-mini",
+  "createdAt": "2026-07-06T19:15:47.233Z",
+  "plan": {
+    "version": 1,
+    "suiteName": "Employee Save News Articles - Functional Tests",
+    "cases": [
+      {
+        "id": "save_article_from_featured_news",
+        "title": "Save an article from Featured News and verify it appears in My Saved News",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "step1",
+            "action": "openUrl",
+            "targetDescription": "Open the Commons QA homepage",
+            "value": "https://commons-qa.util.ukg.com"
+          },
+          {
+            "id": "step2",
+            "action": "tap",
+            "targetDescription": "Tap 'Continue with SSO' button if visible",
+            "locatorHint": "button:has-text('Continue with SSO')",
+            "assertion": "true"
+          },
+          {
+            "id": "step3",
+            "action": "scrollIntoView",
+            "targetDescription": "Scroll to Featured News section",
+            "locatorHint": "section#featured-news"
+          },
+          {
+            "id": "step4",
+            "action": "assertVisible",
+            "targetDescription": "Verify bookmark icon is visible on a Featured News article card",
+            "locatorHint": "section#featured-news article .bookmark-icon"
+          },
+          {
+            "id": "step5",
+            "action": "tap",
+            "targetDescription": "Tap the bookmark icon on the first Featured News article",
+            "locatorHint": "section#featured-news article:nth-of-type(1) .bookmark-icon"
+          },
+          {
+            "id": "step6",
+            "action": "assertVisible",
+            "targetDescription": "Verify the bookmark icon changes to filled (saved) state",
+            "locatorHint": "section#featured-news article:nth-of-type(1) .bookmark-icon.saved"
+          },
+          {
+            "id": "step7",
+            "action": "assertContainsText",
+            "targetDescription": "Verify toast message 'News saved successfully!, View saved news under Profile' appears",
+            "locatorHint": ".toast-message",
+            "assertion": "News saved successfully!, View saved news under Profile"
+          },
+          {
+            "id": "step8",
+            "action": "tap",
+            "targetDescription": "Tap on Profile icon",
+            "locatorHint": "button[aria-label='Profile']"
+          },
+          {
+            "id": "step9",
+            "action": "tap",
+            "targetDescription": "Tap on 'My saved news' link under Profile",
+            "locatorHint": "a:has-text('My saved news')"
+          },
+          {
+            "id": "step10",
+            "action": "assertVisible",
+            "targetDescription": "Verify redirection to My Saved News page",
+            "locatorHint": "h1:has-text('My Saved News')"
+          },
+          {
+            "id": "step11",
+            "action": "assertContainsText",
+            "targetDescription": "Verify the saved article appears in My Saved News list",
+            "locatorHint": "section#saved-news-list article",
+            "assertion": "true"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "save_article_from_latest_news",
+        "title": "Save an article from Latest News and verify it appears in My Saved News",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "step1",
+            "action": "openUrl",
+            "targetDescription": "Open the Commons QA homepage",
+            "value": "https://commons-qa.util.ukg.com"
+          },
+          {
+            "id": "step2",
+            "action": "tap",
+            "targetDescription": "Tap 'Continue with SSO' button if visible",
+            "locatorHint": "button:has-text('Continue with SSO')",
+            "assertion": "true"
+          },
+          {
+            "id": "step3",
+            "action": "scrollIntoView",
+            "targetDescription": "Scroll to Latest News section",
+            "locatorHint": "section#latest-news"
+          },
+          {
+            "id": "step4",
+            "action": "assertVisible",
+            "targetDescription": "Verify bookmark icon is visible on a Latest News article card",
+            "locatorHint": "section#latest-news article .bookmark-icon"
+          },
+          {
+            "id": "step5",
+            "action": "tap",
+            "targetDescription": "Tap the bookmark icon on the first Latest News article",
+            "locatorHint": "section#latest-news article:nth-of-type(1) .bookmark-icon"
+          },
+          {
+            "id": "step6",
+            "action": "assertVisible",
+            "targetDescription": "Verify the bookmark icon changes to filled (saved) state",
+            "locatorHint": "section#latest-news article:nth-of-type(1) .bookmark-icon.saved"
+          },
+          {
+            "id": "step7",
+            "action": "assertContainsText",
+            "targetDescription": "Verify toast message 'News saved successfully!, View saved news under Profile' appears",
+            "locatorHint": ".toast-message",
+            "assertion": "News saved successfully!, View saved news under Profile"
+          },
+          {
+            "id": "step8",
+            "action": "tap",
+            "targetDescription": "Tap on Profile icon",
+            "locatorHint": "button[aria-label='Profile']"
+          },
+          {
+            "id": "step9",
+            "action": "tap",
+            "targetDescription": "Tap on 'My saved news' link under Profile",
+            "locatorHint": "a:has-text('My saved news')"
+          },
+          {
+            "id": "step10",
+            "action": "assertVisible",
+            "targetDescription": "Verify redirection to My Saved News page",
+            "locatorHint": "h1:has-text('My Saved News')"
+          },
+          {
+            "id": "step11",
+            "action": "assertContainsText",
+            "targetDescription": "Verify the saved article appears in My Saved News list",
+            "locatorHint": "section#saved-news-list article",
+            "assertion": "true"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "open_saved_article_from_my_saved_news",
+        "title": "Open a saved article from My Saved News and verify full article view",
+        "priority": "P1",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [
+          "User has at least one saved article"
+        ],
+        "steps": [
+          {
+            "id": "step1",
+            "action": "openUrl",
+            "targetDescription": "Open the Commons QA homepage",
+            "value": "https://commons-qa.util.ukg.com"
+          },
+          {
+            "id": "step2",
+            "action": "tap",
+            "targetDescription": "Tap on Profile icon",
+            "locatorHint": "button[aria-label='Profile']"
+          },
+          {
+            "id": "step3",
+            "action": "tap",
+            "targetDescription": "Tap on 'My saved news' link under Profile",
+            "locatorHint": "a:has-text('My saved news')"
+          },
+          {
+            "id": "step4",
+            "action": "tap",
+            "targetDescription": "Tap on the first saved article in My Saved News list",
+            "locatorHint": "section#saved-news-list article:nth-of-type(1) a.article-link"
+          },
+          {
+            "id": "step5",
+            "action": "assertVisible",
+            "targetDescription": "Verify full article view is displayed",
+            "locatorHint": "article.full-article"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "unsave_article_removes_from_my_saved_news",
+        "title": "Unsave an article from Featured News and verify it is removed immediately from My Saved News",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [
+          "User has a saved article from Featured News"
+        ],
+        "steps": [
+          {
+            "id": "step1",
+            "action": "openUrl",
+            "targetDescription": "Open the Commons QA homepage",
+            "value": "https://commons-qa.util.ukg.com"
+          },
+          {
+            "id": "step2",
+            "action": "tap",
+            "targetDescription": "Tap on Profile icon",
+            "locatorHint": "button[aria-label='Profile']"
+          },
+          {
+            "id": "step3",
+            "action": "tap",
+            "targetDescription": "Tap on 'My saved news' link under Profile",
+            "locatorHint": "a:has-text('My saved news')"
+          },
+          {
+            "id": "step4",
+            "action": "tap",
+            "targetDescription": "Tap the unsave (bookmark) icon on the first saved article",
+            "locatorHint": "section#saved-news-list article:nth-of-type(1) .bookmark-icon.saved"
+          },
+          {
+            "id": "step5",
+            "action": "assertHidden",
+            "targetDescription": "Verify the article is removed immediately from My Saved News list",
+            "locatorHint": "section#saved-news-list article:nth-of-type(1)"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "deleted_article_removed_from_my_saved_news",
+        "title": "Verify that a deleted or archived article is automatically removed from My Saved News",
+        "priority": "P1",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [
+          "User has a saved article that gets deleted or archived"
+        ],
+        "steps": [
+          {
+            "id": "step1",
+            "action": "openUrl",
+            "targetDescription": "Open the Commons QA homepage",
+            "value": "https://commons-qa.util.ukg.com"
+          },
+          {
+            "id": "step2",
+            "action": "tap",
+            "targetDescription": "Tap on Profile icon",
+            "locatorHint": "button[aria-label='Profile']"
+          },
+          {
+            "id": "step3",
+            "action": "tap",
+            "targetDescription": "Tap on 'My saved news' link under Profile",
+            "locatorHint": "a:has-text('My saved news')"
+          },
+          {
+            "id": "step4",
+            "action": "assertVisible",
+            "targetDescription": "Verify the saved article is visible before deletion",
+            "locatorHint": "section#saved-news-list article[data-article-id='to-be-deleted']"
+          },
+          {
+            "id": "step5",
+            "action": "wait",
+            "targetDescription": "Wait for article to be deleted or archived (simulate backend action)",
+            "value": "5000"
+          },
+          {
+            "id": "step6",
+            "action": "assertHidden",
+            "targetDescription": "Verify the deleted or archived article disappears from My Saved News list automatically",
+            "locatorHint": "section#saved-news-list article[data-article-id='to-be-deleted']"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      }
+    ]
+  }
+}

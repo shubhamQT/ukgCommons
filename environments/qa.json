@@ -1,6 +1,4 @@
 {
-  "name": "qa",
-  "slug": "qa",
   "baseURL": "https://commons-qa.util.ukg.com/",
   "browser": "chromium",
   "headless": true,

@@ -1,0 +1,11770 @@
+import type { Page } from "@playwright/test";
+import {
+  checkWhenVisible,
+  clearWhenVisible,
+  clickOpensNewPage,
+  clickWhenVisible,
+  closePage,
+  doubleClickWhenVisible,
+  expectChecked,
+  expectContainsText,
+  expectCount,
+  expectCountGreaterThan,
+  expectDisabled,
+  expectEnabled,
+  expectFocused,
+  expectHidden,
+  expectPageTitle,
+  expectSelected,
+  expectText,
+  expectUnchecked,
+  expectValue,
+  expectVisible,
+  fill,
+  fillWhenVisible,
+  getTextWhenVisible,
+  goBack,
+  hoverWhenVisible,
+  longPressWhenVisible,
+  navigateTo,
+  scrollIntoView,
+  scrollIntoViewWhenVisible,
+  selectOptionWhenVisible,
+  takeScreenshot,
+  typeTextWhenVisible,
+  uncheckWhenVisible,
+  waitForHidden,
+  waitForNewPage,
+  waitForVisible,
+  waitMs,
+  webLocator,
+} from "../support/web-actions";
+
+export class UkgcommonsPage {
+  private static readonly L = {
+    viewThisPageIn: { strategy: 'text' as const, value: 'View this page in', actionKind: 'text' as const },
+    to: { strategy: 'css' as const, value: '[name="to"]', actionKind: 'combobox' as const },
+    btnTopSitesMenu: { strategy: 'role' as const, value: 'Top sites', role: 'button', actionKind: 'button' as const },
+    btnHeaderMyApps: { strategy: 'role' as const, value: 'Top applications', role: 'button', actionKind: 'button' as const },
+    showCollapsedMenu: { strategy: 'role' as const, value: 'show collapsed menu', role: 'button', actionKind: 'button' as const },
+    hiDrakeWhatAre: { strategy: 'text' as const, value: 'Hi Drake, what are you looking for?', actionKind: 'text' as const },
+    drake: { strategy: 'text' as const, value: 'Drake', actionKind: 'text' as const },
+    sharePoint: { strategy: 'role' as const, value: 'SharePoint', role: 'button', actionKind: 'button' as const },
+    input: { strategy: 'placeholder' as const, value: 'Search news, sites, or events ', actionKind: 'textbox' as const },
+    popularSearches: { strategy: 'text' as const, value: 'Popular searches', actionKind: 'text' as const },
+    brandHub: { strategy: 'role' as const, value: 'brand hub', role: 'button', actionKind: 'button' as const },
+    holidayCalendar: { strategy: 'role' as const, value: 'holiday calendar', role: 'button', actionKind: 'button' as const },
+    celebrateU: { strategy: 'role' as const, value: 'celebrate u', role: 'button', actionKind: 'button' as const },
+    newHireCenter: { strategy: 'role' as const, value: 'new hire center', role: 'button', actionKind: 'button' as const },
+    announcements: { strategy: 'text' as const, value: 'Announcements', actionKind: 'text' as const },
+    btnAnnouncementCarouselPrev: { strategy: 'role' as const, value: 'switch to other announcement', role: 'button', actionKind: 'button' as const },
+    reviewDetailsHowTo: { strategy: 'text' as const, value: 'Review details, how to resolve missing bookmarks', actionKind: 'text' as const },
+    getKeyUpdatesFrom: { strategy: 'text' as const, value: 'Get key updates from leadership and the answers to', actionKind: 'text' as const },
+    learnMore: { strategy: 'role' as const, value: 'Learn more', role: 'link', actionKind: 'link' as const },
+    featured: { strategy: 'text' as const, value: 'Featured', actionKind: 'text' as const },
+    switchToPreviousNews: { strategy: 'role' as const, value: 'switch to previous news', role: 'button', actionKind: 'button' as const },
+    ai: { strategy: 'text' as const, value: 'AI', actionKind: 'text' as const },
+    drakeTiwary: { strategy: 'text' as const, value: 'Drake Tiwary', actionKind: 'text' as const },
+    shareNews: { strategy: 'role' as const, value: 'Share news', role: 'button', actionKind: 'button' as const },
+    unsaveNews: { strategy: 'role' as const, value: 'Unsave news', role: 'button', actionKind: 'button' as const },
+    takeTheNextStep: { strategy: 'text' as const, value: 'Take the next step in your development at UKG', actionKind: 'text' as const },
+    stacyCutrono: { strategy: 'text' as const, value: 'Stacy Cutrono', actionKind: 'text' as const },
+    saveNews: { strategy: 'role' as const, value: 'Save news', role: 'button', actionKind: 'button' as const },
+    ashleyAmerson: { strategy: 'text' as const, value: 'Ashley Amerson', actionKind: 'text' as const },
+    celebratingTheStrengthOf: { strategy: 'text' as const, value: 'Celebrating the strength of the UKG Ready partner', actionKind: 'text' as const },
+    christopherKiklas: { strategy: 'text' as const, value: 'Christopher Kiklas', actionKind: 'text' as const },
+    prideMonth2026Together: { strategy: 'text' as const, value: 'Pride Month 2026: Together, with pride and love', actionKind: 'text' as const },
+    sequoyaFord: { strategy: 'text' as const, value: 'Sequoya Ford', actionKind: 'text' as const },
+    globalImpactInAction: { strategy: 'text' as const, value: 'Global Impact in Action: 4-Week Challenge winners', actionKind: 'text' as const },
+    sarahMarks: { strategy: 'text' as const, value: 'Sarah Marks', actionKind: 'text' as const },
+    celebratingOneYearOf: { strategy: 'text' as const, value: 'Celebrating one year of Shiftboard at UKG', actionKind: 'text' as const },
+    brianBower: { strategy: 'text' as const, value: 'Brian Bower', actionKind: 'text' as const },
+    switchToNextNews: { strategy: 'role' as const, value: 'switch to next news', role: 'button', actionKind: 'button' as const },
+    latestInternalNews: { strategy: 'role' as const, value: 'Latest internal news', role: 'button', actionKind: 'button' as const },
+    ukgAndIndustryNews: { strategy: 'role' as const, value: 'UKG and industry news', role: 'button', actionKind: 'button' as const },
+    seeAllInternalNews: { strategy: 'role' as const, value: 'See all internal news', role: 'button', actionKind: 'button' as const },
+    gtmMarketing: { strategy: 'role' as const, value: 'GTM: Marketing', role: 'link', actionKind: 'link' as const },
+    ukgNucleusRoi: { strategy: 'role' as const, value: 'UKG | Nucleus ROI Case Study-UKG Pro at XKIG', role: 'link', actionKind: 'link' as const },
+    commsEmployeeCommunications: { strategy: 'role' as const, value: 'Comms: Employee Communications', role: 'link', actionKind: 'link' as const },
+    ukgCommonsMobileApp: { strategy: 'role' as const, value: 'UKG Commons mobile app now available', role: 'link', actionKind: 'link' as const },
+    productEngineeringGlobal: { strategy: 'role' as const, value: 'Product & Engineering: Global Security', role: 'link', actionKind: 'link' as const },
+    peopleUkgAdapt: { strategy: 'role' as const, value: 'People: UKG Adapt', role: 'link', actionKind: 'link' as const },
+    insideUkg: { strategy: 'role' as const, value: 'Inside UKG', role: 'link', actionKind: 'link' as const },
+    photoOfTheWeek: { strategy: 'role' as const, value: 'Photo of the Week: Take Your Child to Work Day', role: 'link', actionKind: 'link' as const },
+    element: { strategy: 'text' as const, value: '10', actionKind: 'text' as const },
+    doNotEngageWith: { strategy: 'text' as const, value: 'Do not engage with unsolicited Teams calls or suspicious emails', actionKind: 'link' as const },
+    peopleEmployeeExperience: { strategy: 'role' as const, value: 'People: Employee Experience', role: 'link', actionKind: 'link' as const },
+    thankYouForParticipating: { strategy: 'role' as const, value: 'Thank you for participating in the GPTW Trust', role: 'link', actionKind: 'link' as const },
+    commsAnalystRelations: { strategy: 'role' as const, value: 'Comms: Analyst Relations', role: 'link', actionKind: 'link' as const },
+    bigWinFor: { strategy: 'role' as const, value: '🎉 Big Win for UKG!', role: 'link', actionKind: 'link' as const },
+    tuneInTodayUkgAd: { strategy: 'role' as const, value: 'Tune-In Today: UKG Ad Spot During the World Cup', role: 'link', actionKind: 'link' as const },
+    element3: { strategy: 'text' as const, value: '15', actionKind: 'text' as const },
+    aiHub: { strategy: 'role' as const, value: 'AI Hub', role: 'link', actionKind: 'link' as const },
+    claudeEnterpriseAccessFor: { strategy: 'text' as const, value: 'Claude Enterprise access for non-Product and Engineering teams', actionKind: 'link' as const },
+    newProcessForChatGPT: { strategy: 'role' as const, value: 'New process for ChatGPT access and credit', role: 'link', actionKind: 'link' as const },
+    cx: { strategy: 'role' as const, value: 'CX', role: 'link', actionKind: 'link' as const },
+    purposeLeadershipJourney: { strategy: 'text' as const, value: 'Purpose Leadership Journey | Webinar Series Recordings (All 3 Sessions)', actionKind: 'link' as const },
+    photoOfTheWeekLink: { strategy: 'role' as const, value: 'Photo of the Week: UKG Huddle in Bengaluru', role: 'link', actionKind: 'link' as const },
+    productEngineeringProduct: { strategy: 'role' as const, value: 'Product & Engineering: Product', role: 'link', actionKind: 'link' as const },
+    howTheNewExperience: { strategy: 'role' as const, value: 'How the New Experience helps customers operate in', role: 'link', actionKind: 'link' as const },
+    element4: { strategy: 'text' as const, value: '13', actionKind: 'text' as const },
+    thatSAWrapUkgS: { strategy: 'role' as const, value: 'That\'s a wrap: UKG\'s podcast crushes its first', role: 'link', actionKind: 'link' as const },
+    element5: { strategy: 'text' as const, value: '17', actionKind: 'text' as const },
+    whatSNewOnUkg: { strategy: 'text' as const, value: 'What’s new on UKG Commons: Hot jobs, space reservations, and more', actionKind: 'link' as const },
+    gtm: { strategy: 'role' as const, value: 'GTM', role: 'link', actionKind: 'link' as const },
+    welcomingSeanWdowiakGvp: { strategy: 'role' as const, value: 'Welcoming Sean Wdowiak, GVP Go-to-Market', role: 'link', actionKind: 'link' as const },
+    element6: { strategy: 'text' as const, value: '31', actionKind: 'text' as const },
+    gtmBrandHub: { strategy: 'role' as const, value: 'GTM: Brand hub', role: 'link', actionKind: 'link' as const },
+    spotTheFrameConnect: { strategy: 'role' as const, value: 'Spot the frame? Connect with your UKG Brand', role: 'link', actionKind: 'link' as const },
+    element7: { strategy: 'text' as const, value: '14', actionKind: 'text' as const },
+    whatSecuritySeesRansomware: { strategy: 'text' as const, value: 'What Security Sees: Ransomware, recovery and why backups matter', actionKind: 'link' as const },
+    element8: { strategy: 'text' as const, value: '12', actionKind: 'text' as const },
+    exploreChatGPTCodexIn: { strategy: 'role' as const, value: 'Explore ChatGPT Codex in our new pilot program', role: 'link', actionKind: 'link' as const },
+    upcomingEvents: { strategy: 'text' as const, value: 'Upcoming events', actionKind: 'text' as const },
+    seeAll: { strategy: 'role' as const, value: 'See all', role: 'button', actionKind: 'button' as const },
+    categoryAll: { strategy: 'text' as const, value: 'Category: All', actionKind: 'generic' as const },
+    jul: { strategy: 'text' as const, value: 'JUL', actionKind: 'text' as const },
+    element9: { strategy: 'text' as const, value: '06', actionKind: 'text' as const },
+    peopleBenefits: { strategy: 'role' as const, value: 'People: Benefits', role: 'link', actionKind: 'link' as const },
+    stretchRelax: { strategy: 'text' as const, value: 'Stretch & Relax - Virtual Group Fitness', actionKind: 'text' as const },
+    virtual: { strategy: 'text' as const, value: 'Virtual', actionKind: 'text' as const },
+    element10: { strategy: 'text' as const, value: '07', actionKind: 'text' as const },
+    coreMore: { strategy: 'text' as const, value: 'Core & More - Virtual Group Fitness', actionKind: 'text' as const },
+    element11: { strategy: 'text' as const, value: '08', actionKind: 'text' as const },
+    peopleUkgRise: { strategy: 'role' as const, value: 'People: UKG Rise', role: 'link', actionKind: 'link' as const },
+    ukgRiseHeritage: { strategy: 'text' as const, value: 'UKG Rise - Heritage Month Kickoff', actionKind: 'text' as const },
+    virtualZoomMeeting: { strategy: 'text' as const, value: 'Virtual - Zoom Meeting', actionKind: 'text' as const },
+    element12: { strategy: 'text' as const, value: '09', actionKind: 'text' as const },
+    askMeAnythingAbout: { strategy: 'text' as const, value: 'Ask Me Anything about AI (Option 1)', actionKind: 'text' as const },
+    addToCalendar: { strategy: 'role' as const, value: 'Add to calendar', role: 'button', actionKind: 'button' as const },
+    askMeAnythingAbout2: { strategy: 'text' as const, value: 'Ask Me Anything about AI (Option 2)', actionKind: 'text' as const },
+    peopleUkgUnidos: { strategy: 'role' as const, value: 'People: UKG Unidos', role: 'link', actionKind: 'link' as const },
+    ukgUnidosWorldCup: { strategy: 'text' as const, value: 'UKG Unidos: World Cup Quarterfinal Virtual Watch', actionKind: 'text' as const },
+    peopleBelongingImpact: { strategy: 'role' as const, value: 'People: Belonging & Impact', role: 'link', actionKind: 'link' as const },
+    virtualInterviewTrainingWith: { strategy: 'text' as const, value: 'Virtual Interview Training with Grace Institute', actionKind: 'text' as const },
+    element19: { strategy: 'text' as const, value: '11', actionKind: 'text' as const },
+    careerPanelInformational: { strategy: 'text' as const, value: 'Career Panel & Informational Interviews with Year', actionKind: 'text' as const },
+    ukgUnidosWorldCup3: { strategy: 'text' as const, value: 'UKG Unidos: World Cup Semifinal Virtual Watch', actionKind: 'text' as const },
+    peopleUkgNest: { strategy: 'role' as const, value: 'People: UKG Nest', role: 'link', actionKind: 'link' as const },
+    nestAndAdaptWe: { strategy: 'text' as const, value: 'NEST and ADAPT We Rock the Spectrum Volunteer', actionKind: 'text' as const },
+    lybertyWayWestford: { strategy: 'text' as const, value: '7 Lyberty Way, Westford MA 01886', actionKind: 'text' as const },
+    beyondTheWorkplaceUnderstanding: { strategy: 'text' as const, value: 'Beyond the Workplace: Understanding Social', actionKind: 'text' as const },
+    element26: { strategy: 'text' as const, value: '16', actionKind: 'text' as const },
+    ukgRiseVirtualSpeed: { strategy: 'text' as const, value: 'UKG Rise Virtual Speed Networking', actionKind: 'text' as const },
+    myCalendar: { strategy: 'text' as const, value: 'My calendar', actionKind: 'text' as const },
+    pM: { strategy: 'text' as const, value: '6:30 p.m.', actionKind: 'text' as const },
+    hour: { strategy: 'text' as const, value: '1 hour', actionKind: 'text' as const },
+    ukgCommonsSprint: { strategy: 'text' as const, value: 'UKG Commons - Sprint planning', actionKind: 'text' as const },
+    pM2: { strategy: 'text' as const, value: '8:30 p.m.', actionKind: 'text' as const },
+    pM3: { strategy: 'text' as const, value: '9 p.m.', actionKind: 'text' as const },
+    requestsOverview: { strategy: 'text' as const, value: 'Requests overview', actionKind: 'text' as const },
+    myRequests13: { strategy: 'role' as const, value: 'My requests (13)', role: 'button', actionKind: 'button' as const },
+    approvals: { strategy: 'role' as const, value: 'Approvals', role: 'button', actionKind: 'button' as const },
+    eSRITM1012673Pending: { strategy: 'text' as const, value: 'ESRITM1012673 | Pending', actionKind: 'text' as const },
+    automationRequirements: { strategy: 'role' as const, value: 'Automation Requirements', role: 'button', actionKind: 'button' as const },
+    eSDMND0024340Draft: { strategy: 'text' as const, value: 'ESDMND0024340 | Draft', actionKind: 'text' as const },
+    low: { strategy: 'text' as const, value: '4 - Low', actionKind: 'text' as const },
+    testing: { strategy: 'role' as const, value: 'Testing', role: 'button', actionKind: 'button' as const },
+    eSRITM1012663WorkIn: { strategy: 'text' as const, value: 'ESRITM1012663 | Work in Progress', actionKind: 'text' as const },
+    standardSoftwareRequest: { strategy: 'role' as const, value: 'Standard Software Request', role: 'button', actionKind: 'button' as const },
+    eSRITM0891626WorkIn: { strategy: 'text' as const, value: 'ESRITM0891626 | Work in Progress', actionKind: 'text' as const },
+    done: { strategy: 'role' as const, value: 'Done', role: 'button', actionKind: 'button' as const },
+    eSRITM0891625WorkIn: { strategy: 'text' as const, value: 'ESRITM0891625 | Work in Progress', actionKind: 'text' as const },
+    test: { strategy: 'role' as const, value: 'Test', role: 'button', actionKind: 'button' as const },
+    eSRITM0888932WorkIn: { strategy: 'text' as const, value: 'ESRITM0888932 | Work in Progress', actionKind: 'text' as const },
+    updatedOnJan8: { strategy: 'text' as const, value: 'Updated on Jan. 8, 10:01 a.m.', actionKind: 'text' as const },
+    eSRITM0888931WorkIn: { strategy: 'text' as const, value: 'ESRITM0888931 | Work in Progress', actionKind: 'text' as const },
+    updatedOnJan82: { strategy: 'text' as const, value: 'Updated on Jan. 8, 9:55 a.m.', actionKind: 'text' as const },
+    eSRITM0887639Open: { strategy: 'text' as const, value: 'ESRITM0887639 | Open', actionKind: 'text' as const },
+    updatedOnNov28: { strategy: 'text' as const, value: 'Updated on Nov. 28, 2025, 3:55 p.m.', actionKind: 'text' as const },
+    eSRITM0887632Open: { strategy: 'text' as const, value: 'ESRITM0887632 | Open', actionKind: 'text' as const },
+    updatedOnNov26: { strategy: 'text' as const, value: 'Updated on Nov. 26, 2025, 5:24 p.m.', actionKind: 'text' as const },
+    eSRITM0887619Open: { strategy: 'text' as const, value: 'ESRITM0887619 | Open', actionKind: 'text' as const },
+    updatedOnNov24: { strategy: 'text' as const, value: 'Updated on Nov. 24, 2025, 12:10 p.m.', actionKind: 'text' as const },
+    assignedTraining: { strategy: 'text' as const, value: 'Assigned training', actionKind: 'text' as const },
+    noAssignedTrainingAt: { strategy: 'text' as const, value: 'No assigned training at this time', actionKind: 'text' as const },
+    exploreAvailableTrainingOpportunities: { strategy: 'text' as const, value: 'Explore available training opportunities.', actionKind: 'text' as const },
+    goToTalentCentral: { strategy: 'role' as const, value: 'Go to Talent Central', role: 'link', actionKind: 'link' as const },
+    quickActions: { strategy: 'text' as const, value: 'Quick actions', actionKind: 'text' as const },
+    getTechnicalSupport: { strategy: 'role' as const, value: 'Get technical support', role: 'link', actionKind: 'link' as const },
+    viewHolidayCalendar: { strategy: 'role' as const, value: 'View holiday calendar', role: 'link', actionKind: 'link' as const },
+    viewPolicies: { strategy: 'role' as const, value: 'View policies', role: 'link', actionKind: 'link' as const },
+    manageExpenses: { strategy: 'role' as const, value: 'Manage expenses', role: 'link', actionKind: 'link' as const },
+    tasks: { strategy: 'text' as const, value: 'Tasks', actionKind: 'text' as const },
+    goToMicrosoftTo: { strategy: 'role' as const, value: 'Go to Microsoft To Do', role: 'link', actionKind: 'link' as const },
+    selectTodoList: { strategy: 'role' as const, value: 'Select Todo List', role: 'combobox', actionKind: 'generic' as const },
+    rDk: { strategy: 'css' as const, value: '#_r_dk_[placeholder="Add a task"]', actionKind: 'textbox' as const },
+    t: { strategy: 'role' as const, value: 'T', role: 'option', actionKind: 'generic' as const },
+    h: { strategy: 'role' as const, value: 'H', role: 'option', actionKind: 'generic' as const },
+    g: { strategy: 'role' as const, value: 'G', role: 'option', actionKind: 'generic' as const },
+    b: { strategy: 'role' as const, value: 'B', role: 'option', actionKind: 'generic' as const },
+    o: { strategy: 'role' as const, value: 'O', role: 'option', actionKind: 'generic' as const },
+    w: { strategy: 'role' as const, value: 'W', role: 'option', actionKind: 'generic' as const },
+    q: { strategy: 'role' as const, value: 'Q', role: 'option', actionKind: 'generic' as const },
+    add: { strategy: 'role' as const, value: 'add', role: 'option', actionKind: 'generic' as const },
+    completed: { strategy: 'text' as const, value: 'Completed', actionKind: 'text' as const },
+    myDay: { strategy: 'role' as const, value: 'my day', role: 'option', actionKind: 'generic' as const },
+    adx: { strategy: 'role' as const, value: 'Adx', role: 'option', actionKind: 'generic' as const },
+    ukgCommonsApp: { strategy: 'role' as const, value: 'UKG commons app', role: 'option', actionKind: 'generic' as const },
+    hotJobs: { strategy: 'text' as const, value: 'Hot jobs', actionKind: 'text' as const },
+    productManagerHcm: { strategy: 'role' as const, value: 'Product Manager - HCM Solutions', role: 'button', actionKind: 'button' as const },
+    qaAutomationLead: { strategy: 'role' as const, value: 'QA Automation Lead', role: 'button', actionKind: 'button' as const },
+    seniorSoftwareEngineerDriving: { strategy: 'role' as const, value: 'Senior Software Engineer Driving Enterprise Application Development Across Global Teams', role: 'button', actionKind: 'button' as const },
+    seniorSoftwareEngineer: { strategy: 'role' as const, value: 'Senior Software Engineer', role: 'button', actionKind: 'button' as const },
+    cloudInfrastructureEngineer: { strategy: 'role' as const, value: 'Cloud Infrastructure Engineer', role: 'button', actionKind: 'button' as const },
+    customerSuccessManager: { strategy: 'role' as const, value: 'Customer Success Manager', role: 'button', actionKind: 'button' as const },
+    uxUiDesignerChecking: { strategy: 'role' as const, value: 'UX/UI Designer : Checking duplicate', role: 'button', actionKind: 'button' as const },
+    seniorPrincipalSoftwareEngineerArchitect: { strategy: 'role' as const, value: 'Senior Principal Software Engineer/Architect', role: 'button', actionKind: 'button' as const },
+    mySpaceReservations: { strategy: 'text' as const, value: 'My space reservations', actionKind: 'text' as const },
+    noReservationsFound: { strategy: 'text' as const, value: 'No reservations found', actionKind: 'text' as const },
+    youDonTHaveAny: { strategy: 'text' as const, value: 'You don\'t have any upcoming space reservations.', actionKind: 'text' as const },
+    bookASpaceReservation: { strategy: 'role' as const, value: 'Book a space reservation', role: 'link', actionKind: 'link' as const },
+    englishUnitedStates: { strategy: 'role' as const, value: 'English (United States) ▾', role: 'button', actionKind: 'button' as const },
+    chat: { strategy: 'role' as const, value: 'Hello! How may I assist you?', role: 'button', frame: 'iframe#mw4web_iframe', actionKind: 'button' as const },
+    newsSavedSuccessfully: { strategy: 'text' as const, value: 'News saved successfully!', actionKind: 'text' as const },
+    viewSavedNewsUnder: { strategy: 'role' as const, value: 'View saved news under your profile.', role: 'link', actionKind: 'link' as const },
+    drakeTiwaryUkgCom: { strategy: 'css' as const, value: '.Header_headerTopRight__uHRnM', actionKind: 'button' as const },
+    viewAccount: { strategy: 'text' as const, value: 'View Account', actionKind: 'text' as const },
+    mySavedNews: { strategy: 'text' as const, value: 'My saved news', actionKind: 'text' as const },
+    impersonateAnotherUser: { strategy: 'text' as const, value: 'Impersonate another user', actionKind: 'text' as const },
+    customizeHomePageLayout: { strategy: 'text' as const, value: 'Customize home page layout', actionKind: 'text' as const },
+  } as const;
+
+  constructor(private readonly page: Page) {}
+
+  async getInnerTextViewThisPageIn(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewThisPageIn));
+  }
+
+  async expectViewThisPageInVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.viewThisPageIn), timeoutMs, soft);
+  }
+
+  async selectTo(value: string): Promise<void> {
+    await selectOptionWhenVisible(webLocator(this.page, UkgcommonsPage.L.to), value);
+  }
+
+  async expectToVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.to), timeoutMs, soft);
+  }
+
+  async clickBtnTopSitesMenu(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.btnTopSitesMenu));
+  }
+
+  async doubleClickBtnTopSitesMenu(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.btnTopSitesMenu));
+  }
+
+  async expectBtnTopSitesMenuVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.btnTopSitesMenu), timeoutMs, soft);
+  }
+
+  async clickBtnHeaderMyApps(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.btnHeaderMyApps));
+  }
+
+  async doubleClickBtnHeaderMyApps(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.btnHeaderMyApps));
+  }
+
+  async expectBtnHeaderMyAppsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.btnHeaderMyApps), timeoutMs, soft);
+  }
+
+  async clickShowCollapsedMenu(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.showCollapsedMenu));
+  }
+
+  async doubleClickShowCollapsedMenu(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.showCollapsedMenu));
+  }
+
+  async expectShowCollapsedMenuVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.showCollapsedMenu), timeoutMs, soft);
+  }
+
+  async getInnerTextHiDrakeWhatAre(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.hiDrakeWhatAre));
+  }
+
+  async expectHiDrakeWhatAreVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.hiDrakeWhatAre), timeoutMs, soft);
+  }
+
+  async getInnerTextDrake(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.drake));
+  }
+
+  async expectDrakeVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.drake), timeoutMs, soft);
+  }
+
+  async clickSharePoint(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.sharePoint));
+  }
+
+  async doubleClickSharePoint(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.sharePoint));
+  }
+
+  async expectSharePointVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.sharePoint), timeoutMs, soft);
+  }
+
+  async fillInput(value: string): Promise<void> {
+    await fillWhenVisible(webLocator(this.page, UkgcommonsPage.L.input), value);
+  }
+
+  async clearInput(): Promise<void> {
+    await clearWhenVisible(webLocator(this.page, UkgcommonsPage.L.input));
+  }
+
+  async getInputValue(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.input));
+  }
+
+  async expectInputVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.input), timeoutMs, soft);
+  }
+
+  async getInnerTextPopularSearches(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.popularSearches));
+  }
+
+  async expectPopularSearchesVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.popularSearches), timeoutMs, soft);
+  }
+
+  async clickBrandHub(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.brandHub));
+  }
+
+  async doubleClickBrandHub(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.brandHub));
+  }
+
+  async expectBrandHubVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.brandHub), timeoutMs, soft);
+  }
+
+  async clickHolidayCalendar(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.holidayCalendar));
+  }
+
+  async doubleClickHolidayCalendar(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.holidayCalendar));
+  }
+
+  async expectHolidayCalendarVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.holidayCalendar), timeoutMs, soft);
+  }
+
+  async clickCelebrateU(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.celebrateU));
+  }
+
+  async doubleClickCelebrateU(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.celebrateU));
+  }
+
+  async expectCelebrateUVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.celebrateU), timeoutMs, soft);
+  }
+
+  async clickNewHireCenter(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.newHireCenter));
+  }
+
+  async doubleClickNewHireCenter(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.newHireCenter));
+  }
+
+  async expectNewHireCenterVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.newHireCenter), timeoutMs, soft);
+  }
+
+  async getInnerTextAnnouncements(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.announcements));
+  }
+
+  async expectAnnouncementsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.announcements), timeoutMs, soft);
+  }
+
+  async clickBtnAnnouncementCarouselPrev(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.btnAnnouncementCarouselPrev));
+  }
+
+  async doubleClickBtnAnnouncementCarouselPrev(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.btnAnnouncementCarouselPrev));
+  }
+
+  async expectBtnAnnouncementCarouselPrevVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.btnAnnouncementCarouselPrev), timeoutMs, soft);
+  }
+
+  async getInnerTextReviewDetailsHowTo(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.reviewDetailsHowTo));
+  }
+
+  async expectReviewDetailsHowToVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.reviewDetailsHowTo), timeoutMs, soft);
+  }
+
+  async getInnerTextGetKeyUpdatesFrom(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.getKeyUpdatesFrom));
+  }
+
+  async expectGetKeyUpdatesFromVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.getKeyUpdatesFrom), timeoutMs, soft);
+  }
+
+  async clickLearnMore(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.learnMore));
+  }
+
+  async expectLearnMoreVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.learnMore), timeoutMs, soft);
+  }
+
+  async getInnerTextFeatured(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.featured));
+  }
+
+  async expectFeaturedVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.featured), timeoutMs, soft);
+  }
+
+  async clickSwitchToPreviousNews(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.switchToPreviousNews));
+  }
+
+  async doubleClickSwitchToPreviousNews(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.switchToPreviousNews));
+  }
+
+  async expectSwitchToPreviousNewsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.switchToPreviousNews), timeoutMs, soft);
+  }
+
+  async getInnerTextAi(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.ai));
+  }
+
+  async expectAiVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.ai), timeoutMs, soft);
+  }
+
+  async getInnerTextDrakeTiwary(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.drakeTiwary));
+  }
+
+  async expectDrakeTiwaryVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.drakeTiwary), timeoutMs, soft);
+  }
+
+  async clickShareNews(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.shareNews));
+  }
+
+  async doubleClickShareNews(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.shareNews));
+  }
+
+  async expectShareNewsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.shareNews), timeoutMs, soft);
+  }
+
+  async clickUnsaveNews(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.unsaveNews));
+  }
+
+  async doubleClickUnsaveNews(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.unsaveNews));
+  }
+
+  async expectUnsaveNewsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.unsaveNews), timeoutMs, soft);
+  }
+
+  async getInnerTextTakeTheNextStep(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.takeTheNextStep));
+  }
+
+  async expectTakeTheNextStepVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.takeTheNextStep), timeoutMs, soft);
+  }
+
+  async getInnerTextStacyCutrono(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.stacyCutrono));
+  }
+
+  async expectStacyCutronoVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.stacyCutrono), timeoutMs, soft);
+  }
+
+  async clickSaveNews(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.saveNews));
+  }
+
+  async doubleClickSaveNews(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.saveNews));
+  }
+
+  async expectSaveNewsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.saveNews), timeoutMs, soft);
+  }
+
+  async getInnerTextAshleyAmerson(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.ashleyAmerson));
+  }
+
+  async expectAshleyAmersonVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.ashleyAmerson), timeoutMs, soft);
+  }
+
+  async getInnerTextCelebratingTheStrengthOf(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.celebratingTheStrengthOf));
+  }
+
+  async expectCelebratingTheStrengthOfVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.celebratingTheStrengthOf), timeoutMs, soft);
+  }
+
+  async getInnerTextChristopherKiklas(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.christopherKiklas));
+  }
+
+  async expectChristopherKiklasVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.christopherKiklas), timeoutMs, soft);
+  }
+
+  async getInnerTextPrideMonth2026Together(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.prideMonth2026Together));
+  }
+
+  async expectPrideMonth2026TogetherVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.prideMonth2026Together), timeoutMs, soft);
+  }
+
+  async getInnerTextSequoyaFord(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.sequoyaFord));
+  }
+
+  async expectSequoyaFordVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.sequoyaFord), timeoutMs, soft);
+  }
+
+  async getInnerTextGlobalImpactInAction(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.globalImpactInAction));
+  }
+
+  async expectGlobalImpactInActionVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.globalImpactInAction), timeoutMs, soft);
+  }
+
+  async getInnerTextSarahMarks(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.sarahMarks));
+  }
+
+  async expectSarahMarksVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.sarahMarks), timeoutMs, soft);
+  }
+
+  async getInnerTextCelebratingOneYearOf(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.celebratingOneYearOf));
+  }
+
+  async expectCelebratingOneYearOfVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.celebratingOneYearOf), timeoutMs, soft);
+  }
+
+  async getInnerTextBrianBower(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.brianBower));
+  }
+
+  async expectBrianBowerVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.brianBower), timeoutMs, soft);
+  }
+
+  async clickSwitchToNextNews(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.switchToNextNews));
+  }
+
+  async doubleClickSwitchToNextNews(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.switchToNextNews));
+  }
+
+  async expectSwitchToNextNewsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.switchToNextNews), timeoutMs, soft);
+  }
+
+  async clickLatestInternalNews(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.latestInternalNews));
+  }
+
+  async doubleClickLatestInternalNews(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.latestInternalNews));
+  }
+
+  async expectLatestInternalNewsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.latestInternalNews), timeoutMs, soft);
+  }
+
+  async clickUkgAndIndustryNews(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgAndIndustryNews));
+  }
+
+  async doubleClickUkgAndIndustryNews(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgAndIndustryNews));
+  }
+
+  async expectUkgAndIndustryNewsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.ukgAndIndustryNews), timeoutMs, soft);
+  }
+
+  async clickSeeAllInternalNews(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.seeAllInternalNews));
+  }
+
+  async doubleClickSeeAllInternalNews(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.seeAllInternalNews));
+  }
+
+  async expectSeeAllInternalNewsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.seeAllInternalNews), timeoutMs, soft);
+  }
+
+  async clickGtmMarketing(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.gtmMarketing));
+  }
+
+  async expectGtmMarketingVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.gtmMarketing), timeoutMs, soft);
+  }
+
+  async clickUkgNucleusRoi(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgNucleusRoi));
+  }
+
+  async expectUkgNucleusRoiVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.ukgNucleusRoi), timeoutMs, soft);
+  }
+
+  async clickCommsEmployeeCommunications(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.commsEmployeeCommunications));
+  }
+
+  async expectCommsEmployeeCommunicationsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.commsEmployeeCommunications), timeoutMs, soft);
+  }
+
+  async clickUkgCommonsMobileApp(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgCommonsMobileApp));
+  }
+
+  async expectUkgCommonsMobileAppVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.ukgCommonsMobileApp), timeoutMs, soft);
+  }
+
+  async clickProductEngineeringGlobal(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.productEngineeringGlobal));
+  }
+
+  async expectProductEngineeringGlobalVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.productEngineeringGlobal), timeoutMs, soft);
+  }
+
+  async clickPeopleUkgAdapt(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgAdapt));
+  }
+
+  async expectPeopleUkgAdaptVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgAdapt), timeoutMs, soft);
+  }
+
+  async clickInsideUkg(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.insideUkg));
+  }
+
+  async expectInsideUkgVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.insideUkg), timeoutMs, soft);
+  }
+
+  async clickPhotoOfTheWeek(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeek));
+  }
+
+  async expectPhotoOfTheWeekVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeek), timeoutMs, soft);
+  }
+
+  async getInnerTextElement(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.element));
+  }
+
+  async expectElementVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.element), timeoutMs, soft);
+  }
+
+  async clickDoNotEngageWith(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.doNotEngageWith));
+  }
+
+  async expectDoNotEngageWithVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.doNotEngageWith), timeoutMs, soft);
+  }
+
+  async clickPeopleEmployeeExperience(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleEmployeeExperience));
+  }
+
+  async expectPeopleEmployeeExperienceVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.peopleEmployeeExperience), timeoutMs, soft);
+  }
+
+  async clickThankYouForParticipating(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.thankYouForParticipating));
+  }
+
+  async expectThankYouForParticipatingVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.thankYouForParticipating), timeoutMs, soft);
+  }
+
+  async clickCommsAnalystRelations(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.commsAnalystRelations));
+  }
+
+  async expectCommsAnalystRelationsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.commsAnalystRelations), timeoutMs, soft);
+  }
+
+  async clickBigWinFor(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.bigWinFor));
+  }
+
+  async expectBigWinForVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.bigWinFor), timeoutMs, soft);
+  }
+
+  async clickTuneInTodayUkgAd(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.tuneInTodayUkgAd));
+  }
+
+  async expectTuneInTodayUkgAdVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.tuneInTodayUkgAd), timeoutMs, soft);
+  }
+
+  async getInnerTextElement3(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.element3));
+  }
+
+  async expectElement3Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.element3), timeoutMs, soft);
+  }
+
+  async clickAiHub(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.aiHub));
+  }
+
+  async expectAiHubVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.aiHub), timeoutMs, soft);
+  }
+
+  async clickClaudeEnterpriseAccessFor(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.claudeEnterpriseAccessFor));
+  }
+
+  async expectClaudeEnterpriseAccessForVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.claudeEnterpriseAccessFor), timeoutMs, soft);
+  }
+
+  async clickNewProcessForChatGPT(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.newProcessForChatGPT));
+  }
+
+  async expectNewProcessForChatGPTVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.newProcessForChatGPT), timeoutMs, soft);
+  }
+
+  async clickCx(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.cx));
+  }
+
+  async expectCxVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.cx), timeoutMs, soft);
+  }
+
+  async clickPurposeLeadershipJourney(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.purposeLeadershipJourney));
+  }
+
+  async expectPurposeLeadershipJourneyVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.purposeLeadershipJourney), timeoutMs, soft);
+  }
+
+  async clickPhotoOfTheWeekLink(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeekLink));
+  }
+
+  async expectPhotoOfTheWeekLinkVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeekLink), timeoutMs, soft);
+  }
+
+  async clickProductEngineeringProduct(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.productEngineeringProduct));
+  }
+
+  async expectProductEngineeringProductVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.productEngineeringProduct), timeoutMs, soft);
+  }
+
+  async clickHowTheNewExperience(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.howTheNewExperience));
+  }
+
+  async expectHowTheNewExperienceVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.howTheNewExperience), timeoutMs, soft);
+  }
+
+  async getInnerTextElement4(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.element4));
+  }
+
+  async expectElement4Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.element4), timeoutMs, soft);
+  }
+
+  async clickThatSAWrapUkgS(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.thatSAWrapUkgS));
+  }
+
+  async expectThatSAWrapUkgSVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.thatSAWrapUkgS), timeoutMs, soft);
+  }
+
+  async getInnerTextElement5(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.element5));
+  }
+
+  async expectElement5Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.element5), timeoutMs, soft);
+  }
+
+  async clickWhatSNewOnUkg(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.whatSNewOnUkg));
+  }
+
+  async expectWhatSNewOnUkgVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.whatSNewOnUkg), timeoutMs, soft);
+  }
+
+  async clickGtm(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.gtm));
+  }
+
+  async expectGtmVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.gtm), timeoutMs, soft);
+  }
+
+  async clickWelcomingSeanWdowiakGvp(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.welcomingSeanWdowiakGvp));
+  }
+
+  async expectWelcomingSeanWdowiakGvpVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.welcomingSeanWdowiakGvp), timeoutMs, soft);
+  }
+
+  async getInnerTextElement6(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.element6));
+  }
+
+  async expectElement6Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.element6), timeoutMs, soft);
+  }
+
+  async clickGtmBrandHub(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.gtmBrandHub));
+  }
+
+  async expectGtmBrandHubVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.gtmBrandHub), timeoutMs, soft);
+  }
+
+  async clickSpotTheFrameConnect(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.spotTheFrameConnect));
+  }
+
+  async expectSpotTheFrameConnectVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.spotTheFrameConnect), timeoutMs, soft);
+  }
+
+  async getInnerTextElement7(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.element7));
+  }
+
+  async expectElement7Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.element7), timeoutMs, soft);
+  }
+
+  async clickWhatSecuritySeesRansomware(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.whatSecuritySeesRansomware));
+  }
+
+  async expectWhatSecuritySeesRansomwareVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.whatSecuritySeesRansomware), timeoutMs, soft);
+  }
+
+  async getInnerTextElement8(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.element8));
+  }
+
+  async expectElement8Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.element8), timeoutMs, soft);
+  }
+
+  async clickExploreChatGPTCodexIn(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.exploreChatGPTCodexIn));
+  }
+
+  async expectExploreChatGPTCodexInVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.exploreChatGPTCodexIn), timeoutMs, soft);
+  }
+
+  async getInnerTextUpcomingEvents(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.upcomingEvents));
+  }
+
+  async expectUpcomingEventsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.upcomingEvents), timeoutMs, soft);
+  }
+
+  async clickSeeAll(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.seeAll));
+  }
+
+  async doubleClickSeeAll(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.seeAll));
+  }
+
+  async expectSeeAllVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.seeAll), timeoutMs, soft);
+  }
+
+  async clickCategoryAll(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.categoryAll));
+  }
+
+  async expectCategoryAllVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.categoryAll), timeoutMs, soft);
+  }
+
+  async getInnerTextJul(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.jul));
+  }
+
+  async expectJulVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.jul), timeoutMs, soft);
+  }
+
+  async getInnerTextElement9(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.element9));
+  }
+
+  async expectElement9Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.element9), timeoutMs, soft);
+  }
+
+  async clickPeopleBenefits(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleBenefits));
+  }
+
+  async expectPeopleBenefitsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.peopleBenefits), timeoutMs, soft);
+  }
+
+  async getInnerTextStretchRelax(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.stretchRelax));
+  }
+
+  async expectStretchRelaxVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.stretchRelax), timeoutMs, soft);
+  }
+
+  async getInnerTextVirtual(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.virtual));
+  }
+
+  async expectVirtualVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.virtual), timeoutMs, soft);
+  }
+
+  async getInnerTextElement10(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.element10));
+  }
+
+  async expectElement10Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.element10), timeoutMs, soft);
+  }
+
+  async getInnerTextCoreMore(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.coreMore));
+  }
+
+  async expectCoreMoreVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.coreMore), timeoutMs, soft);
+  }
+
+  async getInnerTextElement11(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.element11));
+  }
+
+  async expectElement11Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.element11), timeoutMs, soft);
+  }
+
+  async clickPeopleUkgRise(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgRise));
+  }
+
+  async expectPeopleUkgRiseVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgRise), timeoutMs, soft);
+  }
+
+  async getInnerTextUkgRiseHeritage(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgRiseHeritage));
+  }
+
+  async expectUkgRiseHeritageVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.ukgRiseHeritage), timeoutMs, soft);
+  }
+
+  async getInnerTextVirtualZoomMeeting(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.virtualZoomMeeting));
+  }
+
+  async expectVirtualZoomMeetingVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.virtualZoomMeeting), timeoutMs, soft);
+  }
+
+  async getInnerTextElement12(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.element12));
+  }
+
+  async expectElement12Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.element12), timeoutMs, soft);
+  }
+
+  async getInnerTextAskMeAnythingAbout(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout));
+  }
+
+  async expectAskMeAnythingAboutVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout), timeoutMs, soft);
+  }
+
+  async clickAddToCalendar(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.addToCalendar));
+  }
+
+  async doubleClickAddToCalendar(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.addToCalendar));
+  }
+
+  async expectAddToCalendarVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.addToCalendar), timeoutMs, soft);
+  }
+
+  async getInnerTextAskMeAnythingAbout2(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout2));
+  }
+
+  async expectAskMeAnythingAbout2Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout2), timeoutMs, soft);
+  }
+
+  async clickPeopleUkgUnidos(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgUnidos));
+  }
+
+  async expectPeopleUkgUnidosVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgUnidos), timeoutMs, soft);
+  }
+
+  async getInnerTextUkgUnidosWorldCup(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup));
+  }
+
+  async expectUkgUnidosWorldCupVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup), timeoutMs, soft);
+  }
+
+  async clickPeopleBelongingImpact(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleBelongingImpact));
+  }
+
+  async expectPeopleBelongingImpactVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.peopleBelongingImpact), timeoutMs, soft);
+  }
+
+  async getInnerTextVirtualInterviewTrainingWith(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.virtualInterviewTrainingWith));
+  }
+
+  async expectVirtualInterviewTrainingWithVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.virtualInterviewTrainingWith), timeoutMs, soft);
+  }
+
+  async getInnerTextElement19(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.element19));
+  }
+
+  async expectElement19Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.element19), timeoutMs, soft);
+  }
+
+  async getInnerTextCareerPanelInformational(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.careerPanelInformational));
+  }
+
+  async expectCareerPanelInformationalVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.careerPanelInformational), timeoutMs, soft);
+  }
+
+  async getInnerTextUkgUnidosWorldCup3(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup3));
+  }
+
+  async expectUkgUnidosWorldCup3Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup3), timeoutMs, soft);
+  }
+
+  async clickPeopleUkgNest(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgNest));
+  }
+
+  async expectPeopleUkgNestVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgNest), timeoutMs, soft);
+  }
+
+  async getInnerTextNestAndAdaptWe(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.nestAndAdaptWe));
+  }
+
+  async expectNestAndAdaptWeVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.nestAndAdaptWe), timeoutMs, soft);
+  }
+
+  async getInnerTextLybertyWayWestford(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.lybertyWayWestford));
+  }
+
+  async expectLybertyWayWestfordVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.lybertyWayWestford), timeoutMs, soft);
+  }
+
+  async getInnerTextBeyondTheWorkplaceUnderstanding(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.beyondTheWorkplaceUnderstanding));
+  }
+
+  async expectBeyondTheWorkplaceUnderstandingVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.beyondTheWorkplaceUnderstanding), timeoutMs, soft);
+  }
+
+  async getInnerTextElement26(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.element26));
+  }
+
+  async expectElement26Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.element26), timeoutMs, soft);
+  }
+
+  async getInnerTextUkgRiseVirtualSpeed(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgRiseVirtualSpeed));
+  }
+
+  async expectUkgRiseVirtualSpeedVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.ukgRiseVirtualSpeed), timeoutMs, soft);
+  }
+
+  async getInnerTextMyCalendar(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.myCalendar));
+  }
+
+  async expectMyCalendarVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.myCalendar), timeoutMs, soft);
+  }
+
+  async getInnerTextPM(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.pM));
+  }
+
+  async expectPMVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.pM), timeoutMs, soft);
+  }
+
+  async getInnerTextHour(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.hour));
+  }
+
+  async expectHourVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.hour), timeoutMs, soft);
+  }
+
+  async getInnerTextUkgCommonsSprint(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgCommonsSprint));
+  }
+
+  async expectUkgCommonsSprintVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.ukgCommonsSprint), timeoutMs, soft);
+  }
+
+  async getInnerTextPM2(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.pM2));
+  }
+
+  async expectPM2Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.pM2), timeoutMs, soft);
+  }
+
+  async getInnerTextPM3(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.pM3));
+  }
+
+  async expectPM3Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.pM3), timeoutMs, soft);
+  }
+
+  async getInnerTextRequestsOverview(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.requestsOverview));
+  }
+
+  async expectRequestsOverviewVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.requestsOverview), timeoutMs, soft);
+  }
+
+  async clickMyRequests13(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.myRequests13));
+  }
+
+  async doubleClickMyRequests13(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.myRequests13));
+  }
+
+  async expectMyRequests13Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.myRequests13), timeoutMs, soft);
+  }
+
+  async clickApprovals(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.approvals));
+  }
+
+  async doubleClickApprovals(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.approvals));
+  }
+
+  async expectApprovalsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.approvals), timeoutMs, soft);
+  }
+
+  async getInnerTextESRITM1012673Pending(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM1012673Pending));
+  }
+
+  async expectESRITM1012673PendingVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM1012673Pending), timeoutMs, soft);
+  }
+
+  async clickAutomationRequirements(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.automationRequirements));
+  }
+
+  async doubleClickAutomationRequirements(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.automationRequirements));
+  }
+
+  async expectAutomationRequirementsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.automationRequirements), timeoutMs, soft);
+  }
+
+  async getInnerTextESDMND0024340Draft(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSDMND0024340Draft));
+  }
+
+  async expectESDMND0024340DraftVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.eSDMND0024340Draft), timeoutMs, soft);
+  }
+
+  async getInnerTextLow(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.low));
+  }
+
+  async expectLowVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.low), timeoutMs, soft);
+  }
+
+  async clickTesting(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.testing));
+  }
+
+  async doubleClickTesting(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.testing));
+  }
+
+  async expectTestingVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.testing), timeoutMs, soft);
+  }
+
+  async getInnerTextESRITM1012663WorkIn(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM1012663WorkIn));
+  }
+
+  async expectESRITM1012663WorkInVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM1012663WorkIn), timeoutMs, soft);
+  }
+
+  async clickStandardSoftwareRequest(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.standardSoftwareRequest));
+  }
+
+  async doubleClickStandardSoftwareRequest(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.standardSoftwareRequest));
+  }
+
+  async expectStandardSoftwareRequestVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.standardSoftwareRequest), timeoutMs, soft);
+  }
+
+  async getInnerTextESRITM0891626WorkIn(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0891626WorkIn));
+  }
+
+  async expectESRITM0891626WorkInVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0891626WorkIn), timeoutMs, soft);
+  }
+
+  async clickDone(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.done));
+  }
+
+  async doubleClickDone(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.done));
+  }
+
+  async expectDoneVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.done), timeoutMs, soft);
+  }
+
+  async getInnerTextESRITM0891625WorkIn(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0891625WorkIn));
+  }
+
+  async expectESRITM0891625WorkInVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0891625WorkIn), timeoutMs, soft);
+  }
+
+  async clickTest(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.test));
+  }
+
+  async doubleClickTest(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.test));
+  }
+
+  async expectTestVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.test), timeoutMs, soft);
+  }
+
+  async getInnerTextESRITM0888932WorkIn(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0888932WorkIn));
+  }
+
+  async expectESRITM0888932WorkInVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0888932WorkIn), timeoutMs, soft);
+  }
+
+  async getInnerTextUpdatedOnJan8(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnJan8));
+  }
+
+  async expectUpdatedOnJan8Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnJan8), timeoutMs, soft);
+  }
+
+  async getInnerTextESRITM0888931WorkIn(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0888931WorkIn));
+  }
+
+  async expectESRITM0888931WorkInVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0888931WorkIn), timeoutMs, soft);
+  }
+
+  async getInnerTextUpdatedOnJan82(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnJan82));
+  }
+
+  async expectUpdatedOnJan82Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnJan82), timeoutMs, soft);
+  }
+
+  async getInnerTextESRITM0887639Open(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0887639Open));
+  }
+
+  async expectESRITM0887639OpenVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0887639Open), timeoutMs, soft);
+  }
+
+  async getInnerTextUpdatedOnNov28(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnNov28));
+  }
+
+  async expectUpdatedOnNov28Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnNov28), timeoutMs, soft);
+  }
+
+  async getInnerTextESRITM0887632Open(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0887632Open));
+  }
+
+  async expectESRITM0887632OpenVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0887632Open), timeoutMs, soft);
+  }
+
+  async getInnerTextUpdatedOnNov26(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnNov26));
+  }
+
+  async expectUpdatedOnNov26Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnNov26), timeoutMs, soft);
+  }
+
+  async getInnerTextESRITM0887619Open(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0887619Open));
+  }
+
+  async expectESRITM0887619OpenVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0887619Open), timeoutMs, soft);
+  }
+
+  async getInnerTextUpdatedOnNov24(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnNov24));
+  }
+
+  async expectUpdatedOnNov24Visible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnNov24), timeoutMs, soft);
+  }
+
+  async getInnerTextAssignedTraining(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.assignedTraining));
+  }
+
+  async expectAssignedTrainingVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.assignedTraining), timeoutMs, soft);
+  }
+
+  async getInnerTextNoAssignedTrainingAt(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.noAssignedTrainingAt));
+  }
+
+  async expectNoAssignedTrainingAtVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.noAssignedTrainingAt), timeoutMs, soft);
+  }
+
+  async getInnerTextExploreAvailableTrainingOpportunities(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.exploreAvailableTrainingOpportunities));
+  }
+
+  async expectExploreAvailableTrainingOpportunitiesVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.exploreAvailableTrainingOpportunities), timeoutMs, soft);
+  }
+
+  async clickGoToTalentCentral(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.goToTalentCentral));
+  }
+
+  async expectGoToTalentCentralVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.goToTalentCentral), timeoutMs, soft);
+  }
+
+  async getInnerTextQuickActions(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.quickActions));
+  }
+
+  async expectQuickActionsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.quickActions), timeoutMs, soft);
+  }
+
+  async clickGetTechnicalSupport(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.getTechnicalSupport));
+  }
+
+  async expectGetTechnicalSupportVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.getTechnicalSupport), timeoutMs, soft);
+  }
+
+  async clickViewHolidayCalendar(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewHolidayCalendar));
+  }
+
+  async expectViewHolidayCalendarVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.viewHolidayCalendar), timeoutMs, soft);
+  }
+
+  async clickViewPolicies(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewPolicies));
+  }
+
+  async expectViewPoliciesVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.viewPolicies), timeoutMs, soft);
+  }
+
+  async clickManageExpenses(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.manageExpenses));
+  }
+
+  async expectManageExpensesVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.manageExpenses), timeoutMs, soft);
+  }
+
+  async getInnerTextTasks(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.tasks));
+  }
+
+  async expectTasksVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.tasks), timeoutMs, soft);
+  }
+
+  async clickGoToMicrosoftTo(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.goToMicrosoftTo));
+  }
+
+  async expectGoToMicrosoftToVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.goToMicrosoftTo), timeoutMs, soft);
+  }
+
+  async clickSelectTodoList(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.selectTodoList));
+  }
+
+  async expectSelectTodoListVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.selectTodoList), timeoutMs, soft);
+  }
+
+  async fillRDk(value: string): Promise<void> {
+    await fillWhenVisible(webLocator(this.page, UkgcommonsPage.L.rDk), value);
+  }
+
+  async clearRDk(): Promise<void> {
+    await clearWhenVisible(webLocator(this.page, UkgcommonsPage.L.rDk));
+  }
+
+  async getRDkValue(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.rDk));
+  }
+
+  async expectRDkVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.rDk), timeoutMs, soft);
+  }
+
+  async clickT(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.t));
+  }
+
+  async expectTVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.t), timeoutMs, soft);
+  }
+
+  async clickH(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.h));
+  }
+
+  async expectHVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.h), timeoutMs, soft);
+  }
+
+  async clickG(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.g));
+  }
+
+  async expectGVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.g), timeoutMs, soft);
+  }
+
+  async clickB(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.b));
+  }
+
+  async expectBVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.b), timeoutMs, soft);
+  }
+
+  async clickO(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.o));
+  }
+
+  async expectOVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.o), timeoutMs, soft);
+  }
+
+  async clickW(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.w));
+  }
+
+  async expectWVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.w), timeoutMs, soft);
+  }
+
+  async clickQ(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.q));
+  }
+
+  async expectQVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.q), timeoutMs, soft);
+  }
+
+  async clickAdd(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.add));
+  }
+
+  async expectAddVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.add), timeoutMs, soft);
+  }
+
+  async getInnerTextCompleted(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.completed));
+  }
+
+  async expectCompletedVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.completed), timeoutMs, soft);
+  }
+
+  async clickMyDay(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.myDay));
+  }
+
+  async expectMyDayVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.myDay), timeoutMs, soft);
+  }
+
+  async clickAdx(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.adx));
+  }
+
+  async expectAdxVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.adx), timeoutMs, soft);
+  }
+
+  async clickUkgCommonsApp(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgCommonsApp));
+  }
+
+  async expectUkgCommonsAppVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.ukgCommonsApp), timeoutMs, soft);
+  }
+
+  async getInnerTextHotJobs(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.hotJobs));
+  }
+
+  async expectHotJobsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.hotJobs), timeoutMs, soft);
+  }
+
+  async clickProductManagerHcm(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.productManagerHcm));
+  }
+
+  async doubleClickProductManagerHcm(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.productManagerHcm));
+  }
+
+  async expectProductManagerHcmVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.productManagerHcm), timeoutMs, soft);
+  }
+
+  async clickQaAutomationLead(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.qaAutomationLead));
+  }
+
+  async doubleClickQaAutomationLead(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.qaAutomationLead));
+  }
+
+  async expectQaAutomationLeadVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.qaAutomationLead), timeoutMs, soft);
+  }
+
+  async clickSeniorSoftwareEngineerDriving(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineerDriving));
+  }
+
+  async doubleClickSeniorSoftwareEngineerDriving(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineerDriving));
+  }
+
+  async expectSeniorSoftwareEngineerDrivingVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineerDriving), timeoutMs, soft);
+  }
+
+  async clickSeniorSoftwareEngineer(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineer));
+  }
+
+  async doubleClickSeniorSoftwareEngineer(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineer));
+  }
+
+  async expectSeniorSoftwareEngineerVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineer), timeoutMs, soft);
+  }
+
+  async clickCloudInfrastructureEngineer(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.cloudInfrastructureEngineer));
+  }
+
+  async doubleClickCloudInfrastructureEngineer(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.cloudInfrastructureEngineer));
+  }
+
+  async expectCloudInfrastructureEngineerVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.cloudInfrastructureEngineer), timeoutMs, soft);
+  }
+
+  async clickCustomerSuccessManager(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.customerSuccessManager));
+  }
+
+  async doubleClickCustomerSuccessManager(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.customerSuccessManager));
+  }
+
+  async expectCustomerSuccessManagerVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.customerSuccessManager), timeoutMs, soft);
+  }
+
+  async clickUxUiDesignerChecking(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.uxUiDesignerChecking));
+  }
+
+  async doubleClickUxUiDesignerChecking(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.uxUiDesignerChecking));
+  }
+
+  async expectUxUiDesignerCheckingVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.uxUiDesignerChecking), timeoutMs, soft);
+  }
+
+  async clickSeniorPrincipalSoftwareEngineerArchitect(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.seniorPrincipalSoftwareEngineerArchitect));
+  }
+
+  async doubleClickSeniorPrincipalSoftwareEngineerArchitect(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.seniorPrincipalSoftwareEngineerArchitect));
+  }
+
+  async expectSeniorPrincipalSoftwareEngineerArchitectVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.seniorPrincipalSoftwareEngineerArchitect), timeoutMs, soft);
+  }
+
+  async getInnerTextMySpaceReservations(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.mySpaceReservations));
+  }
+
+  async expectMySpaceReservationsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.mySpaceReservations), timeoutMs, soft);
+  }
+
+  async getInnerTextNoReservationsFound(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.noReservationsFound));
+  }
+
+  async expectNoReservationsFoundVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.noReservationsFound), timeoutMs, soft);
+  }
+
+  async getInnerTextYouDonTHaveAny(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.youDonTHaveAny));
+  }
+
+  async expectYouDonTHaveAnyVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.youDonTHaveAny), timeoutMs, soft);
+  }
+
+  async clickBookASpaceReservation(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.bookASpaceReservation));
+  }
+
+  async expectBookASpaceReservationVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.bookASpaceReservation), timeoutMs, soft);
+  }
+
+  async clickEnglishUnitedStates(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.englishUnitedStates));
+  }
+
+  async doubleClickEnglishUnitedStates(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.englishUnitedStates));
+  }
+
+  async expectEnglishUnitedStatesVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.englishUnitedStates), timeoutMs, soft);
+  }
+
+  async clickChat(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.chat));
+  }
+
+  async doubleClickChat(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.chat));
+  }
+
+  async expectChatVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.chat), timeoutMs, soft);
+  }
+
+  async getPageTitle(): Promise<string> {
+    return this.page.title();
+  }
+
+  /** Assert page title matches an expected string or regex. */
+  async expectPageTitle(expected: string | RegExp, timeoutMs = 30_000): Promise<void> {
+    await expectPageTitle(this.page, expected, timeoutMs);
+  }
+
+  /** Verify we are on the correct page using the title captured at record time. */
+  async verifyOnPage(timeoutMs = 30_000): Promise<void> {
+    await expectPageTitle(this.page, 'UKG Commons', timeoutMs);
+  }
+
+  async getInnerTextNewsSavedSuccessfully(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.newsSavedSuccessfully));
+  }
+
+  async expectNewsSavedSuccessfullyVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.newsSavedSuccessfully), timeoutMs, soft);
+  }
+
+  async clickViewSavedNewsUnder(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewSavedNewsUnder));
+  }
+
+  async expectViewSavedNewsUnderVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.viewSavedNewsUnder), timeoutMs, soft);
+  }
+
+  async getInnerTextDrakeTiwaryUkgCom(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.drakeTiwaryUkgCom));
+  }
+
+  async expectDrakeTiwaryUkgComVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.drakeTiwaryUkgCom), timeoutMs, soft);
+  }
+
+  async getInnerTextViewAccount(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewAccount));
+  }
+
+  async expectViewAccountVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.viewAccount), timeoutMs, soft);
+  }
+
+  async getInnerTextMySavedNews(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.mySavedNews));
+  }
+
+  async expectMySavedNewsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.mySavedNews), timeoutMs, soft);
+  }
+
+  async getInnerTextImpersonateAnotherUser(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.impersonateAnotherUser));
+  }
+
+  async expectImpersonateAnotherUserVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.impersonateAnotherUser), timeoutMs, soft);
+  }
+
+  async getInnerTextCustomizeHomePageLayout(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.customizeHomePageLayout));
+  }
+
+  async expectCustomizeHomePageLayoutVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, UkgcommonsPage.L.customizeHomePageLayout), timeoutMs, soft);
+  }
+
+
+  async clickViewThisPageIn(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewThisPageIn));
+  }
+
+  async doubleClickViewThisPageIn(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewThisPageIn));
+  }
+
+  async longPressViewThisPageIn(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewThisPageIn));
+  }
+
+  async expectViewThisPageInHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.viewThisPageIn), timeoutMs);
+  }
+
+  async expectViewThisPageInText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.viewThisPageIn), expected, timeoutMs);
+  }
+
+  async expectViewThisPageInContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.viewThisPageIn), substring, timeoutMs);
+  }
+
+  async expectViewThisPageInValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.viewThisPageIn), value, timeoutMs);
+  }
+
+  async expectViewThisPageInEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.viewThisPageIn), timeoutMs);
+  }
+
+  async expectViewThisPageInDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.viewThisPageIn), timeoutMs);
+  }
+
+  async expectViewThisPageInChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.viewThisPageIn), timeoutMs);
+  }
+
+  async expectViewThisPageInUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.viewThisPageIn), timeoutMs);
+  }
+
+  async expectViewThisPageInFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.viewThisPageIn), timeoutMs);
+  }
+
+  async expectViewThisPageInCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.viewThisPageIn), count, timeoutMs);
+  }
+
+  async scrollViewThisPageInIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewThisPageIn));
+  }
+
+  async expectToHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.to), timeoutMs);
+  }
+
+  async expectToText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.to), expected, timeoutMs);
+  }
+
+  async expectToContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.to), substring, timeoutMs);
+  }
+
+  async expectToValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.to), value, timeoutMs);
+  }
+
+  async expectToEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.to), timeoutMs);
+  }
+
+  async expectToDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.to), timeoutMs);
+  }
+
+  async expectToChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.to), timeoutMs);
+  }
+
+  async expectToUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.to), timeoutMs);
+  }
+
+  async expectToFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.to), timeoutMs);
+  }
+
+  async expectToCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.to), count, timeoutMs);
+  }
+
+  async scrollToIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.to));
+  }
+
+  async longPressBtnTopSitesMenu(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.btnTopSitesMenu));
+  }
+
+  async expectBtnTopSitesMenuHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.btnTopSitesMenu), timeoutMs);
+  }
+
+  async expectBtnTopSitesMenuText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.btnTopSitesMenu), expected, timeoutMs);
+  }
+
+  async expectBtnTopSitesMenuContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.btnTopSitesMenu), substring, timeoutMs);
+  }
+
+  async expectBtnTopSitesMenuValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.btnTopSitesMenu), value, timeoutMs);
+  }
+
+  async expectBtnTopSitesMenuEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.btnTopSitesMenu), timeoutMs);
+  }
+
+  async expectBtnTopSitesMenuDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.btnTopSitesMenu), timeoutMs);
+  }
+
+  async expectBtnTopSitesMenuChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.btnTopSitesMenu), timeoutMs);
+  }
+
+  async expectBtnTopSitesMenuUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.btnTopSitesMenu), timeoutMs);
+  }
+
+  async expectBtnTopSitesMenuFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.btnTopSitesMenu), timeoutMs);
+  }
+
+  async expectBtnTopSitesMenuCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.btnTopSitesMenu), count, timeoutMs);
+  }
+
+  async scrollBtnTopSitesMenuIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.btnTopSitesMenu));
+  }
+
+  async longPressBtnHeaderMyApps(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.btnHeaderMyApps));
+  }
+
+  async expectBtnHeaderMyAppsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.btnHeaderMyApps), timeoutMs);
+  }
+
+  async expectBtnHeaderMyAppsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.btnHeaderMyApps), expected, timeoutMs);
+  }
+
+  async expectBtnHeaderMyAppsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.btnHeaderMyApps), substring, timeoutMs);
+  }
+
+  async expectBtnHeaderMyAppsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.btnHeaderMyApps), value, timeoutMs);
+  }
+
+  async expectBtnHeaderMyAppsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.btnHeaderMyApps), timeoutMs);
+  }
+
+  async expectBtnHeaderMyAppsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.btnHeaderMyApps), timeoutMs);
+  }
+
+  async expectBtnHeaderMyAppsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.btnHeaderMyApps), timeoutMs);
+  }
+
+  async expectBtnHeaderMyAppsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.btnHeaderMyApps), timeoutMs);
+  }
+
+  async expectBtnHeaderMyAppsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.btnHeaderMyApps), timeoutMs);
+  }
+
+  async expectBtnHeaderMyAppsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.btnHeaderMyApps), count, timeoutMs);
+  }
+
+  async scrollBtnHeaderMyAppsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.btnHeaderMyApps));
+  }
+
+  async longPressShowCollapsedMenu(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.showCollapsedMenu));
+  }
+
+  async expectShowCollapsedMenuHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.showCollapsedMenu), timeoutMs);
+  }
+
+  async expectShowCollapsedMenuText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.showCollapsedMenu), expected, timeoutMs);
+  }
+
+  async expectShowCollapsedMenuContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.showCollapsedMenu), substring, timeoutMs);
+  }
+
+  async expectShowCollapsedMenuValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.showCollapsedMenu), value, timeoutMs);
+  }
+
+  async expectShowCollapsedMenuEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.showCollapsedMenu), timeoutMs);
+  }
+
+  async expectShowCollapsedMenuDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.showCollapsedMenu), timeoutMs);
+  }
+
+  async expectShowCollapsedMenuChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.showCollapsedMenu), timeoutMs);
+  }
+
+  async expectShowCollapsedMenuUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.showCollapsedMenu), timeoutMs);
+  }
+
+  async expectShowCollapsedMenuFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.showCollapsedMenu), timeoutMs);
+  }
+
+  async expectShowCollapsedMenuCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.showCollapsedMenu), count, timeoutMs);
+  }
+
+  async scrollShowCollapsedMenuIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.showCollapsedMenu));
+  }
+
+  async clickHiDrakeWhatAre(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.hiDrakeWhatAre));
+  }
+
+  async doubleClickHiDrakeWhatAre(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.hiDrakeWhatAre));
+  }
+
+  async longPressHiDrakeWhatAre(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.hiDrakeWhatAre));
+  }
+
+  async expectHiDrakeWhatAreHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.hiDrakeWhatAre), timeoutMs);
+  }
+
+  async expectHiDrakeWhatAreText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.hiDrakeWhatAre), expected, timeoutMs);
+  }
+
+  async expectHiDrakeWhatAreContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.hiDrakeWhatAre), substring, timeoutMs);
+  }
+
+  async expectHiDrakeWhatAreValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.hiDrakeWhatAre), value, timeoutMs);
+  }
+
+  async expectHiDrakeWhatAreEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.hiDrakeWhatAre), timeoutMs);
+  }
+
+  async expectHiDrakeWhatAreDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.hiDrakeWhatAre), timeoutMs);
+  }
+
+  async expectHiDrakeWhatAreChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.hiDrakeWhatAre), timeoutMs);
+  }
+
+  async expectHiDrakeWhatAreUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.hiDrakeWhatAre), timeoutMs);
+  }
+
+  async expectHiDrakeWhatAreFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.hiDrakeWhatAre), timeoutMs);
+  }
+
+  async expectHiDrakeWhatAreCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.hiDrakeWhatAre), count, timeoutMs);
+  }
+
+  async scrollHiDrakeWhatAreIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.hiDrakeWhatAre));
+  }
+
+  async clickDrake(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.drake));
+  }
+
+  async doubleClickDrake(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.drake));
+  }
+
+  async longPressDrake(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.drake));
+  }
+
+  async expectDrakeHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.drake), timeoutMs);
+  }
+
+  async expectDrakeText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.drake), expected, timeoutMs);
+  }
+
+  async expectDrakeContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.drake), substring, timeoutMs);
+  }
+
+  async expectDrakeValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.drake), value, timeoutMs);
+  }
+
+  async expectDrakeEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.drake), timeoutMs);
+  }
+
+  async expectDrakeDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.drake), timeoutMs);
+  }
+
+  async expectDrakeChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.drake), timeoutMs);
+  }
+
+  async expectDrakeUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.drake), timeoutMs);
+  }
+
+  async expectDrakeFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.drake), timeoutMs);
+  }
+
+  async expectDrakeCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.drake), count, timeoutMs);
+  }
+
+  async scrollDrakeIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.drake));
+  }
+
+  async longPressSharePoint(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.sharePoint));
+  }
+
+  async expectSharePointHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.sharePoint), timeoutMs);
+  }
+
+  async expectSharePointText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.sharePoint), expected, timeoutMs);
+  }
+
+  async expectSharePointContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.sharePoint), substring, timeoutMs);
+  }
+
+  async expectSharePointValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.sharePoint), value, timeoutMs);
+  }
+
+  async expectSharePointEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.sharePoint), timeoutMs);
+  }
+
+  async expectSharePointDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.sharePoint), timeoutMs);
+  }
+
+  async expectSharePointChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.sharePoint), timeoutMs);
+  }
+
+  async expectSharePointUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.sharePoint), timeoutMs);
+  }
+
+  async expectSharePointFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.sharePoint), timeoutMs);
+  }
+
+  async expectSharePointCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.sharePoint), count, timeoutMs);
+  }
+
+  async scrollSharePointIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.sharePoint));
+  }
+
+  async typeTextInput(value: string): Promise<void> {
+    await typeTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.input), value);
+  }
+
+  async expectInputHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.input), timeoutMs);
+  }
+
+  async expectInputText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.input), expected, timeoutMs);
+  }
+
+  async expectInputContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.input), substring, timeoutMs);
+  }
+
+  async expectInputValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.input), value, timeoutMs);
+  }
+
+  async expectInputEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.input), timeoutMs);
+  }
+
+  async expectInputDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.input), timeoutMs);
+  }
+
+  async expectInputChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.input), timeoutMs);
+  }
+
+  async expectInputUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.input), timeoutMs);
+  }
+
+  async expectInputFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.input), timeoutMs);
+  }
+
+  async expectInputCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.input), count, timeoutMs);
+  }
+
+  async scrollInputIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.input));
+  }
+
+  async clickPopularSearches(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.popularSearches));
+  }
+
+  async doubleClickPopularSearches(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.popularSearches));
+  }
+
+  async longPressPopularSearches(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.popularSearches));
+  }
+
+  async expectPopularSearchesHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.popularSearches), timeoutMs);
+  }
+
+  async expectPopularSearchesText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.popularSearches), expected, timeoutMs);
+  }
+
+  async expectPopularSearchesContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.popularSearches), substring, timeoutMs);
+  }
+
+  async expectPopularSearchesValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.popularSearches), value, timeoutMs);
+  }
+
+  async expectPopularSearchesEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.popularSearches), timeoutMs);
+  }
+
+  async expectPopularSearchesDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.popularSearches), timeoutMs);
+  }
+
+  async expectPopularSearchesChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.popularSearches), timeoutMs);
+  }
+
+  async expectPopularSearchesUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.popularSearches), timeoutMs);
+  }
+
+  async expectPopularSearchesFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.popularSearches), timeoutMs);
+  }
+
+  async expectPopularSearchesCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.popularSearches), count, timeoutMs);
+  }
+
+  async scrollPopularSearchesIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.popularSearches));
+  }
+
+  async longPressBrandHub(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.brandHub));
+  }
+
+  async expectBrandHubHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.brandHub), timeoutMs);
+  }
+
+  async expectBrandHubText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.brandHub), expected, timeoutMs);
+  }
+
+  async expectBrandHubContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.brandHub), substring, timeoutMs);
+  }
+
+  async expectBrandHubValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.brandHub), value, timeoutMs);
+  }
+
+  async expectBrandHubEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.brandHub), timeoutMs);
+  }
+
+  async expectBrandHubDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.brandHub), timeoutMs);
+  }
+
+  async expectBrandHubChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.brandHub), timeoutMs);
+  }
+
+  async expectBrandHubUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.brandHub), timeoutMs);
+  }
+
+  async expectBrandHubFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.brandHub), timeoutMs);
+  }
+
+  async expectBrandHubCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.brandHub), count, timeoutMs);
+  }
+
+  async scrollBrandHubIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.brandHub));
+  }
+
+  async longPressHolidayCalendar(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.holidayCalendar));
+  }
+
+  async expectHolidayCalendarHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.holidayCalendar), timeoutMs);
+  }
+
+  async expectHolidayCalendarText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.holidayCalendar), expected, timeoutMs);
+  }
+
+  async expectHolidayCalendarContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.holidayCalendar), substring, timeoutMs);
+  }
+
+  async expectHolidayCalendarValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.holidayCalendar), value, timeoutMs);
+  }
+
+  async expectHolidayCalendarEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.holidayCalendar), timeoutMs);
+  }
+
+  async expectHolidayCalendarDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.holidayCalendar), timeoutMs);
+  }
+
+  async expectHolidayCalendarChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.holidayCalendar), timeoutMs);
+  }
+
+  async expectHolidayCalendarUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.holidayCalendar), timeoutMs);
+  }
+
+  async expectHolidayCalendarFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.holidayCalendar), timeoutMs);
+  }
+
+  async expectHolidayCalendarCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.holidayCalendar), count, timeoutMs);
+  }
+
+  async scrollHolidayCalendarIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.holidayCalendar));
+  }
+
+  async longPressCelebrateU(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.celebrateU));
+  }
+
+  async expectCelebrateUHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.celebrateU), timeoutMs);
+  }
+
+  async expectCelebrateUText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.celebrateU), expected, timeoutMs);
+  }
+
+  async expectCelebrateUContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.celebrateU), substring, timeoutMs);
+  }
+
+  async expectCelebrateUValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.celebrateU), value, timeoutMs);
+  }
+
+  async expectCelebrateUEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.celebrateU), timeoutMs);
+  }
+
+  async expectCelebrateUDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.celebrateU), timeoutMs);
+  }
+
+  async expectCelebrateUChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.celebrateU), timeoutMs);
+  }
+
+  async expectCelebrateUUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.celebrateU), timeoutMs);
+  }
+
+  async expectCelebrateUFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.celebrateU), timeoutMs);
+  }
+
+  async expectCelebrateUCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.celebrateU), count, timeoutMs);
+  }
+
+  async scrollCelebrateUIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.celebrateU));
+  }
+
+  async longPressNewHireCenter(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.newHireCenter));
+  }
+
+  async expectNewHireCenterHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.newHireCenter), timeoutMs);
+  }
+
+  async expectNewHireCenterText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.newHireCenter), expected, timeoutMs);
+  }
+
+  async expectNewHireCenterContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.newHireCenter), substring, timeoutMs);
+  }
+
+  async expectNewHireCenterValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.newHireCenter), value, timeoutMs);
+  }
+
+  async expectNewHireCenterEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.newHireCenter), timeoutMs);
+  }
+
+  async expectNewHireCenterDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.newHireCenter), timeoutMs);
+  }
+
+  async expectNewHireCenterChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.newHireCenter), timeoutMs);
+  }
+
+  async expectNewHireCenterUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.newHireCenter), timeoutMs);
+  }
+
+  async expectNewHireCenterFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.newHireCenter), timeoutMs);
+  }
+
+  async expectNewHireCenterCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.newHireCenter), count, timeoutMs);
+  }
+
+  async scrollNewHireCenterIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.newHireCenter));
+  }
+
+  async clickAnnouncements(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.announcements));
+  }
+
+  async doubleClickAnnouncements(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.announcements));
+  }
+
+  async longPressAnnouncements(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.announcements));
+  }
+
+  async expectAnnouncementsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.announcements), timeoutMs);
+  }
+
+  async expectAnnouncementsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.announcements), expected, timeoutMs);
+  }
+
+  async expectAnnouncementsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.announcements), substring, timeoutMs);
+  }
+
+  async expectAnnouncementsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.announcements), value, timeoutMs);
+  }
+
+  async expectAnnouncementsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.announcements), timeoutMs);
+  }
+
+  async expectAnnouncementsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.announcements), timeoutMs);
+  }
+
+  async expectAnnouncementsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.announcements), timeoutMs);
+  }
+
+  async expectAnnouncementsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.announcements), timeoutMs);
+  }
+
+  async expectAnnouncementsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.announcements), timeoutMs);
+  }
+
+  async expectAnnouncementsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.announcements), count, timeoutMs);
+  }
+
+  async scrollAnnouncementsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.announcements));
+  }
+
+  async longPressBtnAnnouncementCarouselPrev(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.btnAnnouncementCarouselPrev));
+  }
+
+  async expectBtnAnnouncementCarouselPrevHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.btnAnnouncementCarouselPrev), timeoutMs);
+  }
+
+  async expectBtnAnnouncementCarouselPrevText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.btnAnnouncementCarouselPrev), expected, timeoutMs);
+  }
+
+  async expectBtnAnnouncementCarouselPrevContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.btnAnnouncementCarouselPrev), substring, timeoutMs);
+  }
+
+  async expectBtnAnnouncementCarouselPrevValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.btnAnnouncementCarouselPrev), value, timeoutMs);
+  }
+
+  async expectBtnAnnouncementCarouselPrevEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.btnAnnouncementCarouselPrev), timeoutMs);
+  }
+
+  async expectBtnAnnouncementCarouselPrevDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.btnAnnouncementCarouselPrev), timeoutMs);
+  }
+
+  async expectBtnAnnouncementCarouselPrevChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.btnAnnouncementCarouselPrev), timeoutMs);
+  }
+
+  async expectBtnAnnouncementCarouselPrevUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.btnAnnouncementCarouselPrev), timeoutMs);
+  }
+
+  async expectBtnAnnouncementCarouselPrevFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.btnAnnouncementCarouselPrev), timeoutMs);
+  }
+
+  async expectBtnAnnouncementCarouselPrevCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.btnAnnouncementCarouselPrev), count, timeoutMs);
+  }
+
+  async scrollBtnAnnouncementCarouselPrevIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.btnAnnouncementCarouselPrev));
+  }
+
+  async clickReviewDetailsHowTo(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.reviewDetailsHowTo));
+  }
+
+  async doubleClickReviewDetailsHowTo(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.reviewDetailsHowTo));
+  }
+
+  async longPressReviewDetailsHowTo(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.reviewDetailsHowTo));
+  }
+
+  async expectReviewDetailsHowToHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.reviewDetailsHowTo), timeoutMs);
+  }
+
+  async expectReviewDetailsHowToText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.reviewDetailsHowTo), expected, timeoutMs);
+  }
+
+  async expectReviewDetailsHowToContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.reviewDetailsHowTo), substring, timeoutMs);
+  }
+
+  async expectReviewDetailsHowToValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.reviewDetailsHowTo), value, timeoutMs);
+  }
+
+  async expectReviewDetailsHowToEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.reviewDetailsHowTo), timeoutMs);
+  }
+
+  async expectReviewDetailsHowToDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.reviewDetailsHowTo), timeoutMs);
+  }
+
+  async expectReviewDetailsHowToChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.reviewDetailsHowTo), timeoutMs);
+  }
+
+  async expectReviewDetailsHowToUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.reviewDetailsHowTo), timeoutMs);
+  }
+
+  async expectReviewDetailsHowToFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.reviewDetailsHowTo), timeoutMs);
+  }
+
+  async expectReviewDetailsHowToCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.reviewDetailsHowTo), count, timeoutMs);
+  }
+
+  async scrollReviewDetailsHowToIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.reviewDetailsHowTo));
+  }
+
+  async clickGetKeyUpdatesFrom(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.getKeyUpdatesFrom));
+  }
+
+  async doubleClickGetKeyUpdatesFrom(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.getKeyUpdatesFrom));
+  }
+
+  async longPressGetKeyUpdatesFrom(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.getKeyUpdatesFrom));
+  }
+
+  async expectGetKeyUpdatesFromHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.getKeyUpdatesFrom), timeoutMs);
+  }
+
+  async expectGetKeyUpdatesFromText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.getKeyUpdatesFrom), expected, timeoutMs);
+  }
+
+  async expectGetKeyUpdatesFromContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.getKeyUpdatesFrom), substring, timeoutMs);
+  }
+
+  async expectGetKeyUpdatesFromValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.getKeyUpdatesFrom), value, timeoutMs);
+  }
+
+  async expectGetKeyUpdatesFromEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.getKeyUpdatesFrom), timeoutMs);
+  }
+
+  async expectGetKeyUpdatesFromDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.getKeyUpdatesFrom), timeoutMs);
+  }
+
+  async expectGetKeyUpdatesFromChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.getKeyUpdatesFrom), timeoutMs);
+  }
+
+  async expectGetKeyUpdatesFromUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.getKeyUpdatesFrom), timeoutMs);
+  }
+
+  async expectGetKeyUpdatesFromFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.getKeyUpdatesFrom), timeoutMs);
+  }
+
+  async expectGetKeyUpdatesFromCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.getKeyUpdatesFrom), count, timeoutMs);
+  }
+
+  async scrollGetKeyUpdatesFromIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.getKeyUpdatesFrom));
+  }
+
+  async doubleClickLearnMore(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.learnMore));
+  }
+
+  async longPressLearnMore(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.learnMore));
+  }
+
+  async expectLearnMoreHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.learnMore), timeoutMs);
+  }
+
+  async expectLearnMoreText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.learnMore), expected, timeoutMs);
+  }
+
+  async expectLearnMoreContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.learnMore), substring, timeoutMs);
+  }
+
+  async expectLearnMoreValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.learnMore), value, timeoutMs);
+  }
+
+  async expectLearnMoreEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.learnMore), timeoutMs);
+  }
+
+  async expectLearnMoreDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.learnMore), timeoutMs);
+  }
+
+  async expectLearnMoreChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.learnMore), timeoutMs);
+  }
+
+  async expectLearnMoreUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.learnMore), timeoutMs);
+  }
+
+  async expectLearnMoreFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.learnMore), timeoutMs);
+  }
+
+  async expectLearnMoreCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.learnMore), count, timeoutMs);
+  }
+
+  async scrollLearnMoreIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.learnMore));
+  }
+
+  async clickFeatured(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.featured));
+  }
+
+  async doubleClickFeatured(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.featured));
+  }
+
+  async longPressFeatured(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.featured));
+  }
+
+  async expectFeaturedHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.featured), timeoutMs);
+  }
+
+  async expectFeaturedText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.featured), expected, timeoutMs);
+  }
+
+  async expectFeaturedContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.featured), substring, timeoutMs);
+  }
+
+  async expectFeaturedValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.featured), value, timeoutMs);
+  }
+
+  async expectFeaturedEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.featured), timeoutMs);
+  }
+
+  async expectFeaturedDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.featured), timeoutMs);
+  }
+
+  async expectFeaturedChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.featured), timeoutMs);
+  }
+
+  async expectFeaturedUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.featured), timeoutMs);
+  }
+
+  async expectFeaturedFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.featured), timeoutMs);
+  }
+
+  async expectFeaturedCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.featured), count, timeoutMs);
+  }
+
+  async scrollFeaturedIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.featured));
+  }
+
+  async longPressSwitchToPreviousNews(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.switchToPreviousNews));
+  }
+
+  async expectSwitchToPreviousNewsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.switchToPreviousNews), timeoutMs);
+  }
+
+  async expectSwitchToPreviousNewsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.switchToPreviousNews), expected, timeoutMs);
+  }
+
+  async expectSwitchToPreviousNewsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.switchToPreviousNews), substring, timeoutMs);
+  }
+
+  async expectSwitchToPreviousNewsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.switchToPreviousNews), value, timeoutMs);
+  }
+
+  async expectSwitchToPreviousNewsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.switchToPreviousNews), timeoutMs);
+  }
+
+  async expectSwitchToPreviousNewsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.switchToPreviousNews), timeoutMs);
+  }
+
+  async expectSwitchToPreviousNewsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.switchToPreviousNews), timeoutMs);
+  }
+
+  async expectSwitchToPreviousNewsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.switchToPreviousNews), timeoutMs);
+  }
+
+  async expectSwitchToPreviousNewsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.switchToPreviousNews), timeoutMs);
+  }
+
+  async expectSwitchToPreviousNewsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.switchToPreviousNews), count, timeoutMs);
+  }
+
+  async scrollSwitchToPreviousNewsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.switchToPreviousNews));
+  }
+
+  async clickAi(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ai));
+  }
+
+  async doubleClickAi(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ai));
+  }
+
+  async longPressAi(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.ai));
+  }
+
+  async expectAiHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.ai), timeoutMs);
+  }
+
+  async expectAiText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.ai), expected, timeoutMs);
+  }
+
+  async expectAiContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.ai), substring, timeoutMs);
+  }
+
+  async expectAiValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.ai), value, timeoutMs);
+  }
+
+  async expectAiEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.ai), timeoutMs);
+  }
+
+  async expectAiDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.ai), timeoutMs);
+  }
+
+  async expectAiChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.ai), timeoutMs);
+  }
+
+  async expectAiUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.ai), timeoutMs);
+  }
+
+  async expectAiFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.ai), timeoutMs);
+  }
+
+  async expectAiCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.ai), count, timeoutMs);
+  }
+
+  async scrollAiIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.ai));
+  }
+
+  async clickDrakeTiwary(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.drakeTiwary));
+  }
+
+  async doubleClickDrakeTiwary(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.drakeTiwary));
+  }
+
+  async longPressDrakeTiwary(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.drakeTiwary));
+  }
+
+  async expectDrakeTiwaryHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.drakeTiwary), timeoutMs);
+  }
+
+  async expectDrakeTiwaryText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.drakeTiwary), expected, timeoutMs);
+  }
+
+  async expectDrakeTiwaryContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.drakeTiwary), substring, timeoutMs);
+  }
+
+  async expectDrakeTiwaryValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.drakeTiwary), value, timeoutMs);
+  }
+
+  async expectDrakeTiwaryEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.drakeTiwary), timeoutMs);
+  }
+
+  async expectDrakeTiwaryDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.drakeTiwary), timeoutMs);
+  }
+
+  async expectDrakeTiwaryChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.drakeTiwary), timeoutMs);
+  }
+
+  async expectDrakeTiwaryUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.drakeTiwary), timeoutMs);
+  }
+
+  async expectDrakeTiwaryFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.drakeTiwary), timeoutMs);
+  }
+
+  async expectDrakeTiwaryCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.drakeTiwary), count, timeoutMs);
+  }
+
+  async scrollDrakeTiwaryIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.drakeTiwary));
+  }
+
+  async longPressShareNews(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.shareNews));
+  }
+
+  async expectShareNewsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.shareNews), timeoutMs);
+  }
+
+  async expectShareNewsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.shareNews), expected, timeoutMs);
+  }
+
+  async expectShareNewsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.shareNews), substring, timeoutMs);
+  }
+
+  async expectShareNewsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.shareNews), value, timeoutMs);
+  }
+
+  async expectShareNewsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.shareNews), timeoutMs);
+  }
+
+  async expectShareNewsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.shareNews), timeoutMs);
+  }
+
+  async expectShareNewsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.shareNews), timeoutMs);
+  }
+
+  async expectShareNewsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.shareNews), timeoutMs);
+  }
+
+  async expectShareNewsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.shareNews), timeoutMs);
+  }
+
+  async expectShareNewsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.shareNews), count, timeoutMs);
+  }
+
+  async scrollShareNewsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.shareNews));
+  }
+
+  async longPressUnsaveNews(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.unsaveNews));
+  }
+
+  async expectUnsaveNewsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.unsaveNews), timeoutMs);
+  }
+
+  async expectUnsaveNewsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.unsaveNews), expected, timeoutMs);
+  }
+
+  async expectUnsaveNewsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.unsaveNews), substring, timeoutMs);
+  }
+
+  async expectUnsaveNewsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.unsaveNews), value, timeoutMs);
+  }
+
+  async expectUnsaveNewsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.unsaveNews), timeoutMs);
+  }
+
+  async expectUnsaveNewsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.unsaveNews), timeoutMs);
+  }
+
+  async expectUnsaveNewsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.unsaveNews), timeoutMs);
+  }
+
+  async expectUnsaveNewsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.unsaveNews), timeoutMs);
+  }
+
+  async expectUnsaveNewsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.unsaveNews), timeoutMs);
+  }
+
+  async expectUnsaveNewsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.unsaveNews), count, timeoutMs);
+  }
+
+  async scrollUnsaveNewsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.unsaveNews));
+  }
+
+  async clickTakeTheNextStep(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.takeTheNextStep));
+  }
+
+  async doubleClickTakeTheNextStep(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.takeTheNextStep));
+  }
+
+  async longPressTakeTheNextStep(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.takeTheNextStep));
+  }
+
+  async expectTakeTheNextStepHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.takeTheNextStep), timeoutMs);
+  }
+
+  async expectTakeTheNextStepText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.takeTheNextStep), expected, timeoutMs);
+  }
+
+  async expectTakeTheNextStepContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.takeTheNextStep), substring, timeoutMs);
+  }
+
+  async expectTakeTheNextStepValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.takeTheNextStep), value, timeoutMs);
+  }
+
+  async expectTakeTheNextStepEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.takeTheNextStep), timeoutMs);
+  }
+
+  async expectTakeTheNextStepDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.takeTheNextStep), timeoutMs);
+  }
+
+  async expectTakeTheNextStepChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.takeTheNextStep), timeoutMs);
+  }
+
+  async expectTakeTheNextStepUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.takeTheNextStep), timeoutMs);
+  }
+
+  async expectTakeTheNextStepFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.takeTheNextStep), timeoutMs);
+  }
+
+  async expectTakeTheNextStepCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.takeTheNextStep), count, timeoutMs);
+  }
+
+  async scrollTakeTheNextStepIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.takeTheNextStep));
+  }
+
+  async clickStacyCutrono(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.stacyCutrono));
+  }
+
+  async doubleClickStacyCutrono(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.stacyCutrono));
+  }
+
+  async longPressStacyCutrono(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.stacyCutrono));
+  }
+
+  async expectStacyCutronoHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.stacyCutrono), timeoutMs);
+  }
+
+  async expectStacyCutronoText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.stacyCutrono), expected, timeoutMs);
+  }
+
+  async expectStacyCutronoContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.stacyCutrono), substring, timeoutMs);
+  }
+
+  async expectStacyCutronoValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.stacyCutrono), value, timeoutMs);
+  }
+
+  async expectStacyCutronoEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.stacyCutrono), timeoutMs);
+  }
+
+  async expectStacyCutronoDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.stacyCutrono), timeoutMs);
+  }
+
+  async expectStacyCutronoChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.stacyCutrono), timeoutMs);
+  }
+
+  async expectStacyCutronoUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.stacyCutrono), timeoutMs);
+  }
+
+  async expectStacyCutronoFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.stacyCutrono), timeoutMs);
+  }
+
+  async expectStacyCutronoCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.stacyCutrono), count, timeoutMs);
+  }
+
+  async scrollStacyCutronoIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.stacyCutrono));
+  }
+
+  async longPressSaveNews(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.saveNews));
+  }
+
+  async expectSaveNewsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.saveNews), timeoutMs);
+  }
+
+  async expectSaveNewsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.saveNews), expected, timeoutMs);
+  }
+
+  async expectSaveNewsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.saveNews), substring, timeoutMs);
+  }
+
+  async expectSaveNewsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.saveNews), value, timeoutMs);
+  }
+
+  async expectSaveNewsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.saveNews), timeoutMs);
+  }
+
+  async expectSaveNewsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.saveNews), timeoutMs);
+  }
+
+  async expectSaveNewsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.saveNews), timeoutMs);
+  }
+
+  async expectSaveNewsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.saveNews), timeoutMs);
+  }
+
+  async expectSaveNewsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.saveNews), timeoutMs);
+  }
+
+  async expectSaveNewsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.saveNews), count, timeoutMs);
+  }
+
+  async scrollSaveNewsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.saveNews));
+  }
+
+  async clickAshleyAmerson(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ashleyAmerson));
+  }
+
+  async doubleClickAshleyAmerson(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ashleyAmerson));
+  }
+
+  async longPressAshleyAmerson(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.ashleyAmerson));
+  }
+
+  async expectAshleyAmersonHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.ashleyAmerson), timeoutMs);
+  }
+
+  async expectAshleyAmersonText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.ashleyAmerson), expected, timeoutMs);
+  }
+
+  async expectAshleyAmersonContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.ashleyAmerson), substring, timeoutMs);
+  }
+
+  async expectAshleyAmersonValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.ashleyAmerson), value, timeoutMs);
+  }
+
+  async expectAshleyAmersonEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.ashleyAmerson), timeoutMs);
+  }
+
+  async expectAshleyAmersonDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.ashleyAmerson), timeoutMs);
+  }
+
+  async expectAshleyAmersonChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.ashleyAmerson), timeoutMs);
+  }
+
+  async expectAshleyAmersonUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.ashleyAmerson), timeoutMs);
+  }
+
+  async expectAshleyAmersonFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.ashleyAmerson), timeoutMs);
+  }
+
+  async expectAshleyAmersonCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.ashleyAmerson), count, timeoutMs);
+  }
+
+  async scrollAshleyAmersonIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.ashleyAmerson));
+  }
+
+  async clickCelebratingTheStrengthOf(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.celebratingTheStrengthOf));
+  }
+
+  async doubleClickCelebratingTheStrengthOf(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.celebratingTheStrengthOf));
+  }
+
+  async longPressCelebratingTheStrengthOf(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.celebratingTheStrengthOf));
+  }
+
+  async expectCelebratingTheStrengthOfHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.celebratingTheStrengthOf), timeoutMs);
+  }
+
+  async expectCelebratingTheStrengthOfText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.celebratingTheStrengthOf), expected, timeoutMs);
+  }
+
+  async expectCelebratingTheStrengthOfContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.celebratingTheStrengthOf), substring, timeoutMs);
+  }
+
+  async expectCelebratingTheStrengthOfValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.celebratingTheStrengthOf), value, timeoutMs);
+  }
+
+  async expectCelebratingTheStrengthOfEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.celebratingTheStrengthOf), timeoutMs);
+  }
+
+  async expectCelebratingTheStrengthOfDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.celebratingTheStrengthOf), timeoutMs);
+  }
+
+  async expectCelebratingTheStrengthOfChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.celebratingTheStrengthOf), timeoutMs);
+  }
+
+  async expectCelebratingTheStrengthOfUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.celebratingTheStrengthOf), timeoutMs);
+  }
+
+  async expectCelebratingTheStrengthOfFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.celebratingTheStrengthOf), timeoutMs);
+  }
+
+  async expectCelebratingTheStrengthOfCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.celebratingTheStrengthOf), count, timeoutMs);
+  }
+
+  async scrollCelebratingTheStrengthOfIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.celebratingTheStrengthOf));
+  }
+
+  async clickChristopherKiklas(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.christopherKiklas));
+  }
+
+  async doubleClickChristopherKiklas(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.christopherKiklas));
+  }
+
+  async longPressChristopherKiklas(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.christopherKiklas));
+  }
+
+  async expectChristopherKiklasHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.christopherKiklas), timeoutMs);
+  }
+
+  async expectChristopherKiklasText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.christopherKiklas), expected, timeoutMs);
+  }
+
+  async expectChristopherKiklasContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.christopherKiklas), substring, timeoutMs);
+  }
+
+  async expectChristopherKiklasValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.christopherKiklas), value, timeoutMs);
+  }
+
+  async expectChristopherKiklasEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.christopherKiklas), timeoutMs);
+  }
+
+  async expectChristopherKiklasDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.christopherKiklas), timeoutMs);
+  }
+
+  async expectChristopherKiklasChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.christopherKiklas), timeoutMs);
+  }
+
+  async expectChristopherKiklasUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.christopherKiklas), timeoutMs);
+  }
+
+  async expectChristopherKiklasFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.christopherKiklas), timeoutMs);
+  }
+
+  async expectChristopherKiklasCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.christopherKiklas), count, timeoutMs);
+  }
+
+  async scrollChristopherKiklasIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.christopherKiklas));
+  }
+
+  async clickPrideMonth2026Together(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.prideMonth2026Together));
+  }
+
+  async doubleClickPrideMonth2026Together(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.prideMonth2026Together));
+  }
+
+  async longPressPrideMonth2026Together(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.prideMonth2026Together));
+  }
+
+  async expectPrideMonth2026TogetherHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.prideMonth2026Together), timeoutMs);
+  }
+
+  async expectPrideMonth2026TogetherText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.prideMonth2026Together), expected, timeoutMs);
+  }
+
+  async expectPrideMonth2026TogetherContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.prideMonth2026Together), substring, timeoutMs);
+  }
+
+  async expectPrideMonth2026TogetherValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.prideMonth2026Together), value, timeoutMs);
+  }
+
+  async expectPrideMonth2026TogetherEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.prideMonth2026Together), timeoutMs);
+  }
+
+  async expectPrideMonth2026TogetherDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.prideMonth2026Together), timeoutMs);
+  }
+
+  async expectPrideMonth2026TogetherChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.prideMonth2026Together), timeoutMs);
+  }
+
+  async expectPrideMonth2026TogetherUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.prideMonth2026Together), timeoutMs);
+  }
+
+  async expectPrideMonth2026TogetherFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.prideMonth2026Together), timeoutMs);
+  }
+
+  async expectPrideMonth2026TogetherCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.prideMonth2026Together), count, timeoutMs);
+  }
+
+  async scrollPrideMonth2026TogetherIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.prideMonth2026Together));
+  }
+
+  async clickSequoyaFord(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.sequoyaFord));
+  }
+
+  async doubleClickSequoyaFord(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.sequoyaFord));
+  }
+
+  async longPressSequoyaFord(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.sequoyaFord));
+  }
+
+  async expectSequoyaFordHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.sequoyaFord), timeoutMs);
+  }
+
+  async expectSequoyaFordText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.sequoyaFord), expected, timeoutMs);
+  }
+
+  async expectSequoyaFordContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.sequoyaFord), substring, timeoutMs);
+  }
+
+  async expectSequoyaFordValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.sequoyaFord), value, timeoutMs);
+  }
+
+  async expectSequoyaFordEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.sequoyaFord), timeoutMs);
+  }
+
+  async expectSequoyaFordDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.sequoyaFord), timeoutMs);
+  }
+
+  async expectSequoyaFordChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.sequoyaFord), timeoutMs);
+  }
+
+  async expectSequoyaFordUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.sequoyaFord), timeoutMs);
+  }
+
+  async expectSequoyaFordFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.sequoyaFord), timeoutMs);
+  }
+
+  async expectSequoyaFordCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.sequoyaFord), count, timeoutMs);
+  }
+
+  async scrollSequoyaFordIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.sequoyaFord));
+  }
+
+  async clickGlobalImpactInAction(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.globalImpactInAction));
+  }
+
+  async doubleClickGlobalImpactInAction(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.globalImpactInAction));
+  }
+
+  async longPressGlobalImpactInAction(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.globalImpactInAction));
+  }
+
+  async expectGlobalImpactInActionHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.globalImpactInAction), timeoutMs);
+  }
+
+  async expectGlobalImpactInActionText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.globalImpactInAction), expected, timeoutMs);
+  }
+
+  async expectGlobalImpactInActionContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.globalImpactInAction), substring, timeoutMs);
+  }
+
+  async expectGlobalImpactInActionValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.globalImpactInAction), value, timeoutMs);
+  }
+
+  async expectGlobalImpactInActionEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.globalImpactInAction), timeoutMs);
+  }
+
+  async expectGlobalImpactInActionDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.globalImpactInAction), timeoutMs);
+  }
+
+  async expectGlobalImpactInActionChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.globalImpactInAction), timeoutMs);
+  }
+
+  async expectGlobalImpactInActionUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.globalImpactInAction), timeoutMs);
+  }
+
+  async expectGlobalImpactInActionFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.globalImpactInAction), timeoutMs);
+  }
+
+  async expectGlobalImpactInActionCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.globalImpactInAction), count, timeoutMs);
+  }
+
+  async scrollGlobalImpactInActionIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.globalImpactInAction));
+  }
+
+  async clickSarahMarks(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.sarahMarks));
+  }
+
+  async doubleClickSarahMarks(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.sarahMarks));
+  }
+
+  async longPressSarahMarks(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.sarahMarks));
+  }
+
+  async expectSarahMarksHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.sarahMarks), timeoutMs);
+  }
+
+  async expectSarahMarksText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.sarahMarks), expected, timeoutMs);
+  }
+
+  async expectSarahMarksContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.sarahMarks), substring, timeoutMs);
+  }
+
+  async expectSarahMarksValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.sarahMarks), value, timeoutMs);
+  }
+
+  async expectSarahMarksEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.sarahMarks), timeoutMs);
+  }
+
+  async expectSarahMarksDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.sarahMarks), timeoutMs);
+  }
+
+  async expectSarahMarksChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.sarahMarks), timeoutMs);
+  }
+
+  async expectSarahMarksUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.sarahMarks), timeoutMs);
+  }
+
+  async expectSarahMarksFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.sarahMarks), timeoutMs);
+  }
+
+  async expectSarahMarksCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.sarahMarks), count, timeoutMs);
+  }
+
+  async scrollSarahMarksIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.sarahMarks));
+  }
+
+  async clickCelebratingOneYearOf(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.celebratingOneYearOf));
+  }
+
+  async doubleClickCelebratingOneYearOf(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.celebratingOneYearOf));
+  }
+
+  async longPressCelebratingOneYearOf(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.celebratingOneYearOf));
+  }
+
+  async expectCelebratingOneYearOfHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.celebratingOneYearOf), timeoutMs);
+  }
+
+  async expectCelebratingOneYearOfText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.celebratingOneYearOf), expected, timeoutMs);
+  }
+
+  async expectCelebratingOneYearOfContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.celebratingOneYearOf), substring, timeoutMs);
+  }
+
+  async expectCelebratingOneYearOfValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.celebratingOneYearOf), value, timeoutMs);
+  }
+
+  async expectCelebratingOneYearOfEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.celebratingOneYearOf), timeoutMs);
+  }
+
+  async expectCelebratingOneYearOfDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.celebratingOneYearOf), timeoutMs);
+  }
+
+  async expectCelebratingOneYearOfChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.celebratingOneYearOf), timeoutMs);
+  }
+
+  async expectCelebratingOneYearOfUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.celebratingOneYearOf), timeoutMs);
+  }
+
+  async expectCelebratingOneYearOfFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.celebratingOneYearOf), timeoutMs);
+  }
+
+  async expectCelebratingOneYearOfCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.celebratingOneYearOf), count, timeoutMs);
+  }
+
+  async scrollCelebratingOneYearOfIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.celebratingOneYearOf));
+  }
+
+  async clickBrianBower(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.brianBower));
+  }
+
+  async doubleClickBrianBower(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.brianBower));
+  }
+
+  async longPressBrianBower(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.brianBower));
+  }
+
+  async expectBrianBowerHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.brianBower), timeoutMs);
+  }
+
+  async expectBrianBowerText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.brianBower), expected, timeoutMs);
+  }
+
+  async expectBrianBowerContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.brianBower), substring, timeoutMs);
+  }
+
+  async expectBrianBowerValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.brianBower), value, timeoutMs);
+  }
+
+  async expectBrianBowerEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.brianBower), timeoutMs);
+  }
+
+  async expectBrianBowerDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.brianBower), timeoutMs);
+  }
+
+  async expectBrianBowerChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.brianBower), timeoutMs);
+  }
+
+  async expectBrianBowerUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.brianBower), timeoutMs);
+  }
+
+  async expectBrianBowerFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.brianBower), timeoutMs);
+  }
+
+  async expectBrianBowerCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.brianBower), count, timeoutMs);
+  }
+
+  async scrollBrianBowerIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.brianBower));
+  }
+
+  async longPressSwitchToNextNews(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.switchToNextNews));
+  }
+
+  async expectSwitchToNextNewsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.switchToNextNews), timeoutMs);
+  }
+
+  async expectSwitchToNextNewsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.switchToNextNews), expected, timeoutMs);
+  }
+
+  async expectSwitchToNextNewsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.switchToNextNews), substring, timeoutMs);
+  }
+
+  async expectSwitchToNextNewsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.switchToNextNews), value, timeoutMs);
+  }
+
+  async expectSwitchToNextNewsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.switchToNextNews), timeoutMs);
+  }
+
+  async expectSwitchToNextNewsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.switchToNextNews), timeoutMs);
+  }
+
+  async expectSwitchToNextNewsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.switchToNextNews), timeoutMs);
+  }
+
+  async expectSwitchToNextNewsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.switchToNextNews), timeoutMs);
+  }
+
+  async expectSwitchToNextNewsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.switchToNextNews), timeoutMs);
+  }
+
+  async expectSwitchToNextNewsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.switchToNextNews), count, timeoutMs);
+  }
+
+  async scrollSwitchToNextNewsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.switchToNextNews));
+  }
+
+  async longPressLatestInternalNews(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.latestInternalNews));
+  }
+
+  async expectLatestInternalNewsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.latestInternalNews), timeoutMs);
+  }
+
+  async expectLatestInternalNewsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.latestInternalNews), expected, timeoutMs);
+  }
+
+  async expectLatestInternalNewsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.latestInternalNews), substring, timeoutMs);
+  }
+
+  async expectLatestInternalNewsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.latestInternalNews), value, timeoutMs);
+  }
+
+  async expectLatestInternalNewsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.latestInternalNews), timeoutMs);
+  }
+
+  async expectLatestInternalNewsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.latestInternalNews), timeoutMs);
+  }
+
+  async expectLatestInternalNewsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.latestInternalNews), timeoutMs);
+  }
+
+  async expectLatestInternalNewsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.latestInternalNews), timeoutMs);
+  }
+
+  async expectLatestInternalNewsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.latestInternalNews), timeoutMs);
+  }
+
+  async expectLatestInternalNewsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.latestInternalNews), count, timeoutMs);
+  }
+
+  async scrollLatestInternalNewsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.latestInternalNews));
+  }
+
+  async longPressUkgAndIndustryNews(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgAndIndustryNews));
+  }
+
+  async expectUkgAndIndustryNewsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.ukgAndIndustryNews), timeoutMs);
+  }
+
+  async expectUkgAndIndustryNewsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.ukgAndIndustryNews), expected, timeoutMs);
+  }
+
+  async expectUkgAndIndustryNewsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.ukgAndIndustryNews), substring, timeoutMs);
+  }
+
+  async expectUkgAndIndustryNewsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.ukgAndIndustryNews), value, timeoutMs);
+  }
+
+  async expectUkgAndIndustryNewsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.ukgAndIndustryNews), timeoutMs);
+  }
+
+  async expectUkgAndIndustryNewsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.ukgAndIndustryNews), timeoutMs);
+  }
+
+  async expectUkgAndIndustryNewsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.ukgAndIndustryNews), timeoutMs);
+  }
+
+  async expectUkgAndIndustryNewsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.ukgAndIndustryNews), timeoutMs);
+  }
+
+  async expectUkgAndIndustryNewsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.ukgAndIndustryNews), timeoutMs);
+  }
+
+  async expectUkgAndIndustryNewsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.ukgAndIndustryNews), count, timeoutMs);
+  }
+
+  async scrollUkgAndIndustryNewsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgAndIndustryNews));
+  }
+
+  async longPressSeeAllInternalNews(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.seeAllInternalNews));
+  }
+
+  async expectSeeAllInternalNewsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.seeAllInternalNews), timeoutMs);
+  }
+
+  async expectSeeAllInternalNewsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.seeAllInternalNews), expected, timeoutMs);
+  }
+
+  async expectSeeAllInternalNewsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.seeAllInternalNews), substring, timeoutMs);
+  }
+
+  async expectSeeAllInternalNewsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.seeAllInternalNews), value, timeoutMs);
+  }
+
+  async expectSeeAllInternalNewsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.seeAllInternalNews), timeoutMs);
+  }
+
+  async expectSeeAllInternalNewsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.seeAllInternalNews), timeoutMs);
+  }
+
+  async expectSeeAllInternalNewsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.seeAllInternalNews), timeoutMs);
+  }
+
+  async expectSeeAllInternalNewsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.seeAllInternalNews), timeoutMs);
+  }
+
+  async expectSeeAllInternalNewsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.seeAllInternalNews), timeoutMs);
+  }
+
+  async expectSeeAllInternalNewsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.seeAllInternalNews), count, timeoutMs);
+  }
+
+  async scrollSeeAllInternalNewsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.seeAllInternalNews));
+  }
+
+  async doubleClickGtmMarketing(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.gtmMarketing));
+  }
+
+  async longPressGtmMarketing(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.gtmMarketing));
+  }
+
+  async expectGtmMarketingHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.gtmMarketing), timeoutMs);
+  }
+
+  async expectGtmMarketingText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.gtmMarketing), expected, timeoutMs);
+  }
+
+  async expectGtmMarketingContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.gtmMarketing), substring, timeoutMs);
+  }
+
+  async expectGtmMarketingValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.gtmMarketing), value, timeoutMs);
+  }
+
+  async expectGtmMarketingEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.gtmMarketing), timeoutMs);
+  }
+
+  async expectGtmMarketingDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.gtmMarketing), timeoutMs);
+  }
+
+  async expectGtmMarketingChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.gtmMarketing), timeoutMs);
+  }
+
+  async expectGtmMarketingUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.gtmMarketing), timeoutMs);
+  }
+
+  async expectGtmMarketingFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.gtmMarketing), timeoutMs);
+  }
+
+  async expectGtmMarketingCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.gtmMarketing), count, timeoutMs);
+  }
+
+  async scrollGtmMarketingIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.gtmMarketing));
+  }
+
+  async doubleClickUkgNucleusRoi(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgNucleusRoi));
+  }
+
+  async longPressUkgNucleusRoi(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgNucleusRoi));
+  }
+
+  async expectUkgNucleusRoiHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.ukgNucleusRoi), timeoutMs);
+  }
+
+  async expectUkgNucleusRoiText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.ukgNucleusRoi), expected, timeoutMs);
+  }
+
+  async expectUkgNucleusRoiContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.ukgNucleusRoi), substring, timeoutMs);
+  }
+
+  async expectUkgNucleusRoiValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.ukgNucleusRoi), value, timeoutMs);
+  }
+
+  async expectUkgNucleusRoiEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.ukgNucleusRoi), timeoutMs);
+  }
+
+  async expectUkgNucleusRoiDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.ukgNucleusRoi), timeoutMs);
+  }
+
+  async expectUkgNucleusRoiChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.ukgNucleusRoi), timeoutMs);
+  }
+
+  async expectUkgNucleusRoiUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.ukgNucleusRoi), timeoutMs);
+  }
+
+  async expectUkgNucleusRoiFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.ukgNucleusRoi), timeoutMs);
+  }
+
+  async expectUkgNucleusRoiCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.ukgNucleusRoi), count, timeoutMs);
+  }
+
+  async scrollUkgNucleusRoiIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgNucleusRoi));
+  }
+
+  async doubleClickCommsEmployeeCommunications(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.commsEmployeeCommunications));
+  }
+
+  async longPressCommsEmployeeCommunications(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.commsEmployeeCommunications));
+  }
+
+  async expectCommsEmployeeCommunicationsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.commsEmployeeCommunications), timeoutMs);
+  }
+
+  async expectCommsEmployeeCommunicationsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.commsEmployeeCommunications), expected, timeoutMs);
+  }
+
+  async expectCommsEmployeeCommunicationsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.commsEmployeeCommunications), substring, timeoutMs);
+  }
+
+  async expectCommsEmployeeCommunicationsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.commsEmployeeCommunications), value, timeoutMs);
+  }
+
+  async expectCommsEmployeeCommunicationsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.commsEmployeeCommunications), timeoutMs);
+  }
+
+  async expectCommsEmployeeCommunicationsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.commsEmployeeCommunications), timeoutMs);
+  }
+
+  async expectCommsEmployeeCommunicationsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.commsEmployeeCommunications), timeoutMs);
+  }
+
+  async expectCommsEmployeeCommunicationsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.commsEmployeeCommunications), timeoutMs);
+  }
+
+  async expectCommsEmployeeCommunicationsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.commsEmployeeCommunications), timeoutMs);
+  }
+
+  async expectCommsEmployeeCommunicationsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.commsEmployeeCommunications), count, timeoutMs);
+  }
+
+  async scrollCommsEmployeeCommunicationsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.commsEmployeeCommunications));
+  }
+
+  async doubleClickUkgCommonsMobileApp(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgCommonsMobileApp));
+  }
+
+  async longPressUkgCommonsMobileApp(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgCommonsMobileApp));
+  }
+
+  async expectUkgCommonsMobileAppHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.ukgCommonsMobileApp), timeoutMs);
+  }
+
+  async expectUkgCommonsMobileAppText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.ukgCommonsMobileApp), expected, timeoutMs);
+  }
+
+  async expectUkgCommonsMobileAppContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.ukgCommonsMobileApp), substring, timeoutMs);
+  }
+
+  async expectUkgCommonsMobileAppValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.ukgCommonsMobileApp), value, timeoutMs);
+  }
+
+  async expectUkgCommonsMobileAppEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.ukgCommonsMobileApp), timeoutMs);
+  }
+
+  async expectUkgCommonsMobileAppDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.ukgCommonsMobileApp), timeoutMs);
+  }
+
+  async expectUkgCommonsMobileAppChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.ukgCommonsMobileApp), timeoutMs);
+  }
+
+  async expectUkgCommonsMobileAppUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.ukgCommonsMobileApp), timeoutMs);
+  }
+
+  async expectUkgCommonsMobileAppFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.ukgCommonsMobileApp), timeoutMs);
+  }
+
+  async expectUkgCommonsMobileAppCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.ukgCommonsMobileApp), count, timeoutMs);
+  }
+
+  async scrollUkgCommonsMobileAppIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgCommonsMobileApp));
+  }
+
+  async doubleClickProductEngineeringGlobal(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.productEngineeringGlobal));
+  }
+
+  async longPressProductEngineeringGlobal(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.productEngineeringGlobal));
+  }
+
+  async expectProductEngineeringGlobalHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.productEngineeringGlobal), timeoutMs);
+  }
+
+  async expectProductEngineeringGlobalText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.productEngineeringGlobal), expected, timeoutMs);
+  }
+
+  async expectProductEngineeringGlobalContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.productEngineeringGlobal), substring, timeoutMs);
+  }
+
+  async expectProductEngineeringGlobalValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.productEngineeringGlobal), value, timeoutMs);
+  }
+
+  async expectProductEngineeringGlobalEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.productEngineeringGlobal), timeoutMs);
+  }
+
+  async expectProductEngineeringGlobalDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.productEngineeringGlobal), timeoutMs);
+  }
+
+  async expectProductEngineeringGlobalChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.productEngineeringGlobal), timeoutMs);
+  }
+
+  async expectProductEngineeringGlobalUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.productEngineeringGlobal), timeoutMs);
+  }
+
+  async expectProductEngineeringGlobalFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.productEngineeringGlobal), timeoutMs);
+  }
+
+  async expectProductEngineeringGlobalCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.productEngineeringGlobal), count, timeoutMs);
+  }
+
+  async scrollProductEngineeringGlobalIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.productEngineeringGlobal));
+  }
+
+  async doubleClickPeopleUkgAdapt(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgAdapt));
+  }
+
+  async longPressPeopleUkgAdapt(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgAdapt));
+  }
+
+  async expectPeopleUkgAdaptHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.peopleUkgAdapt), timeoutMs);
+  }
+
+  async expectPeopleUkgAdaptText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.peopleUkgAdapt), expected, timeoutMs);
+  }
+
+  async expectPeopleUkgAdaptContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.peopleUkgAdapt), substring, timeoutMs);
+  }
+
+  async expectPeopleUkgAdaptValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.peopleUkgAdapt), value, timeoutMs);
+  }
+
+  async expectPeopleUkgAdaptEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.peopleUkgAdapt), timeoutMs);
+  }
+
+  async expectPeopleUkgAdaptDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.peopleUkgAdapt), timeoutMs);
+  }
+
+  async expectPeopleUkgAdaptChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.peopleUkgAdapt), timeoutMs);
+  }
+
+  async expectPeopleUkgAdaptUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.peopleUkgAdapt), timeoutMs);
+  }
+
+  async expectPeopleUkgAdaptFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.peopleUkgAdapt), timeoutMs);
+  }
+
+  async expectPeopleUkgAdaptCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.peopleUkgAdapt), count, timeoutMs);
+  }
+
+  async scrollPeopleUkgAdaptIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgAdapt));
+  }
+
+  async doubleClickInsideUkg(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.insideUkg));
+  }
+
+  async longPressInsideUkg(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.insideUkg));
+  }
+
+  async expectInsideUkgHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.insideUkg), timeoutMs);
+  }
+
+  async expectInsideUkgText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.insideUkg), expected, timeoutMs);
+  }
+
+  async expectInsideUkgContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.insideUkg), substring, timeoutMs);
+  }
+
+  async expectInsideUkgValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.insideUkg), value, timeoutMs);
+  }
+
+  async expectInsideUkgEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.insideUkg), timeoutMs);
+  }
+
+  async expectInsideUkgDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.insideUkg), timeoutMs);
+  }
+
+  async expectInsideUkgChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.insideUkg), timeoutMs);
+  }
+
+  async expectInsideUkgUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.insideUkg), timeoutMs);
+  }
+
+  async expectInsideUkgFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.insideUkg), timeoutMs);
+  }
+
+  async expectInsideUkgCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.insideUkg), count, timeoutMs);
+  }
+
+  async scrollInsideUkgIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.insideUkg));
+  }
+
+  async doubleClickPhotoOfTheWeek(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeek));
+  }
+
+  async longPressPhotoOfTheWeek(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeek));
+  }
+
+  async expectPhotoOfTheWeekHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeek), timeoutMs);
+  }
+
+  async expectPhotoOfTheWeekText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeek), expected, timeoutMs);
+  }
+
+  async expectPhotoOfTheWeekContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeek), substring, timeoutMs);
+  }
+
+  async expectPhotoOfTheWeekValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeek), value, timeoutMs);
+  }
+
+  async expectPhotoOfTheWeekEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeek), timeoutMs);
+  }
+
+  async expectPhotoOfTheWeekDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeek), timeoutMs);
+  }
+
+  async expectPhotoOfTheWeekChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeek), timeoutMs);
+  }
+
+  async expectPhotoOfTheWeekUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeek), timeoutMs);
+  }
+
+  async expectPhotoOfTheWeekFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeek), timeoutMs);
+  }
+
+  async expectPhotoOfTheWeekCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeek), count, timeoutMs);
+  }
+
+  async scrollPhotoOfTheWeekIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeek));
+  }
+
+  async clickElement(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element));
+  }
+
+  async doubleClickElement(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element));
+  }
+
+  async longPressElement(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.element));
+  }
+
+  async expectElementHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.element), timeoutMs);
+  }
+
+  async expectElementText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.element), expected, timeoutMs);
+  }
+
+  async expectElementContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.element), substring, timeoutMs);
+  }
+
+  async expectElementValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.element), value, timeoutMs);
+  }
+
+  async expectElementEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.element), timeoutMs);
+  }
+
+  async expectElementDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.element), timeoutMs);
+  }
+
+  async expectElementChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.element), timeoutMs);
+  }
+
+  async expectElementUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.element), timeoutMs);
+  }
+
+  async expectElementFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.element), timeoutMs);
+  }
+
+  async expectElementCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.element), count, timeoutMs);
+  }
+
+  async scrollElementIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.element));
+  }
+
+  async doubleClickDoNotEngageWith(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.doNotEngageWith));
+  }
+
+  async longPressDoNotEngageWith(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.doNotEngageWith));
+  }
+
+  async expectDoNotEngageWithHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.doNotEngageWith), timeoutMs);
+  }
+
+  async expectDoNotEngageWithText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.doNotEngageWith), expected, timeoutMs);
+  }
+
+  async expectDoNotEngageWithContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.doNotEngageWith), substring, timeoutMs);
+  }
+
+  async expectDoNotEngageWithValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.doNotEngageWith), value, timeoutMs);
+  }
+
+  async expectDoNotEngageWithEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.doNotEngageWith), timeoutMs);
+  }
+
+  async expectDoNotEngageWithDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.doNotEngageWith), timeoutMs);
+  }
+
+  async expectDoNotEngageWithChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.doNotEngageWith), timeoutMs);
+  }
+
+  async expectDoNotEngageWithUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.doNotEngageWith), timeoutMs);
+  }
+
+  async expectDoNotEngageWithFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.doNotEngageWith), timeoutMs);
+  }
+
+  async expectDoNotEngageWithCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.doNotEngageWith), count, timeoutMs);
+  }
+
+  async scrollDoNotEngageWithIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.doNotEngageWith));
+  }
+
+  async doubleClickPeopleEmployeeExperience(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleEmployeeExperience));
+  }
+
+  async longPressPeopleEmployeeExperience(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleEmployeeExperience));
+  }
+
+  async expectPeopleEmployeeExperienceHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.peopleEmployeeExperience), timeoutMs);
+  }
+
+  async expectPeopleEmployeeExperienceText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.peopleEmployeeExperience), expected, timeoutMs);
+  }
+
+  async expectPeopleEmployeeExperienceContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.peopleEmployeeExperience), substring, timeoutMs);
+  }
+
+  async expectPeopleEmployeeExperienceValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.peopleEmployeeExperience), value, timeoutMs);
+  }
+
+  async expectPeopleEmployeeExperienceEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.peopleEmployeeExperience), timeoutMs);
+  }
+
+  async expectPeopleEmployeeExperienceDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.peopleEmployeeExperience), timeoutMs);
+  }
+
+  async expectPeopleEmployeeExperienceChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.peopleEmployeeExperience), timeoutMs);
+  }
+
+  async expectPeopleEmployeeExperienceUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.peopleEmployeeExperience), timeoutMs);
+  }
+
+  async expectPeopleEmployeeExperienceFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.peopleEmployeeExperience), timeoutMs);
+  }
+
+  async expectPeopleEmployeeExperienceCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.peopleEmployeeExperience), count, timeoutMs);
+  }
+
+  async scrollPeopleEmployeeExperienceIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleEmployeeExperience));
+  }
+
+  async doubleClickThankYouForParticipating(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.thankYouForParticipating));
+  }
+
+  async longPressThankYouForParticipating(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.thankYouForParticipating));
+  }
+
+  async expectThankYouForParticipatingHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.thankYouForParticipating), timeoutMs);
+  }
+
+  async expectThankYouForParticipatingText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.thankYouForParticipating), expected, timeoutMs);
+  }
+
+  async expectThankYouForParticipatingContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.thankYouForParticipating), substring, timeoutMs);
+  }
+
+  async expectThankYouForParticipatingValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.thankYouForParticipating), value, timeoutMs);
+  }
+
+  async expectThankYouForParticipatingEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.thankYouForParticipating), timeoutMs);
+  }
+
+  async expectThankYouForParticipatingDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.thankYouForParticipating), timeoutMs);
+  }
+
+  async expectThankYouForParticipatingChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.thankYouForParticipating), timeoutMs);
+  }
+
+  async expectThankYouForParticipatingUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.thankYouForParticipating), timeoutMs);
+  }
+
+  async expectThankYouForParticipatingFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.thankYouForParticipating), timeoutMs);
+  }
+
+  async expectThankYouForParticipatingCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.thankYouForParticipating), count, timeoutMs);
+  }
+
+  async scrollThankYouForParticipatingIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.thankYouForParticipating));
+  }
+
+  async doubleClickCommsAnalystRelations(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.commsAnalystRelations));
+  }
+
+  async longPressCommsAnalystRelations(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.commsAnalystRelations));
+  }
+
+  async expectCommsAnalystRelationsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.commsAnalystRelations), timeoutMs);
+  }
+
+  async expectCommsAnalystRelationsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.commsAnalystRelations), expected, timeoutMs);
+  }
+
+  async expectCommsAnalystRelationsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.commsAnalystRelations), substring, timeoutMs);
+  }
+
+  async expectCommsAnalystRelationsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.commsAnalystRelations), value, timeoutMs);
+  }
+
+  async expectCommsAnalystRelationsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.commsAnalystRelations), timeoutMs);
+  }
+
+  async expectCommsAnalystRelationsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.commsAnalystRelations), timeoutMs);
+  }
+
+  async expectCommsAnalystRelationsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.commsAnalystRelations), timeoutMs);
+  }
+
+  async expectCommsAnalystRelationsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.commsAnalystRelations), timeoutMs);
+  }
+
+  async expectCommsAnalystRelationsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.commsAnalystRelations), timeoutMs);
+  }
+
+  async expectCommsAnalystRelationsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.commsAnalystRelations), count, timeoutMs);
+  }
+
+  async scrollCommsAnalystRelationsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.commsAnalystRelations));
+  }
+
+  async doubleClickBigWinFor(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.bigWinFor));
+  }
+
+  async longPressBigWinFor(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.bigWinFor));
+  }
+
+  async expectBigWinForHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.bigWinFor), timeoutMs);
+  }
+
+  async expectBigWinForText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.bigWinFor), expected, timeoutMs);
+  }
+
+  async expectBigWinForContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.bigWinFor), substring, timeoutMs);
+  }
+
+  async expectBigWinForValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.bigWinFor), value, timeoutMs);
+  }
+
+  async expectBigWinForEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.bigWinFor), timeoutMs);
+  }
+
+  async expectBigWinForDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.bigWinFor), timeoutMs);
+  }
+
+  async expectBigWinForChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.bigWinFor), timeoutMs);
+  }
+
+  async expectBigWinForUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.bigWinFor), timeoutMs);
+  }
+
+  async expectBigWinForFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.bigWinFor), timeoutMs);
+  }
+
+  async expectBigWinForCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.bigWinFor), count, timeoutMs);
+  }
+
+  async scrollBigWinForIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.bigWinFor));
+  }
+
+  async doubleClickTuneInTodayUkgAd(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.tuneInTodayUkgAd));
+  }
+
+  async longPressTuneInTodayUkgAd(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.tuneInTodayUkgAd));
+  }
+
+  async expectTuneInTodayUkgAdHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.tuneInTodayUkgAd), timeoutMs);
+  }
+
+  async expectTuneInTodayUkgAdText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.tuneInTodayUkgAd), expected, timeoutMs);
+  }
+
+  async expectTuneInTodayUkgAdContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.tuneInTodayUkgAd), substring, timeoutMs);
+  }
+
+  async expectTuneInTodayUkgAdValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.tuneInTodayUkgAd), value, timeoutMs);
+  }
+
+  async expectTuneInTodayUkgAdEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.tuneInTodayUkgAd), timeoutMs);
+  }
+
+  async expectTuneInTodayUkgAdDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.tuneInTodayUkgAd), timeoutMs);
+  }
+
+  async expectTuneInTodayUkgAdChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.tuneInTodayUkgAd), timeoutMs);
+  }
+
+  async expectTuneInTodayUkgAdUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.tuneInTodayUkgAd), timeoutMs);
+  }
+
+  async expectTuneInTodayUkgAdFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.tuneInTodayUkgAd), timeoutMs);
+  }
+
+  async expectTuneInTodayUkgAdCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.tuneInTodayUkgAd), count, timeoutMs);
+  }
+
+  async scrollTuneInTodayUkgAdIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.tuneInTodayUkgAd));
+  }
+
+  async clickElement3(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element3));
+  }
+
+  async doubleClickElement3(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element3));
+  }
+
+  async longPressElement3(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.element3));
+  }
+
+  async expectElement3Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.element3), timeoutMs);
+  }
+
+  async expectElement3Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.element3), expected, timeoutMs);
+  }
+
+  async expectElement3ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.element3), substring, timeoutMs);
+  }
+
+  async expectElement3Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.element3), value, timeoutMs);
+  }
+
+  async expectElement3Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.element3), timeoutMs);
+  }
+
+  async expectElement3Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.element3), timeoutMs);
+  }
+
+  async expectElement3Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.element3), timeoutMs);
+  }
+
+  async expectElement3Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.element3), timeoutMs);
+  }
+
+  async expectElement3Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.element3), timeoutMs);
+  }
+
+  async expectElement3Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.element3), count, timeoutMs);
+  }
+
+  async scrollElement3IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.element3));
+  }
+
+  async doubleClickAiHub(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.aiHub));
+  }
+
+  async longPressAiHub(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.aiHub));
+  }
+
+  async expectAiHubHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.aiHub), timeoutMs);
+  }
+
+  async expectAiHubText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.aiHub), expected, timeoutMs);
+  }
+
+  async expectAiHubContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.aiHub), substring, timeoutMs);
+  }
+
+  async expectAiHubValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.aiHub), value, timeoutMs);
+  }
+
+  async expectAiHubEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.aiHub), timeoutMs);
+  }
+
+  async expectAiHubDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.aiHub), timeoutMs);
+  }
+
+  async expectAiHubChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.aiHub), timeoutMs);
+  }
+
+  async expectAiHubUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.aiHub), timeoutMs);
+  }
+
+  async expectAiHubFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.aiHub), timeoutMs);
+  }
+
+  async expectAiHubCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.aiHub), count, timeoutMs);
+  }
+
+  async scrollAiHubIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.aiHub));
+  }
+
+  async doubleClickClaudeEnterpriseAccessFor(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.claudeEnterpriseAccessFor));
+  }
+
+  async longPressClaudeEnterpriseAccessFor(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.claudeEnterpriseAccessFor));
+  }
+
+  async expectClaudeEnterpriseAccessForHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.claudeEnterpriseAccessFor), timeoutMs);
+  }
+
+  async expectClaudeEnterpriseAccessForText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.claudeEnterpriseAccessFor), expected, timeoutMs);
+  }
+
+  async expectClaudeEnterpriseAccessForContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.claudeEnterpriseAccessFor), substring, timeoutMs);
+  }
+
+  async expectClaudeEnterpriseAccessForValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.claudeEnterpriseAccessFor), value, timeoutMs);
+  }
+
+  async expectClaudeEnterpriseAccessForEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.claudeEnterpriseAccessFor), timeoutMs);
+  }
+
+  async expectClaudeEnterpriseAccessForDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.claudeEnterpriseAccessFor), timeoutMs);
+  }
+
+  async expectClaudeEnterpriseAccessForChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.claudeEnterpriseAccessFor), timeoutMs);
+  }
+
+  async expectClaudeEnterpriseAccessForUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.claudeEnterpriseAccessFor), timeoutMs);
+  }
+
+  async expectClaudeEnterpriseAccessForFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.claudeEnterpriseAccessFor), timeoutMs);
+  }
+
+  async expectClaudeEnterpriseAccessForCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.claudeEnterpriseAccessFor), count, timeoutMs);
+  }
+
+  async scrollClaudeEnterpriseAccessForIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.claudeEnterpriseAccessFor));
+  }
+
+  async doubleClickNewProcessForChatGPT(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.newProcessForChatGPT));
+  }
+
+  async longPressNewProcessForChatGPT(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.newProcessForChatGPT));
+  }
+
+  async expectNewProcessForChatGPTHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.newProcessForChatGPT), timeoutMs);
+  }
+
+  async expectNewProcessForChatGPTText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.newProcessForChatGPT), expected, timeoutMs);
+  }
+
+  async expectNewProcessForChatGPTContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.newProcessForChatGPT), substring, timeoutMs);
+  }
+
+  async expectNewProcessForChatGPTValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.newProcessForChatGPT), value, timeoutMs);
+  }
+
+  async expectNewProcessForChatGPTEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.newProcessForChatGPT), timeoutMs);
+  }
+
+  async expectNewProcessForChatGPTDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.newProcessForChatGPT), timeoutMs);
+  }
+
+  async expectNewProcessForChatGPTChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.newProcessForChatGPT), timeoutMs);
+  }
+
+  async expectNewProcessForChatGPTUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.newProcessForChatGPT), timeoutMs);
+  }
+
+  async expectNewProcessForChatGPTFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.newProcessForChatGPT), timeoutMs);
+  }
+
+  async expectNewProcessForChatGPTCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.newProcessForChatGPT), count, timeoutMs);
+  }
+
+  async scrollNewProcessForChatGPTIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.newProcessForChatGPT));
+  }
+
+  async doubleClickCx(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.cx));
+  }
+
+  async longPressCx(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.cx));
+  }
+
+  async expectCxHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.cx), timeoutMs);
+  }
+
+  async expectCxText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.cx), expected, timeoutMs);
+  }
+
+  async expectCxContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.cx), substring, timeoutMs);
+  }
+
+  async expectCxValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.cx), value, timeoutMs);
+  }
+
+  async expectCxEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.cx), timeoutMs);
+  }
+
+  async expectCxDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.cx), timeoutMs);
+  }
+
+  async expectCxChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.cx), timeoutMs);
+  }
+
+  async expectCxUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.cx), timeoutMs);
+  }
+
+  async expectCxFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.cx), timeoutMs);
+  }
+
+  async expectCxCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.cx), count, timeoutMs);
+  }
+
+  async scrollCxIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.cx));
+  }
+
+  async doubleClickPurposeLeadershipJourney(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.purposeLeadershipJourney));
+  }
+
+  async longPressPurposeLeadershipJourney(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.purposeLeadershipJourney));
+  }
+
+  async expectPurposeLeadershipJourneyHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.purposeLeadershipJourney), timeoutMs);
+  }
+
+  async expectPurposeLeadershipJourneyText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.purposeLeadershipJourney), expected, timeoutMs);
+  }
+
+  async expectPurposeLeadershipJourneyContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.purposeLeadershipJourney), substring, timeoutMs);
+  }
+
+  async expectPurposeLeadershipJourneyValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.purposeLeadershipJourney), value, timeoutMs);
+  }
+
+  async expectPurposeLeadershipJourneyEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.purposeLeadershipJourney), timeoutMs);
+  }
+
+  async expectPurposeLeadershipJourneyDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.purposeLeadershipJourney), timeoutMs);
+  }
+
+  async expectPurposeLeadershipJourneyChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.purposeLeadershipJourney), timeoutMs);
+  }
+
+  async expectPurposeLeadershipJourneyUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.purposeLeadershipJourney), timeoutMs);
+  }
+
+  async expectPurposeLeadershipJourneyFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.purposeLeadershipJourney), timeoutMs);
+  }
+
+  async expectPurposeLeadershipJourneyCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.purposeLeadershipJourney), count, timeoutMs);
+  }
+
+  async scrollPurposeLeadershipJourneyIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.purposeLeadershipJourney));
+  }
+
+  async doubleClickPhotoOfTheWeekLink(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeekLink));
+  }
+
+  async longPressPhotoOfTheWeekLink(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeekLink));
+  }
+
+  async expectPhotoOfTheWeekLinkHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeekLink), timeoutMs);
+  }
+
+  async expectPhotoOfTheWeekLinkText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeekLink), expected, timeoutMs);
+  }
+
+  async expectPhotoOfTheWeekLinkContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeekLink), substring, timeoutMs);
+  }
+
+  async expectPhotoOfTheWeekLinkValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeekLink), value, timeoutMs);
+  }
+
+  async expectPhotoOfTheWeekLinkEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeekLink), timeoutMs);
+  }
+
+  async expectPhotoOfTheWeekLinkDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeekLink), timeoutMs);
+  }
+
+  async expectPhotoOfTheWeekLinkChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeekLink), timeoutMs);
+  }
+
+  async expectPhotoOfTheWeekLinkUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeekLink), timeoutMs);
+  }
+
+  async expectPhotoOfTheWeekLinkFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeekLink), timeoutMs);
+  }
+
+  async expectPhotoOfTheWeekLinkCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeekLink), count, timeoutMs);
+  }
+
+  async scrollPhotoOfTheWeekLinkIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.photoOfTheWeekLink));
+  }
+
+  async doubleClickProductEngineeringProduct(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.productEngineeringProduct));
+  }
+
+  async longPressProductEngineeringProduct(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.productEngineeringProduct));
+  }
+
+  async expectProductEngineeringProductHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.productEngineeringProduct), timeoutMs);
+  }
+
+  async expectProductEngineeringProductText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.productEngineeringProduct), expected, timeoutMs);
+  }
+
+  async expectProductEngineeringProductContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.productEngineeringProduct), substring, timeoutMs);
+  }
+
+  async expectProductEngineeringProductValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.productEngineeringProduct), value, timeoutMs);
+  }
+
+  async expectProductEngineeringProductEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.productEngineeringProduct), timeoutMs);
+  }
+
+  async expectProductEngineeringProductDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.productEngineeringProduct), timeoutMs);
+  }
+
+  async expectProductEngineeringProductChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.productEngineeringProduct), timeoutMs);
+  }
+
+  async expectProductEngineeringProductUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.productEngineeringProduct), timeoutMs);
+  }
+
+  async expectProductEngineeringProductFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.productEngineeringProduct), timeoutMs);
+  }
+
+  async expectProductEngineeringProductCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.productEngineeringProduct), count, timeoutMs);
+  }
+
+  async scrollProductEngineeringProductIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.productEngineeringProduct));
+  }
+
+  async doubleClickHowTheNewExperience(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.howTheNewExperience));
+  }
+
+  async longPressHowTheNewExperience(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.howTheNewExperience));
+  }
+
+  async expectHowTheNewExperienceHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.howTheNewExperience), timeoutMs);
+  }
+
+  async expectHowTheNewExperienceText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.howTheNewExperience), expected, timeoutMs);
+  }
+
+  async expectHowTheNewExperienceContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.howTheNewExperience), substring, timeoutMs);
+  }
+
+  async expectHowTheNewExperienceValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.howTheNewExperience), value, timeoutMs);
+  }
+
+  async expectHowTheNewExperienceEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.howTheNewExperience), timeoutMs);
+  }
+
+  async expectHowTheNewExperienceDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.howTheNewExperience), timeoutMs);
+  }
+
+  async expectHowTheNewExperienceChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.howTheNewExperience), timeoutMs);
+  }
+
+  async expectHowTheNewExperienceUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.howTheNewExperience), timeoutMs);
+  }
+
+  async expectHowTheNewExperienceFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.howTheNewExperience), timeoutMs);
+  }
+
+  async expectHowTheNewExperienceCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.howTheNewExperience), count, timeoutMs);
+  }
+
+  async scrollHowTheNewExperienceIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.howTheNewExperience));
+  }
+
+  async clickElement4(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element4));
+  }
+
+  async doubleClickElement4(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element4));
+  }
+
+  async longPressElement4(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.element4));
+  }
+
+  async expectElement4Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.element4), timeoutMs);
+  }
+
+  async expectElement4Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.element4), expected, timeoutMs);
+  }
+
+  async expectElement4ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.element4), substring, timeoutMs);
+  }
+
+  async expectElement4Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.element4), value, timeoutMs);
+  }
+
+  async expectElement4Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.element4), timeoutMs);
+  }
+
+  async expectElement4Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.element4), timeoutMs);
+  }
+
+  async expectElement4Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.element4), timeoutMs);
+  }
+
+  async expectElement4Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.element4), timeoutMs);
+  }
+
+  async expectElement4Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.element4), timeoutMs);
+  }
+
+  async expectElement4Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.element4), count, timeoutMs);
+  }
+
+  async scrollElement4IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.element4));
+  }
+
+  async doubleClickThatSAWrapUkgS(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.thatSAWrapUkgS));
+  }
+
+  async longPressThatSAWrapUkgS(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.thatSAWrapUkgS));
+  }
+
+  async expectThatSAWrapUkgSHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.thatSAWrapUkgS), timeoutMs);
+  }
+
+  async expectThatSAWrapUkgSText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.thatSAWrapUkgS), expected, timeoutMs);
+  }
+
+  async expectThatSAWrapUkgSContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.thatSAWrapUkgS), substring, timeoutMs);
+  }
+
+  async expectThatSAWrapUkgSValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.thatSAWrapUkgS), value, timeoutMs);
+  }
+
+  async expectThatSAWrapUkgSEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.thatSAWrapUkgS), timeoutMs);
+  }
+
+  async expectThatSAWrapUkgSDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.thatSAWrapUkgS), timeoutMs);
+  }
+
+  async expectThatSAWrapUkgSChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.thatSAWrapUkgS), timeoutMs);
+  }
+
+  async expectThatSAWrapUkgSUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.thatSAWrapUkgS), timeoutMs);
+  }
+
+  async expectThatSAWrapUkgSFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.thatSAWrapUkgS), timeoutMs);
+  }
+
+  async expectThatSAWrapUkgSCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.thatSAWrapUkgS), count, timeoutMs);
+  }
+
+  async scrollThatSAWrapUkgSIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.thatSAWrapUkgS));
+  }
+
+  async clickElement5(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element5));
+  }
+
+  async doubleClickElement5(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element5));
+  }
+
+  async longPressElement5(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.element5));
+  }
+
+  async expectElement5Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.element5), timeoutMs);
+  }
+
+  async expectElement5Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.element5), expected, timeoutMs);
+  }
+
+  async expectElement5ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.element5), substring, timeoutMs);
+  }
+
+  async expectElement5Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.element5), value, timeoutMs);
+  }
+
+  async expectElement5Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.element5), timeoutMs);
+  }
+
+  async expectElement5Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.element5), timeoutMs);
+  }
+
+  async expectElement5Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.element5), timeoutMs);
+  }
+
+  async expectElement5Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.element5), timeoutMs);
+  }
+
+  async expectElement5Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.element5), timeoutMs);
+  }
+
+  async expectElement5Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.element5), count, timeoutMs);
+  }
+
+  async scrollElement5IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.element5));
+  }
+
+  async doubleClickWhatSNewOnUkg(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.whatSNewOnUkg));
+  }
+
+  async longPressWhatSNewOnUkg(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.whatSNewOnUkg));
+  }
+
+  async expectWhatSNewOnUkgHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.whatSNewOnUkg), timeoutMs);
+  }
+
+  async expectWhatSNewOnUkgText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.whatSNewOnUkg), expected, timeoutMs);
+  }
+
+  async expectWhatSNewOnUkgContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.whatSNewOnUkg), substring, timeoutMs);
+  }
+
+  async expectWhatSNewOnUkgValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.whatSNewOnUkg), value, timeoutMs);
+  }
+
+  async expectWhatSNewOnUkgEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.whatSNewOnUkg), timeoutMs);
+  }
+
+  async expectWhatSNewOnUkgDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.whatSNewOnUkg), timeoutMs);
+  }
+
+  async expectWhatSNewOnUkgChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.whatSNewOnUkg), timeoutMs);
+  }
+
+  async expectWhatSNewOnUkgUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.whatSNewOnUkg), timeoutMs);
+  }
+
+  async expectWhatSNewOnUkgFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.whatSNewOnUkg), timeoutMs);
+  }
+
+  async expectWhatSNewOnUkgCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.whatSNewOnUkg), count, timeoutMs);
+  }
+
+  async scrollWhatSNewOnUkgIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.whatSNewOnUkg));
+  }
+
+  async doubleClickGtm(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.gtm));
+  }
+
+  async longPressGtm(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.gtm));
+  }
+
+  async expectGtmHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.gtm), timeoutMs);
+  }
+
+  async expectGtmText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.gtm), expected, timeoutMs);
+  }
+
+  async expectGtmContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.gtm), substring, timeoutMs);
+  }
+
+  async expectGtmValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.gtm), value, timeoutMs);
+  }
+
+  async expectGtmEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.gtm), timeoutMs);
+  }
+
+  async expectGtmDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.gtm), timeoutMs);
+  }
+
+  async expectGtmChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.gtm), timeoutMs);
+  }
+
+  async expectGtmUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.gtm), timeoutMs);
+  }
+
+  async expectGtmFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.gtm), timeoutMs);
+  }
+
+  async expectGtmCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.gtm), count, timeoutMs);
+  }
+
+  async scrollGtmIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.gtm));
+  }
+
+  async doubleClickWelcomingSeanWdowiakGvp(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.welcomingSeanWdowiakGvp));
+  }
+
+  async longPressWelcomingSeanWdowiakGvp(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.welcomingSeanWdowiakGvp));
+  }
+
+  async expectWelcomingSeanWdowiakGvpHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.welcomingSeanWdowiakGvp), timeoutMs);
+  }
+
+  async expectWelcomingSeanWdowiakGvpText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.welcomingSeanWdowiakGvp), expected, timeoutMs);
+  }
+
+  async expectWelcomingSeanWdowiakGvpContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.welcomingSeanWdowiakGvp), substring, timeoutMs);
+  }
+
+  async expectWelcomingSeanWdowiakGvpValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.welcomingSeanWdowiakGvp), value, timeoutMs);
+  }
+
+  async expectWelcomingSeanWdowiakGvpEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.welcomingSeanWdowiakGvp), timeoutMs);
+  }
+
+  async expectWelcomingSeanWdowiakGvpDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.welcomingSeanWdowiakGvp), timeoutMs);
+  }
+
+  async expectWelcomingSeanWdowiakGvpChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.welcomingSeanWdowiakGvp), timeoutMs);
+  }
+
+  async expectWelcomingSeanWdowiakGvpUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.welcomingSeanWdowiakGvp), timeoutMs);
+  }
+
+  async expectWelcomingSeanWdowiakGvpFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.welcomingSeanWdowiakGvp), timeoutMs);
+  }
+
+  async expectWelcomingSeanWdowiakGvpCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.welcomingSeanWdowiakGvp), count, timeoutMs);
+  }
+
+  async scrollWelcomingSeanWdowiakGvpIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.welcomingSeanWdowiakGvp));
+  }
+
+  async clickElement6(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element6));
+  }
+
+  async doubleClickElement6(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element6));
+  }
+
+  async longPressElement6(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.element6));
+  }
+
+  async expectElement6Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.element6), timeoutMs);
+  }
+
+  async expectElement6Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.element6), expected, timeoutMs);
+  }
+
+  async expectElement6ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.element6), substring, timeoutMs);
+  }
+
+  async expectElement6Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.element6), value, timeoutMs);
+  }
+
+  async expectElement6Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.element6), timeoutMs);
+  }
+
+  async expectElement6Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.element6), timeoutMs);
+  }
+
+  async expectElement6Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.element6), timeoutMs);
+  }
+
+  async expectElement6Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.element6), timeoutMs);
+  }
+
+  async expectElement6Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.element6), timeoutMs);
+  }
+
+  async expectElement6Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.element6), count, timeoutMs);
+  }
+
+  async scrollElement6IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.element6));
+  }
+
+  async doubleClickGtmBrandHub(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.gtmBrandHub));
+  }
+
+  async longPressGtmBrandHub(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.gtmBrandHub));
+  }
+
+  async expectGtmBrandHubHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.gtmBrandHub), timeoutMs);
+  }
+
+  async expectGtmBrandHubText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.gtmBrandHub), expected, timeoutMs);
+  }
+
+  async expectGtmBrandHubContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.gtmBrandHub), substring, timeoutMs);
+  }
+
+  async expectGtmBrandHubValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.gtmBrandHub), value, timeoutMs);
+  }
+
+  async expectGtmBrandHubEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.gtmBrandHub), timeoutMs);
+  }
+
+  async expectGtmBrandHubDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.gtmBrandHub), timeoutMs);
+  }
+
+  async expectGtmBrandHubChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.gtmBrandHub), timeoutMs);
+  }
+
+  async expectGtmBrandHubUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.gtmBrandHub), timeoutMs);
+  }
+
+  async expectGtmBrandHubFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.gtmBrandHub), timeoutMs);
+  }
+
+  async expectGtmBrandHubCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.gtmBrandHub), count, timeoutMs);
+  }
+
+  async scrollGtmBrandHubIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.gtmBrandHub));
+  }
+
+  async doubleClickSpotTheFrameConnect(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.spotTheFrameConnect));
+  }
+
+  async longPressSpotTheFrameConnect(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.spotTheFrameConnect));
+  }
+
+  async expectSpotTheFrameConnectHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.spotTheFrameConnect), timeoutMs);
+  }
+
+  async expectSpotTheFrameConnectText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.spotTheFrameConnect), expected, timeoutMs);
+  }
+
+  async expectSpotTheFrameConnectContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.spotTheFrameConnect), substring, timeoutMs);
+  }
+
+  async expectSpotTheFrameConnectValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.spotTheFrameConnect), value, timeoutMs);
+  }
+
+  async expectSpotTheFrameConnectEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.spotTheFrameConnect), timeoutMs);
+  }
+
+  async expectSpotTheFrameConnectDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.spotTheFrameConnect), timeoutMs);
+  }
+
+  async expectSpotTheFrameConnectChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.spotTheFrameConnect), timeoutMs);
+  }
+
+  async expectSpotTheFrameConnectUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.spotTheFrameConnect), timeoutMs);
+  }
+
+  async expectSpotTheFrameConnectFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.spotTheFrameConnect), timeoutMs);
+  }
+
+  async expectSpotTheFrameConnectCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.spotTheFrameConnect), count, timeoutMs);
+  }
+
+  async scrollSpotTheFrameConnectIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.spotTheFrameConnect));
+  }
+
+  async clickElement7(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element7));
+  }
+
+  async doubleClickElement7(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element7));
+  }
+
+  async longPressElement7(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.element7));
+  }
+
+  async expectElement7Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.element7), timeoutMs);
+  }
+
+  async expectElement7Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.element7), expected, timeoutMs);
+  }
+
+  async expectElement7ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.element7), substring, timeoutMs);
+  }
+
+  async expectElement7Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.element7), value, timeoutMs);
+  }
+
+  async expectElement7Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.element7), timeoutMs);
+  }
+
+  async expectElement7Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.element7), timeoutMs);
+  }
+
+  async expectElement7Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.element7), timeoutMs);
+  }
+
+  async expectElement7Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.element7), timeoutMs);
+  }
+
+  async expectElement7Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.element7), timeoutMs);
+  }
+
+  async expectElement7Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.element7), count, timeoutMs);
+  }
+
+  async scrollElement7IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.element7));
+  }
+
+  async doubleClickWhatSecuritySeesRansomware(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.whatSecuritySeesRansomware));
+  }
+
+  async longPressWhatSecuritySeesRansomware(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.whatSecuritySeesRansomware));
+  }
+
+  async expectWhatSecuritySeesRansomwareHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.whatSecuritySeesRansomware), timeoutMs);
+  }
+
+  async expectWhatSecuritySeesRansomwareText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.whatSecuritySeesRansomware), expected, timeoutMs);
+  }
+
+  async expectWhatSecuritySeesRansomwareContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.whatSecuritySeesRansomware), substring, timeoutMs);
+  }
+
+  async expectWhatSecuritySeesRansomwareValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.whatSecuritySeesRansomware), value, timeoutMs);
+  }
+
+  async expectWhatSecuritySeesRansomwareEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.whatSecuritySeesRansomware), timeoutMs);
+  }
+
+  async expectWhatSecuritySeesRansomwareDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.whatSecuritySeesRansomware), timeoutMs);
+  }
+
+  async expectWhatSecuritySeesRansomwareChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.whatSecuritySeesRansomware), timeoutMs);
+  }
+
+  async expectWhatSecuritySeesRansomwareUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.whatSecuritySeesRansomware), timeoutMs);
+  }
+
+  async expectWhatSecuritySeesRansomwareFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.whatSecuritySeesRansomware), timeoutMs);
+  }
+
+  async expectWhatSecuritySeesRansomwareCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.whatSecuritySeesRansomware), count, timeoutMs);
+  }
+
+  async scrollWhatSecuritySeesRansomwareIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.whatSecuritySeesRansomware));
+  }
+
+  async clickElement8(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element8));
+  }
+
+  async doubleClickElement8(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element8));
+  }
+
+  async longPressElement8(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.element8));
+  }
+
+  async expectElement8Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.element8), timeoutMs);
+  }
+
+  async expectElement8Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.element8), expected, timeoutMs);
+  }
+
+  async expectElement8ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.element8), substring, timeoutMs);
+  }
+
+  async expectElement8Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.element8), value, timeoutMs);
+  }
+
+  async expectElement8Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.element8), timeoutMs);
+  }
+
+  async expectElement8Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.element8), timeoutMs);
+  }
+
+  async expectElement8Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.element8), timeoutMs);
+  }
+
+  async expectElement8Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.element8), timeoutMs);
+  }
+
+  async expectElement8Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.element8), timeoutMs);
+  }
+
+  async expectElement8Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.element8), count, timeoutMs);
+  }
+
+  async scrollElement8IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.element8));
+  }
+
+  async doubleClickExploreChatGPTCodexIn(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.exploreChatGPTCodexIn));
+  }
+
+  async longPressExploreChatGPTCodexIn(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.exploreChatGPTCodexIn));
+  }
+
+  async expectExploreChatGPTCodexInHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.exploreChatGPTCodexIn), timeoutMs);
+  }
+
+  async expectExploreChatGPTCodexInText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.exploreChatGPTCodexIn), expected, timeoutMs);
+  }
+
+  async expectExploreChatGPTCodexInContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.exploreChatGPTCodexIn), substring, timeoutMs);
+  }
+
+  async expectExploreChatGPTCodexInValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.exploreChatGPTCodexIn), value, timeoutMs);
+  }
+
+  async expectExploreChatGPTCodexInEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.exploreChatGPTCodexIn), timeoutMs);
+  }
+
+  async expectExploreChatGPTCodexInDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.exploreChatGPTCodexIn), timeoutMs);
+  }
+
+  async expectExploreChatGPTCodexInChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.exploreChatGPTCodexIn), timeoutMs);
+  }
+
+  async expectExploreChatGPTCodexInUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.exploreChatGPTCodexIn), timeoutMs);
+  }
+
+  async expectExploreChatGPTCodexInFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.exploreChatGPTCodexIn), timeoutMs);
+  }
+
+  async expectExploreChatGPTCodexInCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.exploreChatGPTCodexIn), count, timeoutMs);
+  }
+
+  async scrollExploreChatGPTCodexInIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.exploreChatGPTCodexIn));
+  }
+
+  async clickUpcomingEvents(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.upcomingEvents));
+  }
+
+  async doubleClickUpcomingEvents(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.upcomingEvents));
+  }
+
+  async longPressUpcomingEvents(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.upcomingEvents));
+  }
+
+  async expectUpcomingEventsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.upcomingEvents), timeoutMs);
+  }
+
+  async expectUpcomingEventsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.upcomingEvents), expected, timeoutMs);
+  }
+
+  async expectUpcomingEventsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.upcomingEvents), substring, timeoutMs);
+  }
+
+  async expectUpcomingEventsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.upcomingEvents), value, timeoutMs);
+  }
+
+  async expectUpcomingEventsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.upcomingEvents), timeoutMs);
+  }
+
+  async expectUpcomingEventsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.upcomingEvents), timeoutMs);
+  }
+
+  async expectUpcomingEventsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.upcomingEvents), timeoutMs);
+  }
+
+  async expectUpcomingEventsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.upcomingEvents), timeoutMs);
+  }
+
+  async expectUpcomingEventsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.upcomingEvents), timeoutMs);
+  }
+
+  async expectUpcomingEventsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.upcomingEvents), count, timeoutMs);
+  }
+
+  async scrollUpcomingEventsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.upcomingEvents));
+  }
+
+  async longPressSeeAll(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.seeAll));
+  }
+
+  async expectSeeAllHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.seeAll), timeoutMs);
+  }
+
+  async expectSeeAllText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.seeAll), expected, timeoutMs);
+  }
+
+  async expectSeeAllContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.seeAll), substring, timeoutMs);
+  }
+
+  async expectSeeAllValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.seeAll), value, timeoutMs);
+  }
+
+  async expectSeeAllEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.seeAll), timeoutMs);
+  }
+
+  async expectSeeAllDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.seeAll), timeoutMs);
+  }
+
+  async expectSeeAllChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.seeAll), timeoutMs);
+  }
+
+  async expectSeeAllUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.seeAll), timeoutMs);
+  }
+
+  async expectSeeAllFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.seeAll), timeoutMs);
+  }
+
+  async expectSeeAllCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.seeAll), count, timeoutMs);
+  }
+
+  async scrollSeeAllIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.seeAll));
+  }
+
+  async doubleClickCategoryAll(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.categoryAll));
+  }
+
+  async longPressCategoryAll(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.categoryAll));
+  }
+
+  async expectCategoryAllHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.categoryAll), timeoutMs);
+  }
+
+  async expectCategoryAllText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.categoryAll), expected, timeoutMs);
+  }
+
+  async expectCategoryAllContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.categoryAll), substring, timeoutMs);
+  }
+
+  async expectCategoryAllValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.categoryAll), value, timeoutMs);
+  }
+
+  async expectCategoryAllEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.categoryAll), timeoutMs);
+  }
+
+  async expectCategoryAllDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.categoryAll), timeoutMs);
+  }
+
+  async expectCategoryAllChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.categoryAll), timeoutMs);
+  }
+
+  async expectCategoryAllUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.categoryAll), timeoutMs);
+  }
+
+  async expectCategoryAllFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.categoryAll), timeoutMs);
+  }
+
+  async expectCategoryAllCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.categoryAll), count, timeoutMs);
+  }
+
+  async scrollCategoryAllIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.categoryAll));
+  }
+
+  async clickJul(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.jul));
+  }
+
+  async doubleClickJul(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.jul));
+  }
+
+  async longPressJul(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.jul));
+  }
+
+  async expectJulHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.jul), timeoutMs);
+  }
+
+  async expectJulText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.jul), expected, timeoutMs);
+  }
+
+  async expectJulContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.jul), substring, timeoutMs);
+  }
+
+  async expectJulValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.jul), value, timeoutMs);
+  }
+
+  async expectJulEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.jul), timeoutMs);
+  }
+
+  async expectJulDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.jul), timeoutMs);
+  }
+
+  async expectJulChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.jul), timeoutMs);
+  }
+
+  async expectJulUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.jul), timeoutMs);
+  }
+
+  async expectJulFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.jul), timeoutMs);
+  }
+
+  async expectJulCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.jul), count, timeoutMs);
+  }
+
+  async scrollJulIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.jul));
+  }
+
+  async clickElement9(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element9));
+  }
+
+  async doubleClickElement9(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element9));
+  }
+
+  async longPressElement9(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.element9));
+  }
+
+  async expectElement9Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.element9), timeoutMs);
+  }
+
+  async expectElement9Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.element9), expected, timeoutMs);
+  }
+
+  async expectElement9ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.element9), substring, timeoutMs);
+  }
+
+  async expectElement9Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.element9), value, timeoutMs);
+  }
+
+  async expectElement9Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.element9), timeoutMs);
+  }
+
+  async expectElement9Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.element9), timeoutMs);
+  }
+
+  async expectElement9Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.element9), timeoutMs);
+  }
+
+  async expectElement9Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.element9), timeoutMs);
+  }
+
+  async expectElement9Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.element9), timeoutMs);
+  }
+
+  async expectElement9Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.element9), count, timeoutMs);
+  }
+
+  async scrollElement9IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.element9));
+  }
+
+  async doubleClickPeopleBenefits(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleBenefits));
+  }
+
+  async longPressPeopleBenefits(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleBenefits));
+  }
+
+  async expectPeopleBenefitsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.peopleBenefits), timeoutMs);
+  }
+
+  async expectPeopleBenefitsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.peopleBenefits), expected, timeoutMs);
+  }
+
+  async expectPeopleBenefitsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.peopleBenefits), substring, timeoutMs);
+  }
+
+  async expectPeopleBenefitsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.peopleBenefits), value, timeoutMs);
+  }
+
+  async expectPeopleBenefitsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.peopleBenefits), timeoutMs);
+  }
+
+  async expectPeopleBenefitsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.peopleBenefits), timeoutMs);
+  }
+
+  async expectPeopleBenefitsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.peopleBenefits), timeoutMs);
+  }
+
+  async expectPeopleBenefitsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.peopleBenefits), timeoutMs);
+  }
+
+  async expectPeopleBenefitsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.peopleBenefits), timeoutMs);
+  }
+
+  async expectPeopleBenefitsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.peopleBenefits), count, timeoutMs);
+  }
+
+  async scrollPeopleBenefitsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleBenefits));
+  }
+
+  async clickStretchRelax(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.stretchRelax));
+  }
+
+  async doubleClickStretchRelax(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.stretchRelax));
+  }
+
+  async longPressStretchRelax(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.stretchRelax));
+  }
+
+  async expectStretchRelaxHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.stretchRelax), timeoutMs);
+  }
+
+  async expectStretchRelaxText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.stretchRelax), expected, timeoutMs);
+  }
+
+  async expectStretchRelaxContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.stretchRelax), substring, timeoutMs);
+  }
+
+  async expectStretchRelaxValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.stretchRelax), value, timeoutMs);
+  }
+
+  async expectStretchRelaxEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.stretchRelax), timeoutMs);
+  }
+
+  async expectStretchRelaxDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.stretchRelax), timeoutMs);
+  }
+
+  async expectStretchRelaxChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.stretchRelax), timeoutMs);
+  }
+
+  async expectStretchRelaxUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.stretchRelax), timeoutMs);
+  }
+
+  async expectStretchRelaxFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.stretchRelax), timeoutMs);
+  }
+
+  async expectStretchRelaxCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.stretchRelax), count, timeoutMs);
+  }
+
+  async scrollStretchRelaxIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.stretchRelax));
+  }
+
+  async clickVirtual(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.virtual));
+  }
+
+  async doubleClickVirtual(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.virtual));
+  }
+
+  async longPressVirtual(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.virtual));
+  }
+
+  async expectVirtualHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.virtual), timeoutMs);
+  }
+
+  async expectVirtualText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.virtual), expected, timeoutMs);
+  }
+
+  async expectVirtualContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.virtual), substring, timeoutMs);
+  }
+
+  async expectVirtualValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.virtual), value, timeoutMs);
+  }
+
+  async expectVirtualEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.virtual), timeoutMs);
+  }
+
+  async expectVirtualDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.virtual), timeoutMs);
+  }
+
+  async expectVirtualChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.virtual), timeoutMs);
+  }
+
+  async expectVirtualUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.virtual), timeoutMs);
+  }
+
+  async expectVirtualFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.virtual), timeoutMs);
+  }
+
+  async expectVirtualCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.virtual), count, timeoutMs);
+  }
+
+  async scrollVirtualIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.virtual));
+  }
+
+  async clickElement10(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element10));
+  }
+
+  async doubleClickElement10(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element10));
+  }
+
+  async longPressElement10(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.element10));
+  }
+
+  async expectElement10Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.element10), timeoutMs);
+  }
+
+  async expectElement10Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.element10), expected, timeoutMs);
+  }
+
+  async expectElement10ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.element10), substring, timeoutMs);
+  }
+
+  async expectElement10Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.element10), value, timeoutMs);
+  }
+
+  async expectElement10Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.element10), timeoutMs);
+  }
+
+  async expectElement10Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.element10), timeoutMs);
+  }
+
+  async expectElement10Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.element10), timeoutMs);
+  }
+
+  async expectElement10Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.element10), timeoutMs);
+  }
+
+  async expectElement10Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.element10), timeoutMs);
+  }
+
+  async expectElement10Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.element10), count, timeoutMs);
+  }
+
+  async scrollElement10IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.element10));
+  }
+
+  async clickCoreMore(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.coreMore));
+  }
+
+  async doubleClickCoreMore(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.coreMore));
+  }
+
+  async longPressCoreMore(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.coreMore));
+  }
+
+  async expectCoreMoreHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.coreMore), timeoutMs);
+  }
+
+  async expectCoreMoreText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.coreMore), expected, timeoutMs);
+  }
+
+  async expectCoreMoreContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.coreMore), substring, timeoutMs);
+  }
+
+  async expectCoreMoreValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.coreMore), value, timeoutMs);
+  }
+
+  async expectCoreMoreEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.coreMore), timeoutMs);
+  }
+
+  async expectCoreMoreDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.coreMore), timeoutMs);
+  }
+
+  async expectCoreMoreChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.coreMore), timeoutMs);
+  }
+
+  async expectCoreMoreUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.coreMore), timeoutMs);
+  }
+
+  async expectCoreMoreFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.coreMore), timeoutMs);
+  }
+
+  async expectCoreMoreCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.coreMore), count, timeoutMs);
+  }
+
+  async scrollCoreMoreIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.coreMore));
+  }
+
+  async clickElement11(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element11));
+  }
+
+  async doubleClickElement11(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element11));
+  }
+
+  async longPressElement11(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.element11));
+  }
+
+  async expectElement11Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.element11), timeoutMs);
+  }
+
+  async expectElement11Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.element11), expected, timeoutMs);
+  }
+
+  async expectElement11ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.element11), substring, timeoutMs);
+  }
+
+  async expectElement11Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.element11), value, timeoutMs);
+  }
+
+  async expectElement11Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.element11), timeoutMs);
+  }
+
+  async expectElement11Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.element11), timeoutMs);
+  }
+
+  async expectElement11Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.element11), timeoutMs);
+  }
+
+  async expectElement11Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.element11), timeoutMs);
+  }
+
+  async expectElement11Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.element11), timeoutMs);
+  }
+
+  async expectElement11Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.element11), count, timeoutMs);
+  }
+
+  async scrollElement11IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.element11));
+  }
+
+  async doubleClickPeopleUkgRise(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgRise));
+  }
+
+  async longPressPeopleUkgRise(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgRise));
+  }
+
+  async expectPeopleUkgRiseHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.peopleUkgRise), timeoutMs);
+  }
+
+  async expectPeopleUkgRiseText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.peopleUkgRise), expected, timeoutMs);
+  }
+
+  async expectPeopleUkgRiseContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.peopleUkgRise), substring, timeoutMs);
+  }
+
+  async expectPeopleUkgRiseValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.peopleUkgRise), value, timeoutMs);
+  }
+
+  async expectPeopleUkgRiseEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.peopleUkgRise), timeoutMs);
+  }
+
+  async expectPeopleUkgRiseDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.peopleUkgRise), timeoutMs);
+  }
+
+  async expectPeopleUkgRiseChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.peopleUkgRise), timeoutMs);
+  }
+
+  async expectPeopleUkgRiseUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.peopleUkgRise), timeoutMs);
+  }
+
+  async expectPeopleUkgRiseFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.peopleUkgRise), timeoutMs);
+  }
+
+  async expectPeopleUkgRiseCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.peopleUkgRise), count, timeoutMs);
+  }
+
+  async scrollPeopleUkgRiseIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgRise));
+  }
+
+  async clickUkgRiseHeritage(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgRiseHeritage));
+  }
+
+  async doubleClickUkgRiseHeritage(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgRiseHeritage));
+  }
+
+  async longPressUkgRiseHeritage(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgRiseHeritage));
+  }
+
+  async expectUkgRiseHeritageHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.ukgRiseHeritage), timeoutMs);
+  }
+
+  async expectUkgRiseHeritageText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.ukgRiseHeritage), expected, timeoutMs);
+  }
+
+  async expectUkgRiseHeritageContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.ukgRiseHeritage), substring, timeoutMs);
+  }
+
+  async expectUkgRiseHeritageValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.ukgRiseHeritage), value, timeoutMs);
+  }
+
+  async expectUkgRiseHeritageEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.ukgRiseHeritage), timeoutMs);
+  }
+
+  async expectUkgRiseHeritageDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.ukgRiseHeritage), timeoutMs);
+  }
+
+  async expectUkgRiseHeritageChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.ukgRiseHeritage), timeoutMs);
+  }
+
+  async expectUkgRiseHeritageUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.ukgRiseHeritage), timeoutMs);
+  }
+
+  async expectUkgRiseHeritageFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.ukgRiseHeritage), timeoutMs);
+  }
+
+  async expectUkgRiseHeritageCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.ukgRiseHeritage), count, timeoutMs);
+  }
+
+  async scrollUkgRiseHeritageIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgRiseHeritage));
+  }
+
+  async clickVirtualZoomMeeting(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.virtualZoomMeeting));
+  }
+
+  async doubleClickVirtualZoomMeeting(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.virtualZoomMeeting));
+  }
+
+  async longPressVirtualZoomMeeting(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.virtualZoomMeeting));
+  }
+
+  async expectVirtualZoomMeetingHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.virtualZoomMeeting), timeoutMs);
+  }
+
+  async expectVirtualZoomMeetingText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.virtualZoomMeeting), expected, timeoutMs);
+  }
+
+  async expectVirtualZoomMeetingContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.virtualZoomMeeting), substring, timeoutMs);
+  }
+
+  async expectVirtualZoomMeetingValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.virtualZoomMeeting), value, timeoutMs);
+  }
+
+  async expectVirtualZoomMeetingEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.virtualZoomMeeting), timeoutMs);
+  }
+
+  async expectVirtualZoomMeetingDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.virtualZoomMeeting), timeoutMs);
+  }
+
+  async expectVirtualZoomMeetingChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.virtualZoomMeeting), timeoutMs);
+  }
+
+  async expectVirtualZoomMeetingUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.virtualZoomMeeting), timeoutMs);
+  }
+
+  async expectVirtualZoomMeetingFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.virtualZoomMeeting), timeoutMs);
+  }
+
+  async expectVirtualZoomMeetingCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.virtualZoomMeeting), count, timeoutMs);
+  }
+
+  async scrollVirtualZoomMeetingIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.virtualZoomMeeting));
+  }
+
+  async clickElement12(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element12));
+  }
+
+  async doubleClickElement12(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element12));
+  }
+
+  async longPressElement12(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.element12));
+  }
+
+  async expectElement12Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.element12), timeoutMs);
+  }
+
+  async expectElement12Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.element12), expected, timeoutMs);
+  }
+
+  async expectElement12ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.element12), substring, timeoutMs);
+  }
+
+  async expectElement12Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.element12), value, timeoutMs);
+  }
+
+  async expectElement12Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.element12), timeoutMs);
+  }
+
+  async expectElement12Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.element12), timeoutMs);
+  }
+
+  async expectElement12Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.element12), timeoutMs);
+  }
+
+  async expectElement12Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.element12), timeoutMs);
+  }
+
+  async expectElement12Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.element12), timeoutMs);
+  }
+
+  async expectElement12Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.element12), count, timeoutMs);
+  }
+
+  async scrollElement12IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.element12));
+  }
+
+  async clickAskMeAnythingAbout(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout));
+  }
+
+  async doubleClickAskMeAnythingAbout(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout));
+  }
+
+  async longPressAskMeAnythingAbout(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout));
+  }
+
+  async expectAskMeAnythingAboutHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout), timeoutMs);
+  }
+
+  async expectAskMeAnythingAboutText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout), expected, timeoutMs);
+  }
+
+  async expectAskMeAnythingAboutContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout), substring, timeoutMs);
+  }
+
+  async expectAskMeAnythingAboutValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout), value, timeoutMs);
+  }
+
+  async expectAskMeAnythingAboutEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout), timeoutMs);
+  }
+
+  async expectAskMeAnythingAboutDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout), timeoutMs);
+  }
+
+  async expectAskMeAnythingAboutChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout), timeoutMs);
+  }
+
+  async expectAskMeAnythingAboutUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout), timeoutMs);
+  }
+
+  async expectAskMeAnythingAboutFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout), timeoutMs);
+  }
+
+  async expectAskMeAnythingAboutCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout), count, timeoutMs);
+  }
+
+  async scrollAskMeAnythingAboutIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout));
+  }
+
+  async longPressAddToCalendar(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.addToCalendar));
+  }
+
+  async expectAddToCalendarHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.addToCalendar), timeoutMs);
+  }
+
+  async expectAddToCalendarText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.addToCalendar), expected, timeoutMs);
+  }
+
+  async expectAddToCalendarContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.addToCalendar), substring, timeoutMs);
+  }
+
+  async expectAddToCalendarValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.addToCalendar), value, timeoutMs);
+  }
+
+  async expectAddToCalendarEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.addToCalendar), timeoutMs);
+  }
+
+  async expectAddToCalendarDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.addToCalendar), timeoutMs);
+  }
+
+  async expectAddToCalendarChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.addToCalendar), timeoutMs);
+  }
+
+  async expectAddToCalendarUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.addToCalendar), timeoutMs);
+  }
+
+  async expectAddToCalendarFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.addToCalendar), timeoutMs);
+  }
+
+  async expectAddToCalendarCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.addToCalendar), count, timeoutMs);
+  }
+
+  async scrollAddToCalendarIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.addToCalendar));
+  }
+
+  async clickAskMeAnythingAbout2(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout2));
+  }
+
+  async doubleClickAskMeAnythingAbout2(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout2));
+  }
+
+  async longPressAskMeAnythingAbout2(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout2));
+  }
+
+  async expectAskMeAnythingAbout2Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout2), timeoutMs);
+  }
+
+  async expectAskMeAnythingAbout2Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout2), expected, timeoutMs);
+  }
+
+  async expectAskMeAnythingAbout2ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout2), substring, timeoutMs);
+  }
+
+  async expectAskMeAnythingAbout2Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout2), value, timeoutMs);
+  }
+
+  async expectAskMeAnythingAbout2Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout2), timeoutMs);
+  }
+
+  async expectAskMeAnythingAbout2Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout2), timeoutMs);
+  }
+
+  async expectAskMeAnythingAbout2Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout2), timeoutMs);
+  }
+
+  async expectAskMeAnythingAbout2Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout2), timeoutMs);
+  }
+
+  async expectAskMeAnythingAbout2Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout2), timeoutMs);
+  }
+
+  async expectAskMeAnythingAbout2Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout2), count, timeoutMs);
+  }
+
+  async scrollAskMeAnythingAbout2IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.askMeAnythingAbout2));
+  }
+
+  async doubleClickPeopleUkgUnidos(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgUnidos));
+  }
+
+  async longPressPeopleUkgUnidos(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgUnidos));
+  }
+
+  async expectPeopleUkgUnidosHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.peopleUkgUnidos), timeoutMs);
+  }
+
+  async expectPeopleUkgUnidosText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.peopleUkgUnidos), expected, timeoutMs);
+  }
+
+  async expectPeopleUkgUnidosContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.peopleUkgUnidos), substring, timeoutMs);
+  }
+
+  async expectPeopleUkgUnidosValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.peopleUkgUnidos), value, timeoutMs);
+  }
+
+  async expectPeopleUkgUnidosEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.peopleUkgUnidos), timeoutMs);
+  }
+
+  async expectPeopleUkgUnidosDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.peopleUkgUnidos), timeoutMs);
+  }
+
+  async expectPeopleUkgUnidosChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.peopleUkgUnidos), timeoutMs);
+  }
+
+  async expectPeopleUkgUnidosUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.peopleUkgUnidos), timeoutMs);
+  }
+
+  async expectPeopleUkgUnidosFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.peopleUkgUnidos), timeoutMs);
+  }
+
+  async expectPeopleUkgUnidosCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.peopleUkgUnidos), count, timeoutMs);
+  }
+
+  async scrollPeopleUkgUnidosIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgUnidos));
+  }
+
+  async clickUkgUnidosWorldCup(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup));
+  }
+
+  async doubleClickUkgUnidosWorldCup(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup));
+  }
+
+  async longPressUkgUnidosWorldCup(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup));
+  }
+
+  async expectUkgUnidosWorldCupHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup), timeoutMs);
+  }
+
+  async expectUkgUnidosWorldCupText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup), expected, timeoutMs);
+  }
+
+  async expectUkgUnidosWorldCupContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup), substring, timeoutMs);
+  }
+
+  async expectUkgUnidosWorldCupValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup), value, timeoutMs);
+  }
+
+  async expectUkgUnidosWorldCupEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup), timeoutMs);
+  }
+
+  async expectUkgUnidosWorldCupDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup), timeoutMs);
+  }
+
+  async expectUkgUnidosWorldCupChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup), timeoutMs);
+  }
+
+  async expectUkgUnidosWorldCupUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup), timeoutMs);
+  }
+
+  async expectUkgUnidosWorldCupFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup), timeoutMs);
+  }
+
+  async expectUkgUnidosWorldCupCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup), count, timeoutMs);
+  }
+
+  async scrollUkgUnidosWorldCupIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup));
+  }
+
+  async doubleClickPeopleBelongingImpact(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleBelongingImpact));
+  }
+
+  async longPressPeopleBelongingImpact(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleBelongingImpact));
+  }
+
+  async expectPeopleBelongingImpactHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.peopleBelongingImpact), timeoutMs);
+  }
+
+  async expectPeopleBelongingImpactText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.peopleBelongingImpact), expected, timeoutMs);
+  }
+
+  async expectPeopleBelongingImpactContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.peopleBelongingImpact), substring, timeoutMs);
+  }
+
+  async expectPeopleBelongingImpactValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.peopleBelongingImpact), value, timeoutMs);
+  }
+
+  async expectPeopleBelongingImpactEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.peopleBelongingImpact), timeoutMs);
+  }
+
+  async expectPeopleBelongingImpactDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.peopleBelongingImpact), timeoutMs);
+  }
+
+  async expectPeopleBelongingImpactChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.peopleBelongingImpact), timeoutMs);
+  }
+
+  async expectPeopleBelongingImpactUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.peopleBelongingImpact), timeoutMs);
+  }
+
+  async expectPeopleBelongingImpactFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.peopleBelongingImpact), timeoutMs);
+  }
+
+  async expectPeopleBelongingImpactCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.peopleBelongingImpact), count, timeoutMs);
+  }
+
+  async scrollPeopleBelongingImpactIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleBelongingImpact));
+  }
+
+  async clickVirtualInterviewTrainingWith(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.virtualInterviewTrainingWith));
+  }
+
+  async doubleClickVirtualInterviewTrainingWith(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.virtualInterviewTrainingWith));
+  }
+
+  async longPressVirtualInterviewTrainingWith(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.virtualInterviewTrainingWith));
+  }
+
+  async expectVirtualInterviewTrainingWithHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.virtualInterviewTrainingWith), timeoutMs);
+  }
+
+  async expectVirtualInterviewTrainingWithText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.virtualInterviewTrainingWith), expected, timeoutMs);
+  }
+
+  async expectVirtualInterviewTrainingWithContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.virtualInterviewTrainingWith), substring, timeoutMs);
+  }
+
+  async expectVirtualInterviewTrainingWithValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.virtualInterviewTrainingWith), value, timeoutMs);
+  }
+
+  async expectVirtualInterviewTrainingWithEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.virtualInterviewTrainingWith), timeoutMs);
+  }
+
+  async expectVirtualInterviewTrainingWithDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.virtualInterviewTrainingWith), timeoutMs);
+  }
+
+  async expectVirtualInterviewTrainingWithChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.virtualInterviewTrainingWith), timeoutMs);
+  }
+
+  async expectVirtualInterviewTrainingWithUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.virtualInterviewTrainingWith), timeoutMs);
+  }
+
+  async expectVirtualInterviewTrainingWithFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.virtualInterviewTrainingWith), timeoutMs);
+  }
+
+  async expectVirtualInterviewTrainingWithCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.virtualInterviewTrainingWith), count, timeoutMs);
+  }
+
+  async scrollVirtualInterviewTrainingWithIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.virtualInterviewTrainingWith));
+  }
+
+  async clickElement19(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element19));
+  }
+
+  async doubleClickElement19(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element19));
+  }
+
+  async longPressElement19(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.element19));
+  }
+
+  async expectElement19Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.element19), timeoutMs);
+  }
+
+  async expectElement19Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.element19), expected, timeoutMs);
+  }
+
+  async expectElement19ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.element19), substring, timeoutMs);
+  }
+
+  async expectElement19Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.element19), value, timeoutMs);
+  }
+
+  async expectElement19Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.element19), timeoutMs);
+  }
+
+  async expectElement19Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.element19), timeoutMs);
+  }
+
+  async expectElement19Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.element19), timeoutMs);
+  }
+
+  async expectElement19Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.element19), timeoutMs);
+  }
+
+  async expectElement19Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.element19), timeoutMs);
+  }
+
+  async expectElement19Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.element19), count, timeoutMs);
+  }
+
+  async scrollElement19IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.element19));
+  }
+
+  async clickCareerPanelInformational(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.careerPanelInformational));
+  }
+
+  async doubleClickCareerPanelInformational(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.careerPanelInformational));
+  }
+
+  async longPressCareerPanelInformational(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.careerPanelInformational));
+  }
+
+  async expectCareerPanelInformationalHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.careerPanelInformational), timeoutMs);
+  }
+
+  async expectCareerPanelInformationalText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.careerPanelInformational), expected, timeoutMs);
+  }
+
+  async expectCareerPanelInformationalContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.careerPanelInformational), substring, timeoutMs);
+  }
+
+  async expectCareerPanelInformationalValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.careerPanelInformational), value, timeoutMs);
+  }
+
+  async expectCareerPanelInformationalEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.careerPanelInformational), timeoutMs);
+  }
+
+  async expectCareerPanelInformationalDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.careerPanelInformational), timeoutMs);
+  }
+
+  async expectCareerPanelInformationalChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.careerPanelInformational), timeoutMs);
+  }
+
+  async expectCareerPanelInformationalUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.careerPanelInformational), timeoutMs);
+  }
+
+  async expectCareerPanelInformationalFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.careerPanelInformational), timeoutMs);
+  }
+
+  async expectCareerPanelInformationalCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.careerPanelInformational), count, timeoutMs);
+  }
+
+  async scrollCareerPanelInformationalIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.careerPanelInformational));
+  }
+
+  async clickUkgUnidosWorldCup3(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup3));
+  }
+
+  async doubleClickUkgUnidosWorldCup3(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup3));
+  }
+
+  async longPressUkgUnidosWorldCup3(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup3));
+  }
+
+  async expectUkgUnidosWorldCup3Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup3), timeoutMs);
+  }
+
+  async expectUkgUnidosWorldCup3Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup3), expected, timeoutMs);
+  }
+
+  async expectUkgUnidosWorldCup3ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup3), substring, timeoutMs);
+  }
+
+  async expectUkgUnidosWorldCup3Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup3), value, timeoutMs);
+  }
+
+  async expectUkgUnidosWorldCup3Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup3), timeoutMs);
+  }
+
+  async expectUkgUnidosWorldCup3Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup3), timeoutMs);
+  }
+
+  async expectUkgUnidosWorldCup3Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup3), timeoutMs);
+  }
+
+  async expectUkgUnidosWorldCup3Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup3), timeoutMs);
+  }
+
+  async expectUkgUnidosWorldCup3Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup3), timeoutMs);
+  }
+
+  async expectUkgUnidosWorldCup3Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup3), count, timeoutMs);
+  }
+
+  async scrollUkgUnidosWorldCup3IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgUnidosWorldCup3));
+  }
+
+  async doubleClickPeopleUkgNest(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgNest));
+  }
+
+  async longPressPeopleUkgNest(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgNest));
+  }
+
+  async expectPeopleUkgNestHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.peopleUkgNest), timeoutMs);
+  }
+
+  async expectPeopleUkgNestText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.peopleUkgNest), expected, timeoutMs);
+  }
+
+  async expectPeopleUkgNestContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.peopleUkgNest), substring, timeoutMs);
+  }
+
+  async expectPeopleUkgNestValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.peopleUkgNest), value, timeoutMs);
+  }
+
+  async expectPeopleUkgNestEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.peopleUkgNest), timeoutMs);
+  }
+
+  async expectPeopleUkgNestDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.peopleUkgNest), timeoutMs);
+  }
+
+  async expectPeopleUkgNestChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.peopleUkgNest), timeoutMs);
+  }
+
+  async expectPeopleUkgNestUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.peopleUkgNest), timeoutMs);
+  }
+
+  async expectPeopleUkgNestFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.peopleUkgNest), timeoutMs);
+  }
+
+  async expectPeopleUkgNestCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.peopleUkgNest), count, timeoutMs);
+  }
+
+  async scrollPeopleUkgNestIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.peopleUkgNest));
+  }
+
+  async clickNestAndAdaptWe(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.nestAndAdaptWe));
+  }
+
+  async doubleClickNestAndAdaptWe(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.nestAndAdaptWe));
+  }
+
+  async longPressNestAndAdaptWe(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.nestAndAdaptWe));
+  }
+
+  async expectNestAndAdaptWeHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.nestAndAdaptWe), timeoutMs);
+  }
+
+  async expectNestAndAdaptWeText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.nestAndAdaptWe), expected, timeoutMs);
+  }
+
+  async expectNestAndAdaptWeContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.nestAndAdaptWe), substring, timeoutMs);
+  }
+
+  async expectNestAndAdaptWeValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.nestAndAdaptWe), value, timeoutMs);
+  }
+
+  async expectNestAndAdaptWeEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.nestAndAdaptWe), timeoutMs);
+  }
+
+  async expectNestAndAdaptWeDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.nestAndAdaptWe), timeoutMs);
+  }
+
+  async expectNestAndAdaptWeChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.nestAndAdaptWe), timeoutMs);
+  }
+
+  async expectNestAndAdaptWeUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.nestAndAdaptWe), timeoutMs);
+  }
+
+  async expectNestAndAdaptWeFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.nestAndAdaptWe), timeoutMs);
+  }
+
+  async expectNestAndAdaptWeCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.nestAndAdaptWe), count, timeoutMs);
+  }
+
+  async scrollNestAndAdaptWeIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.nestAndAdaptWe));
+  }
+
+  async clickLybertyWayWestford(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.lybertyWayWestford));
+  }
+
+  async doubleClickLybertyWayWestford(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.lybertyWayWestford));
+  }
+
+  async longPressLybertyWayWestford(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.lybertyWayWestford));
+  }
+
+  async expectLybertyWayWestfordHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.lybertyWayWestford), timeoutMs);
+  }
+
+  async expectLybertyWayWestfordText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.lybertyWayWestford), expected, timeoutMs);
+  }
+
+  async expectLybertyWayWestfordContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.lybertyWayWestford), substring, timeoutMs);
+  }
+
+  async expectLybertyWayWestfordValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.lybertyWayWestford), value, timeoutMs);
+  }
+
+  async expectLybertyWayWestfordEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.lybertyWayWestford), timeoutMs);
+  }
+
+  async expectLybertyWayWestfordDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.lybertyWayWestford), timeoutMs);
+  }
+
+  async expectLybertyWayWestfordChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.lybertyWayWestford), timeoutMs);
+  }
+
+  async expectLybertyWayWestfordUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.lybertyWayWestford), timeoutMs);
+  }
+
+  async expectLybertyWayWestfordFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.lybertyWayWestford), timeoutMs);
+  }
+
+  async expectLybertyWayWestfordCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.lybertyWayWestford), count, timeoutMs);
+  }
+
+  async scrollLybertyWayWestfordIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.lybertyWayWestford));
+  }
+
+  async clickBeyondTheWorkplaceUnderstanding(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.beyondTheWorkplaceUnderstanding));
+  }
+
+  async doubleClickBeyondTheWorkplaceUnderstanding(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.beyondTheWorkplaceUnderstanding));
+  }
+
+  async longPressBeyondTheWorkplaceUnderstanding(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.beyondTheWorkplaceUnderstanding));
+  }
+
+  async expectBeyondTheWorkplaceUnderstandingHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.beyondTheWorkplaceUnderstanding), timeoutMs);
+  }
+
+  async expectBeyondTheWorkplaceUnderstandingText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.beyondTheWorkplaceUnderstanding), expected, timeoutMs);
+  }
+
+  async expectBeyondTheWorkplaceUnderstandingContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.beyondTheWorkplaceUnderstanding), substring, timeoutMs);
+  }
+
+  async expectBeyondTheWorkplaceUnderstandingValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.beyondTheWorkplaceUnderstanding), value, timeoutMs);
+  }
+
+  async expectBeyondTheWorkplaceUnderstandingEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.beyondTheWorkplaceUnderstanding), timeoutMs);
+  }
+
+  async expectBeyondTheWorkplaceUnderstandingDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.beyondTheWorkplaceUnderstanding), timeoutMs);
+  }
+
+  async expectBeyondTheWorkplaceUnderstandingChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.beyondTheWorkplaceUnderstanding), timeoutMs);
+  }
+
+  async expectBeyondTheWorkplaceUnderstandingUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.beyondTheWorkplaceUnderstanding), timeoutMs);
+  }
+
+  async expectBeyondTheWorkplaceUnderstandingFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.beyondTheWorkplaceUnderstanding), timeoutMs);
+  }
+
+  async expectBeyondTheWorkplaceUnderstandingCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.beyondTheWorkplaceUnderstanding), count, timeoutMs);
+  }
+
+  async scrollBeyondTheWorkplaceUnderstandingIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.beyondTheWorkplaceUnderstanding));
+  }
+
+  async clickElement26(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element26));
+  }
+
+  async doubleClickElement26(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.element26));
+  }
+
+  async longPressElement26(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.element26));
+  }
+
+  async expectElement26Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.element26), timeoutMs);
+  }
+
+  async expectElement26Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.element26), expected, timeoutMs);
+  }
+
+  async expectElement26ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.element26), substring, timeoutMs);
+  }
+
+  async expectElement26Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.element26), value, timeoutMs);
+  }
+
+  async expectElement26Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.element26), timeoutMs);
+  }
+
+  async expectElement26Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.element26), timeoutMs);
+  }
+
+  async expectElement26Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.element26), timeoutMs);
+  }
+
+  async expectElement26Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.element26), timeoutMs);
+  }
+
+  async expectElement26Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.element26), timeoutMs);
+  }
+
+  async expectElement26Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.element26), count, timeoutMs);
+  }
+
+  async scrollElement26IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.element26));
+  }
+
+  async clickUkgRiseVirtualSpeed(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgRiseVirtualSpeed));
+  }
+
+  async doubleClickUkgRiseVirtualSpeed(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgRiseVirtualSpeed));
+  }
+
+  async longPressUkgRiseVirtualSpeed(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgRiseVirtualSpeed));
+  }
+
+  async expectUkgRiseVirtualSpeedHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.ukgRiseVirtualSpeed), timeoutMs);
+  }
+
+  async expectUkgRiseVirtualSpeedText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.ukgRiseVirtualSpeed), expected, timeoutMs);
+  }
+
+  async expectUkgRiseVirtualSpeedContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.ukgRiseVirtualSpeed), substring, timeoutMs);
+  }
+
+  async expectUkgRiseVirtualSpeedValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.ukgRiseVirtualSpeed), value, timeoutMs);
+  }
+
+  async expectUkgRiseVirtualSpeedEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.ukgRiseVirtualSpeed), timeoutMs);
+  }
+
+  async expectUkgRiseVirtualSpeedDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.ukgRiseVirtualSpeed), timeoutMs);
+  }
+
+  async expectUkgRiseVirtualSpeedChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.ukgRiseVirtualSpeed), timeoutMs);
+  }
+
+  async expectUkgRiseVirtualSpeedUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.ukgRiseVirtualSpeed), timeoutMs);
+  }
+
+  async expectUkgRiseVirtualSpeedFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.ukgRiseVirtualSpeed), timeoutMs);
+  }
+
+  async expectUkgRiseVirtualSpeedCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.ukgRiseVirtualSpeed), count, timeoutMs);
+  }
+
+  async scrollUkgRiseVirtualSpeedIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgRiseVirtualSpeed));
+  }
+
+  async clickMyCalendar(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.myCalendar));
+  }
+
+  async doubleClickMyCalendar(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.myCalendar));
+  }
+
+  async longPressMyCalendar(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.myCalendar));
+  }
+
+  async expectMyCalendarHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.myCalendar), timeoutMs);
+  }
+
+  async expectMyCalendarText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.myCalendar), expected, timeoutMs);
+  }
+
+  async expectMyCalendarContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.myCalendar), substring, timeoutMs);
+  }
+
+  async expectMyCalendarValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.myCalendar), value, timeoutMs);
+  }
+
+  async expectMyCalendarEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.myCalendar), timeoutMs);
+  }
+
+  async expectMyCalendarDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.myCalendar), timeoutMs);
+  }
+
+  async expectMyCalendarChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.myCalendar), timeoutMs);
+  }
+
+  async expectMyCalendarUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.myCalendar), timeoutMs);
+  }
+
+  async expectMyCalendarFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.myCalendar), timeoutMs);
+  }
+
+  async expectMyCalendarCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.myCalendar), count, timeoutMs);
+  }
+
+  async scrollMyCalendarIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.myCalendar));
+  }
+
+  async clickPM(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.pM));
+  }
+
+  async doubleClickPM(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.pM));
+  }
+
+  async longPressPM(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.pM));
+  }
+
+  async expectPMHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.pM), timeoutMs);
+  }
+
+  async expectPMText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.pM), expected, timeoutMs);
+  }
+
+  async expectPMContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.pM), substring, timeoutMs);
+  }
+
+  async expectPMValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.pM), value, timeoutMs);
+  }
+
+  async expectPMEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.pM), timeoutMs);
+  }
+
+  async expectPMDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.pM), timeoutMs);
+  }
+
+  async expectPMChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.pM), timeoutMs);
+  }
+
+  async expectPMUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.pM), timeoutMs);
+  }
+
+  async expectPMFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.pM), timeoutMs);
+  }
+
+  async expectPMCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.pM), count, timeoutMs);
+  }
+
+  async scrollPMIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.pM));
+  }
+
+  async clickHour(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.hour));
+  }
+
+  async doubleClickHour(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.hour));
+  }
+
+  async longPressHour(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.hour));
+  }
+
+  async expectHourHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.hour), timeoutMs);
+  }
+
+  async expectHourText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.hour), expected, timeoutMs);
+  }
+
+  async expectHourContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.hour), substring, timeoutMs);
+  }
+
+  async expectHourValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.hour), value, timeoutMs);
+  }
+
+  async expectHourEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.hour), timeoutMs);
+  }
+
+  async expectHourDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.hour), timeoutMs);
+  }
+
+  async expectHourChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.hour), timeoutMs);
+  }
+
+  async expectHourUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.hour), timeoutMs);
+  }
+
+  async expectHourFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.hour), timeoutMs);
+  }
+
+  async expectHourCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.hour), count, timeoutMs);
+  }
+
+  async scrollHourIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.hour));
+  }
+
+  async clickUkgCommonsSprint(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgCommonsSprint));
+  }
+
+  async doubleClickUkgCommonsSprint(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgCommonsSprint));
+  }
+
+  async longPressUkgCommonsSprint(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgCommonsSprint));
+  }
+
+  async expectUkgCommonsSprintHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.ukgCommonsSprint), timeoutMs);
+  }
+
+  async expectUkgCommonsSprintText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.ukgCommonsSprint), expected, timeoutMs);
+  }
+
+  async expectUkgCommonsSprintContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.ukgCommonsSprint), substring, timeoutMs);
+  }
+
+  async expectUkgCommonsSprintValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.ukgCommonsSprint), value, timeoutMs);
+  }
+
+  async expectUkgCommonsSprintEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.ukgCommonsSprint), timeoutMs);
+  }
+
+  async expectUkgCommonsSprintDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.ukgCommonsSprint), timeoutMs);
+  }
+
+  async expectUkgCommonsSprintChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.ukgCommonsSprint), timeoutMs);
+  }
+
+  async expectUkgCommonsSprintUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.ukgCommonsSprint), timeoutMs);
+  }
+
+  async expectUkgCommonsSprintFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.ukgCommonsSprint), timeoutMs);
+  }
+
+  async expectUkgCommonsSprintCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.ukgCommonsSprint), count, timeoutMs);
+  }
+
+  async scrollUkgCommonsSprintIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgCommonsSprint));
+  }
+
+  async clickPM2(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.pM2));
+  }
+
+  async doubleClickPM2(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.pM2));
+  }
+
+  async longPressPM2(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.pM2));
+  }
+
+  async expectPM2Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.pM2), timeoutMs);
+  }
+
+  async expectPM2Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.pM2), expected, timeoutMs);
+  }
+
+  async expectPM2ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.pM2), substring, timeoutMs);
+  }
+
+  async expectPM2Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.pM2), value, timeoutMs);
+  }
+
+  async expectPM2Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.pM2), timeoutMs);
+  }
+
+  async expectPM2Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.pM2), timeoutMs);
+  }
+
+  async expectPM2Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.pM2), timeoutMs);
+  }
+
+  async expectPM2Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.pM2), timeoutMs);
+  }
+
+  async expectPM2Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.pM2), timeoutMs);
+  }
+
+  async expectPM2Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.pM2), count, timeoutMs);
+  }
+
+  async scrollPM2IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.pM2));
+  }
+
+  async clickPM3(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.pM3));
+  }
+
+  async doubleClickPM3(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.pM3));
+  }
+
+  async longPressPM3(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.pM3));
+  }
+
+  async expectPM3Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.pM3), timeoutMs);
+  }
+
+  async expectPM3Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.pM3), expected, timeoutMs);
+  }
+
+  async expectPM3ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.pM3), substring, timeoutMs);
+  }
+
+  async expectPM3Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.pM3), value, timeoutMs);
+  }
+
+  async expectPM3Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.pM3), timeoutMs);
+  }
+
+  async expectPM3Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.pM3), timeoutMs);
+  }
+
+  async expectPM3Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.pM3), timeoutMs);
+  }
+
+  async expectPM3Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.pM3), timeoutMs);
+  }
+
+  async expectPM3Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.pM3), timeoutMs);
+  }
+
+  async expectPM3Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.pM3), count, timeoutMs);
+  }
+
+  async scrollPM3IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.pM3));
+  }
+
+  async clickRequestsOverview(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.requestsOverview));
+  }
+
+  async doubleClickRequestsOverview(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.requestsOverview));
+  }
+
+  async longPressRequestsOverview(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.requestsOverview));
+  }
+
+  async expectRequestsOverviewHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.requestsOverview), timeoutMs);
+  }
+
+  async expectRequestsOverviewText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.requestsOverview), expected, timeoutMs);
+  }
+
+  async expectRequestsOverviewContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.requestsOverview), substring, timeoutMs);
+  }
+
+  async expectRequestsOverviewValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.requestsOverview), value, timeoutMs);
+  }
+
+  async expectRequestsOverviewEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.requestsOverview), timeoutMs);
+  }
+
+  async expectRequestsOverviewDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.requestsOverview), timeoutMs);
+  }
+
+  async expectRequestsOverviewChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.requestsOverview), timeoutMs);
+  }
+
+  async expectRequestsOverviewUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.requestsOverview), timeoutMs);
+  }
+
+  async expectRequestsOverviewFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.requestsOverview), timeoutMs);
+  }
+
+  async expectRequestsOverviewCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.requestsOverview), count, timeoutMs);
+  }
+
+  async scrollRequestsOverviewIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.requestsOverview));
+  }
+
+  async longPressMyRequests13(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.myRequests13));
+  }
+
+  async expectMyRequests13Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.myRequests13), timeoutMs);
+  }
+
+  async expectMyRequests13Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.myRequests13), expected, timeoutMs);
+  }
+
+  async expectMyRequests13ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.myRequests13), substring, timeoutMs);
+  }
+
+  async expectMyRequests13Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.myRequests13), value, timeoutMs);
+  }
+
+  async expectMyRequests13Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.myRequests13), timeoutMs);
+  }
+
+  async expectMyRequests13Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.myRequests13), timeoutMs);
+  }
+
+  async expectMyRequests13Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.myRequests13), timeoutMs);
+  }
+
+  async expectMyRequests13Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.myRequests13), timeoutMs);
+  }
+
+  async expectMyRequests13Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.myRequests13), timeoutMs);
+  }
+
+  async expectMyRequests13Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.myRequests13), count, timeoutMs);
+  }
+
+  async scrollMyRequests13IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.myRequests13));
+  }
+
+  async longPressApprovals(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.approvals));
+  }
+
+  async expectApprovalsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.approvals), timeoutMs);
+  }
+
+  async expectApprovalsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.approvals), expected, timeoutMs);
+  }
+
+  async expectApprovalsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.approvals), substring, timeoutMs);
+  }
+
+  async expectApprovalsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.approvals), value, timeoutMs);
+  }
+
+  async expectApprovalsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.approvals), timeoutMs);
+  }
+
+  async expectApprovalsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.approvals), timeoutMs);
+  }
+
+  async expectApprovalsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.approvals), timeoutMs);
+  }
+
+  async expectApprovalsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.approvals), timeoutMs);
+  }
+
+  async expectApprovalsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.approvals), timeoutMs);
+  }
+
+  async expectApprovalsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.approvals), count, timeoutMs);
+  }
+
+  async scrollApprovalsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.approvals));
+  }
+
+  async clickESRITM1012673Pending(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM1012673Pending));
+  }
+
+  async doubleClickESRITM1012673Pending(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM1012673Pending));
+  }
+
+  async longPressESRITM1012673Pending(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM1012673Pending));
+  }
+
+  async expectESRITM1012673PendingHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.eSRITM1012673Pending), timeoutMs);
+  }
+
+  async expectESRITM1012673PendingText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.eSRITM1012673Pending), expected, timeoutMs);
+  }
+
+  async expectESRITM1012673PendingContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.eSRITM1012673Pending), substring, timeoutMs);
+  }
+
+  async expectESRITM1012673PendingValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.eSRITM1012673Pending), value, timeoutMs);
+  }
+
+  async expectESRITM1012673PendingEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.eSRITM1012673Pending), timeoutMs);
+  }
+
+  async expectESRITM1012673PendingDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.eSRITM1012673Pending), timeoutMs);
+  }
+
+  async expectESRITM1012673PendingChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.eSRITM1012673Pending), timeoutMs);
+  }
+
+  async expectESRITM1012673PendingUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.eSRITM1012673Pending), timeoutMs);
+  }
+
+  async expectESRITM1012673PendingFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.eSRITM1012673Pending), timeoutMs);
+  }
+
+  async expectESRITM1012673PendingCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.eSRITM1012673Pending), count, timeoutMs);
+  }
+
+  async scrollESRITM1012673PendingIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM1012673Pending));
+  }
+
+  async longPressAutomationRequirements(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.automationRequirements));
+  }
+
+  async expectAutomationRequirementsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.automationRequirements), timeoutMs);
+  }
+
+  async expectAutomationRequirementsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.automationRequirements), expected, timeoutMs);
+  }
+
+  async expectAutomationRequirementsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.automationRequirements), substring, timeoutMs);
+  }
+
+  async expectAutomationRequirementsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.automationRequirements), value, timeoutMs);
+  }
+
+  async expectAutomationRequirementsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.automationRequirements), timeoutMs);
+  }
+
+  async expectAutomationRequirementsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.automationRequirements), timeoutMs);
+  }
+
+  async expectAutomationRequirementsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.automationRequirements), timeoutMs);
+  }
+
+  async expectAutomationRequirementsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.automationRequirements), timeoutMs);
+  }
+
+  async expectAutomationRequirementsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.automationRequirements), timeoutMs);
+  }
+
+  async expectAutomationRequirementsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.automationRequirements), count, timeoutMs);
+  }
+
+  async scrollAutomationRequirementsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.automationRequirements));
+  }
+
+  async clickESDMND0024340Draft(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSDMND0024340Draft));
+  }
+
+  async doubleClickESDMND0024340Draft(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSDMND0024340Draft));
+  }
+
+  async longPressESDMND0024340Draft(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSDMND0024340Draft));
+  }
+
+  async expectESDMND0024340DraftHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.eSDMND0024340Draft), timeoutMs);
+  }
+
+  async expectESDMND0024340DraftText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.eSDMND0024340Draft), expected, timeoutMs);
+  }
+
+  async expectESDMND0024340DraftContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.eSDMND0024340Draft), substring, timeoutMs);
+  }
+
+  async expectESDMND0024340DraftValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.eSDMND0024340Draft), value, timeoutMs);
+  }
+
+  async expectESDMND0024340DraftEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.eSDMND0024340Draft), timeoutMs);
+  }
+
+  async expectESDMND0024340DraftDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.eSDMND0024340Draft), timeoutMs);
+  }
+
+  async expectESDMND0024340DraftChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.eSDMND0024340Draft), timeoutMs);
+  }
+
+  async expectESDMND0024340DraftUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.eSDMND0024340Draft), timeoutMs);
+  }
+
+  async expectESDMND0024340DraftFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.eSDMND0024340Draft), timeoutMs);
+  }
+
+  async expectESDMND0024340DraftCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.eSDMND0024340Draft), count, timeoutMs);
+  }
+
+  async scrollESDMND0024340DraftIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSDMND0024340Draft));
+  }
+
+  async clickLow(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.low));
+  }
+
+  async doubleClickLow(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.low));
+  }
+
+  async longPressLow(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.low));
+  }
+
+  async expectLowHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.low), timeoutMs);
+  }
+
+  async expectLowText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.low), expected, timeoutMs);
+  }
+
+  async expectLowContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.low), substring, timeoutMs);
+  }
+
+  async expectLowValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.low), value, timeoutMs);
+  }
+
+  async expectLowEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.low), timeoutMs);
+  }
+
+  async expectLowDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.low), timeoutMs);
+  }
+
+  async expectLowChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.low), timeoutMs);
+  }
+
+  async expectLowUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.low), timeoutMs);
+  }
+
+  async expectLowFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.low), timeoutMs);
+  }
+
+  async expectLowCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.low), count, timeoutMs);
+  }
+
+  async scrollLowIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.low));
+  }
+
+  async longPressTesting(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.testing));
+  }
+
+  async expectTestingHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.testing), timeoutMs);
+  }
+
+  async expectTestingText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.testing), expected, timeoutMs);
+  }
+
+  async expectTestingContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.testing), substring, timeoutMs);
+  }
+
+  async expectTestingValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.testing), value, timeoutMs);
+  }
+
+  async expectTestingEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.testing), timeoutMs);
+  }
+
+  async expectTestingDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.testing), timeoutMs);
+  }
+
+  async expectTestingChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.testing), timeoutMs);
+  }
+
+  async expectTestingUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.testing), timeoutMs);
+  }
+
+  async expectTestingFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.testing), timeoutMs);
+  }
+
+  async expectTestingCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.testing), count, timeoutMs);
+  }
+
+  async scrollTestingIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.testing));
+  }
+
+  async clickESRITM1012663WorkIn(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM1012663WorkIn));
+  }
+
+  async doubleClickESRITM1012663WorkIn(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM1012663WorkIn));
+  }
+
+  async longPressESRITM1012663WorkIn(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM1012663WorkIn));
+  }
+
+  async expectESRITM1012663WorkInHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.eSRITM1012663WorkIn), timeoutMs);
+  }
+
+  async expectESRITM1012663WorkInText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.eSRITM1012663WorkIn), expected, timeoutMs);
+  }
+
+  async expectESRITM1012663WorkInContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.eSRITM1012663WorkIn), substring, timeoutMs);
+  }
+
+  async expectESRITM1012663WorkInValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.eSRITM1012663WorkIn), value, timeoutMs);
+  }
+
+  async expectESRITM1012663WorkInEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.eSRITM1012663WorkIn), timeoutMs);
+  }
+
+  async expectESRITM1012663WorkInDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.eSRITM1012663WorkIn), timeoutMs);
+  }
+
+  async expectESRITM1012663WorkInChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.eSRITM1012663WorkIn), timeoutMs);
+  }
+
+  async expectESRITM1012663WorkInUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.eSRITM1012663WorkIn), timeoutMs);
+  }
+
+  async expectESRITM1012663WorkInFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.eSRITM1012663WorkIn), timeoutMs);
+  }
+
+  async expectESRITM1012663WorkInCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.eSRITM1012663WorkIn), count, timeoutMs);
+  }
+
+  async scrollESRITM1012663WorkInIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM1012663WorkIn));
+  }
+
+  async longPressStandardSoftwareRequest(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.standardSoftwareRequest));
+  }
+
+  async expectStandardSoftwareRequestHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.standardSoftwareRequest), timeoutMs);
+  }
+
+  async expectStandardSoftwareRequestText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.standardSoftwareRequest), expected, timeoutMs);
+  }
+
+  async expectStandardSoftwareRequestContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.standardSoftwareRequest), substring, timeoutMs);
+  }
+
+  async expectStandardSoftwareRequestValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.standardSoftwareRequest), value, timeoutMs);
+  }
+
+  async expectStandardSoftwareRequestEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.standardSoftwareRequest), timeoutMs);
+  }
+
+  async expectStandardSoftwareRequestDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.standardSoftwareRequest), timeoutMs);
+  }
+
+  async expectStandardSoftwareRequestChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.standardSoftwareRequest), timeoutMs);
+  }
+
+  async expectStandardSoftwareRequestUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.standardSoftwareRequest), timeoutMs);
+  }
+
+  async expectStandardSoftwareRequestFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.standardSoftwareRequest), timeoutMs);
+  }
+
+  async expectStandardSoftwareRequestCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.standardSoftwareRequest), count, timeoutMs);
+  }
+
+  async scrollStandardSoftwareRequestIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.standardSoftwareRequest));
+  }
+
+  async clickESRITM0891626WorkIn(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0891626WorkIn));
+  }
+
+  async doubleClickESRITM0891626WorkIn(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0891626WorkIn));
+  }
+
+  async longPressESRITM0891626WorkIn(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0891626WorkIn));
+  }
+
+  async expectESRITM0891626WorkInHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.eSRITM0891626WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0891626WorkInText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.eSRITM0891626WorkIn), expected, timeoutMs);
+  }
+
+  async expectESRITM0891626WorkInContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.eSRITM0891626WorkIn), substring, timeoutMs);
+  }
+
+  async expectESRITM0891626WorkInValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.eSRITM0891626WorkIn), value, timeoutMs);
+  }
+
+  async expectESRITM0891626WorkInEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.eSRITM0891626WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0891626WorkInDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.eSRITM0891626WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0891626WorkInChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.eSRITM0891626WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0891626WorkInUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.eSRITM0891626WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0891626WorkInFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.eSRITM0891626WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0891626WorkInCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.eSRITM0891626WorkIn), count, timeoutMs);
+  }
+
+  async scrollESRITM0891626WorkInIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0891626WorkIn));
+  }
+
+  async longPressDone(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.done));
+  }
+
+  async expectDoneHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.done), timeoutMs);
+  }
+
+  async expectDoneText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.done), expected, timeoutMs);
+  }
+
+  async expectDoneContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.done), substring, timeoutMs);
+  }
+
+  async expectDoneValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.done), value, timeoutMs);
+  }
+
+  async expectDoneEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.done), timeoutMs);
+  }
+
+  async expectDoneDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.done), timeoutMs);
+  }
+
+  async expectDoneChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.done), timeoutMs);
+  }
+
+  async expectDoneUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.done), timeoutMs);
+  }
+
+  async expectDoneFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.done), timeoutMs);
+  }
+
+  async expectDoneCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.done), count, timeoutMs);
+  }
+
+  async scrollDoneIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.done));
+  }
+
+  async clickESRITM0891625WorkIn(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0891625WorkIn));
+  }
+
+  async doubleClickESRITM0891625WorkIn(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0891625WorkIn));
+  }
+
+  async longPressESRITM0891625WorkIn(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0891625WorkIn));
+  }
+
+  async expectESRITM0891625WorkInHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.eSRITM0891625WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0891625WorkInText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.eSRITM0891625WorkIn), expected, timeoutMs);
+  }
+
+  async expectESRITM0891625WorkInContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.eSRITM0891625WorkIn), substring, timeoutMs);
+  }
+
+  async expectESRITM0891625WorkInValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.eSRITM0891625WorkIn), value, timeoutMs);
+  }
+
+  async expectESRITM0891625WorkInEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.eSRITM0891625WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0891625WorkInDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.eSRITM0891625WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0891625WorkInChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.eSRITM0891625WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0891625WorkInUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.eSRITM0891625WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0891625WorkInFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.eSRITM0891625WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0891625WorkInCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.eSRITM0891625WorkIn), count, timeoutMs);
+  }
+
+  async scrollESRITM0891625WorkInIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0891625WorkIn));
+  }
+
+  async longPressTest(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.test));
+  }
+
+  async expectTestHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.test), timeoutMs);
+  }
+
+  async expectTestText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.test), expected, timeoutMs);
+  }
+
+  async expectTestContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.test), substring, timeoutMs);
+  }
+
+  async expectTestValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.test), value, timeoutMs);
+  }
+
+  async expectTestEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.test), timeoutMs);
+  }
+
+  async expectTestDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.test), timeoutMs);
+  }
+
+  async expectTestChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.test), timeoutMs);
+  }
+
+  async expectTestUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.test), timeoutMs);
+  }
+
+  async expectTestFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.test), timeoutMs);
+  }
+
+  async expectTestCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.test), count, timeoutMs);
+  }
+
+  async scrollTestIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.test));
+  }
+
+  async clickESRITM0888932WorkIn(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0888932WorkIn));
+  }
+
+  async doubleClickESRITM0888932WorkIn(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0888932WorkIn));
+  }
+
+  async longPressESRITM0888932WorkIn(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0888932WorkIn));
+  }
+
+  async expectESRITM0888932WorkInHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.eSRITM0888932WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0888932WorkInText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.eSRITM0888932WorkIn), expected, timeoutMs);
+  }
+
+  async expectESRITM0888932WorkInContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.eSRITM0888932WorkIn), substring, timeoutMs);
+  }
+
+  async expectESRITM0888932WorkInValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.eSRITM0888932WorkIn), value, timeoutMs);
+  }
+
+  async expectESRITM0888932WorkInEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.eSRITM0888932WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0888932WorkInDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.eSRITM0888932WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0888932WorkInChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.eSRITM0888932WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0888932WorkInUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.eSRITM0888932WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0888932WorkInFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.eSRITM0888932WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0888932WorkInCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.eSRITM0888932WorkIn), count, timeoutMs);
+  }
+
+  async scrollESRITM0888932WorkInIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0888932WorkIn));
+  }
+
+  async clickUpdatedOnJan8(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnJan8));
+  }
+
+  async doubleClickUpdatedOnJan8(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnJan8));
+  }
+
+  async longPressUpdatedOnJan8(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnJan8));
+  }
+
+  async expectUpdatedOnJan8Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.updatedOnJan8), timeoutMs);
+  }
+
+  async expectUpdatedOnJan8Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.updatedOnJan8), expected, timeoutMs);
+  }
+
+  async expectUpdatedOnJan8ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.updatedOnJan8), substring, timeoutMs);
+  }
+
+  async expectUpdatedOnJan8Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.updatedOnJan8), value, timeoutMs);
+  }
+
+  async expectUpdatedOnJan8Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.updatedOnJan8), timeoutMs);
+  }
+
+  async expectUpdatedOnJan8Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.updatedOnJan8), timeoutMs);
+  }
+
+  async expectUpdatedOnJan8Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.updatedOnJan8), timeoutMs);
+  }
+
+  async expectUpdatedOnJan8Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.updatedOnJan8), timeoutMs);
+  }
+
+  async expectUpdatedOnJan8Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.updatedOnJan8), timeoutMs);
+  }
+
+  async expectUpdatedOnJan8Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.updatedOnJan8), count, timeoutMs);
+  }
+
+  async scrollUpdatedOnJan8IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnJan8));
+  }
+
+  async clickESRITM0888931WorkIn(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0888931WorkIn));
+  }
+
+  async doubleClickESRITM0888931WorkIn(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0888931WorkIn));
+  }
+
+  async longPressESRITM0888931WorkIn(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0888931WorkIn));
+  }
+
+  async expectESRITM0888931WorkInHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.eSRITM0888931WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0888931WorkInText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.eSRITM0888931WorkIn), expected, timeoutMs);
+  }
+
+  async expectESRITM0888931WorkInContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.eSRITM0888931WorkIn), substring, timeoutMs);
+  }
+
+  async expectESRITM0888931WorkInValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.eSRITM0888931WorkIn), value, timeoutMs);
+  }
+
+  async expectESRITM0888931WorkInEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.eSRITM0888931WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0888931WorkInDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.eSRITM0888931WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0888931WorkInChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.eSRITM0888931WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0888931WorkInUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.eSRITM0888931WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0888931WorkInFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.eSRITM0888931WorkIn), timeoutMs);
+  }
+
+  async expectESRITM0888931WorkInCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.eSRITM0888931WorkIn), count, timeoutMs);
+  }
+
+  async scrollESRITM0888931WorkInIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0888931WorkIn));
+  }
+
+  async clickUpdatedOnJan82(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnJan82));
+  }
+
+  async doubleClickUpdatedOnJan82(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnJan82));
+  }
+
+  async longPressUpdatedOnJan82(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnJan82));
+  }
+
+  async expectUpdatedOnJan82Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.updatedOnJan82), timeoutMs);
+  }
+
+  async expectUpdatedOnJan82Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.updatedOnJan82), expected, timeoutMs);
+  }
+
+  async expectUpdatedOnJan82ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.updatedOnJan82), substring, timeoutMs);
+  }
+
+  async expectUpdatedOnJan82Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.updatedOnJan82), value, timeoutMs);
+  }
+
+  async expectUpdatedOnJan82Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.updatedOnJan82), timeoutMs);
+  }
+
+  async expectUpdatedOnJan82Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.updatedOnJan82), timeoutMs);
+  }
+
+  async expectUpdatedOnJan82Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.updatedOnJan82), timeoutMs);
+  }
+
+  async expectUpdatedOnJan82Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.updatedOnJan82), timeoutMs);
+  }
+
+  async expectUpdatedOnJan82Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.updatedOnJan82), timeoutMs);
+  }
+
+  async expectUpdatedOnJan82Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.updatedOnJan82), count, timeoutMs);
+  }
+
+  async scrollUpdatedOnJan82IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnJan82));
+  }
+
+  async clickESRITM0887639Open(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0887639Open));
+  }
+
+  async doubleClickESRITM0887639Open(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0887639Open));
+  }
+
+  async longPressESRITM0887639Open(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0887639Open));
+  }
+
+  async expectESRITM0887639OpenHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.eSRITM0887639Open), timeoutMs);
+  }
+
+  async expectESRITM0887639OpenText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.eSRITM0887639Open), expected, timeoutMs);
+  }
+
+  async expectESRITM0887639OpenContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.eSRITM0887639Open), substring, timeoutMs);
+  }
+
+  async expectESRITM0887639OpenValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.eSRITM0887639Open), value, timeoutMs);
+  }
+
+  async expectESRITM0887639OpenEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.eSRITM0887639Open), timeoutMs);
+  }
+
+  async expectESRITM0887639OpenDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.eSRITM0887639Open), timeoutMs);
+  }
+
+  async expectESRITM0887639OpenChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.eSRITM0887639Open), timeoutMs);
+  }
+
+  async expectESRITM0887639OpenUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.eSRITM0887639Open), timeoutMs);
+  }
+
+  async expectESRITM0887639OpenFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.eSRITM0887639Open), timeoutMs);
+  }
+
+  async expectESRITM0887639OpenCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.eSRITM0887639Open), count, timeoutMs);
+  }
+
+  async scrollESRITM0887639OpenIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0887639Open));
+  }
+
+  async clickUpdatedOnNov28(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnNov28));
+  }
+
+  async doubleClickUpdatedOnNov28(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnNov28));
+  }
+
+  async longPressUpdatedOnNov28(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnNov28));
+  }
+
+  async expectUpdatedOnNov28Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.updatedOnNov28), timeoutMs);
+  }
+
+  async expectUpdatedOnNov28Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.updatedOnNov28), expected, timeoutMs);
+  }
+
+  async expectUpdatedOnNov28ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.updatedOnNov28), substring, timeoutMs);
+  }
+
+  async expectUpdatedOnNov28Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.updatedOnNov28), value, timeoutMs);
+  }
+
+  async expectUpdatedOnNov28Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.updatedOnNov28), timeoutMs);
+  }
+
+  async expectUpdatedOnNov28Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.updatedOnNov28), timeoutMs);
+  }
+
+  async expectUpdatedOnNov28Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.updatedOnNov28), timeoutMs);
+  }
+
+  async expectUpdatedOnNov28Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.updatedOnNov28), timeoutMs);
+  }
+
+  async expectUpdatedOnNov28Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.updatedOnNov28), timeoutMs);
+  }
+
+  async expectUpdatedOnNov28Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.updatedOnNov28), count, timeoutMs);
+  }
+
+  async scrollUpdatedOnNov28IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnNov28));
+  }
+
+  async clickESRITM0887632Open(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0887632Open));
+  }
+
+  async doubleClickESRITM0887632Open(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0887632Open));
+  }
+
+  async longPressESRITM0887632Open(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0887632Open));
+  }
+
+  async expectESRITM0887632OpenHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.eSRITM0887632Open), timeoutMs);
+  }
+
+  async expectESRITM0887632OpenText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.eSRITM0887632Open), expected, timeoutMs);
+  }
+
+  async expectESRITM0887632OpenContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.eSRITM0887632Open), substring, timeoutMs);
+  }
+
+  async expectESRITM0887632OpenValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.eSRITM0887632Open), value, timeoutMs);
+  }
+
+  async expectESRITM0887632OpenEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.eSRITM0887632Open), timeoutMs);
+  }
+
+  async expectESRITM0887632OpenDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.eSRITM0887632Open), timeoutMs);
+  }
+
+  async expectESRITM0887632OpenChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.eSRITM0887632Open), timeoutMs);
+  }
+
+  async expectESRITM0887632OpenUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.eSRITM0887632Open), timeoutMs);
+  }
+
+  async expectESRITM0887632OpenFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.eSRITM0887632Open), timeoutMs);
+  }
+
+  async expectESRITM0887632OpenCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.eSRITM0887632Open), count, timeoutMs);
+  }
+
+  async scrollESRITM0887632OpenIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0887632Open));
+  }
+
+  async clickUpdatedOnNov26(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnNov26));
+  }
+
+  async doubleClickUpdatedOnNov26(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnNov26));
+  }
+
+  async longPressUpdatedOnNov26(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnNov26));
+  }
+
+  async expectUpdatedOnNov26Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.updatedOnNov26), timeoutMs);
+  }
+
+  async expectUpdatedOnNov26Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.updatedOnNov26), expected, timeoutMs);
+  }
+
+  async expectUpdatedOnNov26ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.updatedOnNov26), substring, timeoutMs);
+  }
+
+  async expectUpdatedOnNov26Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.updatedOnNov26), value, timeoutMs);
+  }
+
+  async expectUpdatedOnNov26Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.updatedOnNov26), timeoutMs);
+  }
+
+  async expectUpdatedOnNov26Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.updatedOnNov26), timeoutMs);
+  }
+
+  async expectUpdatedOnNov26Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.updatedOnNov26), timeoutMs);
+  }
+
+  async expectUpdatedOnNov26Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.updatedOnNov26), timeoutMs);
+  }
+
+  async expectUpdatedOnNov26Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.updatedOnNov26), timeoutMs);
+  }
+
+  async expectUpdatedOnNov26Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.updatedOnNov26), count, timeoutMs);
+  }
+
+  async scrollUpdatedOnNov26IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnNov26));
+  }
+
+  async clickESRITM0887619Open(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0887619Open));
+  }
+
+  async doubleClickESRITM0887619Open(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0887619Open));
+  }
+
+  async longPressESRITM0887619Open(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0887619Open));
+  }
+
+  async expectESRITM0887619OpenHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.eSRITM0887619Open), timeoutMs);
+  }
+
+  async expectESRITM0887619OpenText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.eSRITM0887619Open), expected, timeoutMs);
+  }
+
+  async expectESRITM0887619OpenContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.eSRITM0887619Open), substring, timeoutMs);
+  }
+
+  async expectESRITM0887619OpenValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.eSRITM0887619Open), value, timeoutMs);
+  }
+
+  async expectESRITM0887619OpenEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.eSRITM0887619Open), timeoutMs);
+  }
+
+  async expectESRITM0887619OpenDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.eSRITM0887619Open), timeoutMs);
+  }
+
+  async expectESRITM0887619OpenChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.eSRITM0887619Open), timeoutMs);
+  }
+
+  async expectESRITM0887619OpenUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.eSRITM0887619Open), timeoutMs);
+  }
+
+  async expectESRITM0887619OpenFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.eSRITM0887619Open), timeoutMs);
+  }
+
+  async expectESRITM0887619OpenCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.eSRITM0887619Open), count, timeoutMs);
+  }
+
+  async scrollESRITM0887619OpenIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.eSRITM0887619Open));
+  }
+
+  async clickUpdatedOnNov24(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnNov24));
+  }
+
+  async doubleClickUpdatedOnNov24(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnNov24));
+  }
+
+  async longPressUpdatedOnNov24(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnNov24));
+  }
+
+  async expectUpdatedOnNov24Hidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.updatedOnNov24), timeoutMs);
+  }
+
+  async expectUpdatedOnNov24Text(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.updatedOnNov24), expected, timeoutMs);
+  }
+
+  async expectUpdatedOnNov24ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.updatedOnNov24), substring, timeoutMs);
+  }
+
+  async expectUpdatedOnNov24Value(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.updatedOnNov24), value, timeoutMs);
+  }
+
+  async expectUpdatedOnNov24Enabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.updatedOnNov24), timeoutMs);
+  }
+
+  async expectUpdatedOnNov24Disabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.updatedOnNov24), timeoutMs);
+  }
+
+  async expectUpdatedOnNov24Checked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.updatedOnNov24), timeoutMs);
+  }
+
+  async expectUpdatedOnNov24Unchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.updatedOnNov24), timeoutMs);
+  }
+
+  async expectUpdatedOnNov24Focused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.updatedOnNov24), timeoutMs);
+  }
+
+  async expectUpdatedOnNov24Count(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.updatedOnNov24), count, timeoutMs);
+  }
+
+  async scrollUpdatedOnNov24IntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.updatedOnNov24));
+  }
+
+  async clickAssignedTraining(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.assignedTraining));
+  }
+
+  async doubleClickAssignedTraining(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.assignedTraining));
+  }
+
+  async longPressAssignedTraining(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.assignedTraining));
+  }
+
+  async expectAssignedTrainingHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.assignedTraining), timeoutMs);
+  }
+
+  async expectAssignedTrainingText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.assignedTraining), expected, timeoutMs);
+  }
+
+  async expectAssignedTrainingContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.assignedTraining), substring, timeoutMs);
+  }
+
+  async expectAssignedTrainingValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.assignedTraining), value, timeoutMs);
+  }
+
+  async expectAssignedTrainingEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.assignedTraining), timeoutMs);
+  }
+
+  async expectAssignedTrainingDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.assignedTraining), timeoutMs);
+  }
+
+  async expectAssignedTrainingChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.assignedTraining), timeoutMs);
+  }
+
+  async expectAssignedTrainingUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.assignedTraining), timeoutMs);
+  }
+
+  async expectAssignedTrainingFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.assignedTraining), timeoutMs);
+  }
+
+  async expectAssignedTrainingCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.assignedTraining), count, timeoutMs);
+  }
+
+  async scrollAssignedTrainingIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.assignedTraining));
+  }
+
+  async clickNoAssignedTrainingAt(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.noAssignedTrainingAt));
+  }
+
+  async doubleClickNoAssignedTrainingAt(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.noAssignedTrainingAt));
+  }
+
+  async longPressNoAssignedTrainingAt(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.noAssignedTrainingAt));
+  }
+
+  async expectNoAssignedTrainingAtHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.noAssignedTrainingAt), timeoutMs);
+  }
+
+  async expectNoAssignedTrainingAtText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.noAssignedTrainingAt), expected, timeoutMs);
+  }
+
+  async expectNoAssignedTrainingAtContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.noAssignedTrainingAt), substring, timeoutMs);
+  }
+
+  async expectNoAssignedTrainingAtValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.noAssignedTrainingAt), value, timeoutMs);
+  }
+
+  async expectNoAssignedTrainingAtEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.noAssignedTrainingAt), timeoutMs);
+  }
+
+  async expectNoAssignedTrainingAtDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.noAssignedTrainingAt), timeoutMs);
+  }
+
+  async expectNoAssignedTrainingAtChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.noAssignedTrainingAt), timeoutMs);
+  }
+
+  async expectNoAssignedTrainingAtUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.noAssignedTrainingAt), timeoutMs);
+  }
+
+  async expectNoAssignedTrainingAtFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.noAssignedTrainingAt), timeoutMs);
+  }
+
+  async expectNoAssignedTrainingAtCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.noAssignedTrainingAt), count, timeoutMs);
+  }
+
+  async scrollNoAssignedTrainingAtIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.noAssignedTrainingAt));
+  }
+
+  async clickExploreAvailableTrainingOpportunities(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.exploreAvailableTrainingOpportunities));
+  }
+
+  async doubleClickExploreAvailableTrainingOpportunities(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.exploreAvailableTrainingOpportunities));
+  }
+
+  async longPressExploreAvailableTrainingOpportunities(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.exploreAvailableTrainingOpportunities));
+  }
+
+  async expectExploreAvailableTrainingOpportunitiesHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.exploreAvailableTrainingOpportunities), timeoutMs);
+  }
+
+  async expectExploreAvailableTrainingOpportunitiesText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.exploreAvailableTrainingOpportunities), expected, timeoutMs);
+  }
+
+  async expectExploreAvailableTrainingOpportunitiesContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.exploreAvailableTrainingOpportunities), substring, timeoutMs);
+  }
+
+  async expectExploreAvailableTrainingOpportunitiesValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.exploreAvailableTrainingOpportunities), value, timeoutMs);
+  }
+
+  async expectExploreAvailableTrainingOpportunitiesEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.exploreAvailableTrainingOpportunities), timeoutMs);
+  }
+
+  async expectExploreAvailableTrainingOpportunitiesDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.exploreAvailableTrainingOpportunities), timeoutMs);
+  }
+
+  async expectExploreAvailableTrainingOpportunitiesChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.exploreAvailableTrainingOpportunities), timeoutMs);
+  }
+
+  async expectExploreAvailableTrainingOpportunitiesUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.exploreAvailableTrainingOpportunities), timeoutMs);
+  }
+
+  async expectExploreAvailableTrainingOpportunitiesFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.exploreAvailableTrainingOpportunities), timeoutMs);
+  }
+
+  async expectExploreAvailableTrainingOpportunitiesCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.exploreAvailableTrainingOpportunities), count, timeoutMs);
+  }
+
+  async scrollExploreAvailableTrainingOpportunitiesIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.exploreAvailableTrainingOpportunities));
+  }
+
+  async doubleClickGoToTalentCentral(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.goToTalentCentral));
+  }
+
+  async longPressGoToTalentCentral(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.goToTalentCentral));
+  }
+
+  async expectGoToTalentCentralHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.goToTalentCentral), timeoutMs);
+  }
+
+  async expectGoToTalentCentralText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.goToTalentCentral), expected, timeoutMs);
+  }
+
+  async expectGoToTalentCentralContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.goToTalentCentral), substring, timeoutMs);
+  }
+
+  async expectGoToTalentCentralValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.goToTalentCentral), value, timeoutMs);
+  }
+
+  async expectGoToTalentCentralEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.goToTalentCentral), timeoutMs);
+  }
+
+  async expectGoToTalentCentralDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.goToTalentCentral), timeoutMs);
+  }
+
+  async expectGoToTalentCentralChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.goToTalentCentral), timeoutMs);
+  }
+
+  async expectGoToTalentCentralUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.goToTalentCentral), timeoutMs);
+  }
+
+  async expectGoToTalentCentralFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.goToTalentCentral), timeoutMs);
+  }
+
+  async expectGoToTalentCentralCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.goToTalentCentral), count, timeoutMs);
+  }
+
+  async scrollGoToTalentCentralIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.goToTalentCentral));
+  }
+
+  async clickQuickActions(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.quickActions));
+  }
+
+  async doubleClickQuickActions(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.quickActions));
+  }
+
+  async longPressQuickActions(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.quickActions));
+  }
+
+  async expectQuickActionsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.quickActions), timeoutMs);
+  }
+
+  async expectQuickActionsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.quickActions), expected, timeoutMs);
+  }
+
+  async expectQuickActionsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.quickActions), substring, timeoutMs);
+  }
+
+  async expectQuickActionsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.quickActions), value, timeoutMs);
+  }
+
+  async expectQuickActionsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.quickActions), timeoutMs);
+  }
+
+  async expectQuickActionsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.quickActions), timeoutMs);
+  }
+
+  async expectQuickActionsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.quickActions), timeoutMs);
+  }
+
+  async expectQuickActionsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.quickActions), timeoutMs);
+  }
+
+  async expectQuickActionsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.quickActions), timeoutMs);
+  }
+
+  async expectQuickActionsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.quickActions), count, timeoutMs);
+  }
+
+  async scrollQuickActionsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.quickActions));
+  }
+
+  async doubleClickGetTechnicalSupport(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.getTechnicalSupport));
+  }
+
+  async longPressGetTechnicalSupport(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.getTechnicalSupport));
+  }
+
+  async expectGetTechnicalSupportHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.getTechnicalSupport), timeoutMs);
+  }
+
+  async expectGetTechnicalSupportText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.getTechnicalSupport), expected, timeoutMs);
+  }
+
+  async expectGetTechnicalSupportContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.getTechnicalSupport), substring, timeoutMs);
+  }
+
+  async expectGetTechnicalSupportValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.getTechnicalSupport), value, timeoutMs);
+  }
+
+  async expectGetTechnicalSupportEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.getTechnicalSupport), timeoutMs);
+  }
+
+  async expectGetTechnicalSupportDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.getTechnicalSupport), timeoutMs);
+  }
+
+  async expectGetTechnicalSupportChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.getTechnicalSupport), timeoutMs);
+  }
+
+  async expectGetTechnicalSupportUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.getTechnicalSupport), timeoutMs);
+  }
+
+  async expectGetTechnicalSupportFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.getTechnicalSupport), timeoutMs);
+  }
+
+  async expectGetTechnicalSupportCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.getTechnicalSupport), count, timeoutMs);
+  }
+
+  async scrollGetTechnicalSupportIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.getTechnicalSupport));
+  }
+
+  async doubleClickViewHolidayCalendar(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewHolidayCalendar));
+  }
+
+  async longPressViewHolidayCalendar(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewHolidayCalendar));
+  }
+
+  async expectViewHolidayCalendarHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.viewHolidayCalendar), timeoutMs);
+  }
+
+  async expectViewHolidayCalendarText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.viewHolidayCalendar), expected, timeoutMs);
+  }
+
+  async expectViewHolidayCalendarContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.viewHolidayCalendar), substring, timeoutMs);
+  }
+
+  async expectViewHolidayCalendarValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.viewHolidayCalendar), value, timeoutMs);
+  }
+
+  async expectViewHolidayCalendarEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.viewHolidayCalendar), timeoutMs);
+  }
+
+  async expectViewHolidayCalendarDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.viewHolidayCalendar), timeoutMs);
+  }
+
+  async expectViewHolidayCalendarChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.viewHolidayCalendar), timeoutMs);
+  }
+
+  async expectViewHolidayCalendarUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.viewHolidayCalendar), timeoutMs);
+  }
+
+  async expectViewHolidayCalendarFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.viewHolidayCalendar), timeoutMs);
+  }
+
+  async expectViewHolidayCalendarCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.viewHolidayCalendar), count, timeoutMs);
+  }
+
+  async scrollViewHolidayCalendarIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewHolidayCalendar));
+  }
+
+  async doubleClickViewPolicies(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewPolicies));
+  }
+
+  async longPressViewPolicies(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewPolicies));
+  }
+
+  async expectViewPoliciesHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.viewPolicies), timeoutMs);
+  }
+
+  async expectViewPoliciesText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.viewPolicies), expected, timeoutMs);
+  }
+
+  async expectViewPoliciesContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.viewPolicies), substring, timeoutMs);
+  }
+
+  async expectViewPoliciesValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.viewPolicies), value, timeoutMs);
+  }
+
+  async expectViewPoliciesEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.viewPolicies), timeoutMs);
+  }
+
+  async expectViewPoliciesDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.viewPolicies), timeoutMs);
+  }
+
+  async expectViewPoliciesChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.viewPolicies), timeoutMs);
+  }
+
+  async expectViewPoliciesUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.viewPolicies), timeoutMs);
+  }
+
+  async expectViewPoliciesFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.viewPolicies), timeoutMs);
+  }
+
+  async expectViewPoliciesCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.viewPolicies), count, timeoutMs);
+  }
+
+  async scrollViewPoliciesIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewPolicies));
+  }
+
+  async doubleClickManageExpenses(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.manageExpenses));
+  }
+
+  async longPressManageExpenses(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.manageExpenses));
+  }
+
+  async expectManageExpensesHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.manageExpenses), timeoutMs);
+  }
+
+  async expectManageExpensesText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.manageExpenses), expected, timeoutMs);
+  }
+
+  async expectManageExpensesContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.manageExpenses), substring, timeoutMs);
+  }
+
+  async expectManageExpensesValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.manageExpenses), value, timeoutMs);
+  }
+
+  async expectManageExpensesEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.manageExpenses), timeoutMs);
+  }
+
+  async expectManageExpensesDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.manageExpenses), timeoutMs);
+  }
+
+  async expectManageExpensesChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.manageExpenses), timeoutMs);
+  }
+
+  async expectManageExpensesUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.manageExpenses), timeoutMs);
+  }
+
+  async expectManageExpensesFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.manageExpenses), timeoutMs);
+  }
+
+  async expectManageExpensesCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.manageExpenses), count, timeoutMs);
+  }
+
+  async scrollManageExpensesIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.manageExpenses));
+  }
+
+  async clickTasks(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.tasks));
+  }
+
+  async doubleClickTasks(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.tasks));
+  }
+
+  async longPressTasks(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.tasks));
+  }
+
+  async expectTasksHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.tasks), timeoutMs);
+  }
+
+  async expectTasksText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.tasks), expected, timeoutMs);
+  }
+
+  async expectTasksContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.tasks), substring, timeoutMs);
+  }
+
+  async expectTasksValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.tasks), value, timeoutMs);
+  }
+
+  async expectTasksEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.tasks), timeoutMs);
+  }
+
+  async expectTasksDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.tasks), timeoutMs);
+  }
+
+  async expectTasksChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.tasks), timeoutMs);
+  }
+
+  async expectTasksUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.tasks), timeoutMs);
+  }
+
+  async expectTasksFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.tasks), timeoutMs);
+  }
+
+  async expectTasksCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.tasks), count, timeoutMs);
+  }
+
+  async scrollTasksIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.tasks));
+  }
+
+  async doubleClickGoToMicrosoftTo(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.goToMicrosoftTo));
+  }
+
+  async longPressGoToMicrosoftTo(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.goToMicrosoftTo));
+  }
+
+  async expectGoToMicrosoftToHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.goToMicrosoftTo), timeoutMs);
+  }
+
+  async expectGoToMicrosoftToText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.goToMicrosoftTo), expected, timeoutMs);
+  }
+
+  async expectGoToMicrosoftToContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.goToMicrosoftTo), substring, timeoutMs);
+  }
+
+  async expectGoToMicrosoftToValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.goToMicrosoftTo), value, timeoutMs);
+  }
+
+  async expectGoToMicrosoftToEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.goToMicrosoftTo), timeoutMs);
+  }
+
+  async expectGoToMicrosoftToDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.goToMicrosoftTo), timeoutMs);
+  }
+
+  async expectGoToMicrosoftToChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.goToMicrosoftTo), timeoutMs);
+  }
+
+  async expectGoToMicrosoftToUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.goToMicrosoftTo), timeoutMs);
+  }
+
+  async expectGoToMicrosoftToFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.goToMicrosoftTo), timeoutMs);
+  }
+
+  async expectGoToMicrosoftToCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.goToMicrosoftTo), count, timeoutMs);
+  }
+
+  async scrollGoToMicrosoftToIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.goToMicrosoftTo));
+  }
+
+  async doubleClickSelectTodoList(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.selectTodoList));
+  }
+
+  async longPressSelectTodoList(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.selectTodoList));
+  }
+
+  async expectSelectTodoListHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.selectTodoList), timeoutMs);
+  }
+
+  async expectSelectTodoListText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.selectTodoList), expected, timeoutMs);
+  }
+
+  async expectSelectTodoListContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.selectTodoList), substring, timeoutMs);
+  }
+
+  async expectSelectTodoListValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.selectTodoList), value, timeoutMs);
+  }
+
+  async expectSelectTodoListEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.selectTodoList), timeoutMs);
+  }
+
+  async expectSelectTodoListDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.selectTodoList), timeoutMs);
+  }
+
+  async expectSelectTodoListChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.selectTodoList), timeoutMs);
+  }
+
+  async expectSelectTodoListUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.selectTodoList), timeoutMs);
+  }
+
+  async expectSelectTodoListFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.selectTodoList), timeoutMs);
+  }
+
+  async expectSelectTodoListCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.selectTodoList), count, timeoutMs);
+  }
+
+  async scrollSelectTodoListIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.selectTodoList));
+  }
+
+  async typeTextRDk(value: string): Promise<void> {
+    await typeTextWhenVisible(webLocator(this.page, UkgcommonsPage.L.rDk), value);
+  }
+
+  async expectRDkHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.rDk), timeoutMs);
+  }
+
+  async expectRDkText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.rDk), expected, timeoutMs);
+  }
+
+  async expectRDkContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.rDk), substring, timeoutMs);
+  }
+
+  async expectRDkValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.rDk), value, timeoutMs);
+  }
+
+  async expectRDkEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.rDk), timeoutMs);
+  }
+
+  async expectRDkDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.rDk), timeoutMs);
+  }
+
+  async expectRDkChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.rDk), timeoutMs);
+  }
+
+  async expectRDkUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.rDk), timeoutMs);
+  }
+
+  async expectRDkFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.rDk), timeoutMs);
+  }
+
+  async expectRDkCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.rDk), count, timeoutMs);
+  }
+
+  async scrollRDkIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.rDk));
+  }
+
+  async doubleClickT(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.t));
+  }
+
+  async longPressT(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.t));
+  }
+
+  async expectTHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.t), timeoutMs);
+  }
+
+  async expectTText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.t), expected, timeoutMs);
+  }
+
+  async expectTContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.t), substring, timeoutMs);
+  }
+
+  async expectTValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.t), value, timeoutMs);
+  }
+
+  async expectTEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.t), timeoutMs);
+  }
+
+  async expectTDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.t), timeoutMs);
+  }
+
+  async expectTChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.t), timeoutMs);
+  }
+
+  async expectTUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.t), timeoutMs);
+  }
+
+  async expectTFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.t), timeoutMs);
+  }
+
+  async expectTCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.t), count, timeoutMs);
+  }
+
+  async scrollTIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.t));
+  }
+
+  async doubleClickH(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.h));
+  }
+
+  async longPressH(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.h));
+  }
+
+  async expectHHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.h), timeoutMs);
+  }
+
+  async expectHText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.h), expected, timeoutMs);
+  }
+
+  async expectHContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.h), substring, timeoutMs);
+  }
+
+  async expectHValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.h), value, timeoutMs);
+  }
+
+  async expectHEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.h), timeoutMs);
+  }
+
+  async expectHDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.h), timeoutMs);
+  }
+
+  async expectHChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.h), timeoutMs);
+  }
+
+  async expectHUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.h), timeoutMs);
+  }
+
+  async expectHFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.h), timeoutMs);
+  }
+
+  async expectHCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.h), count, timeoutMs);
+  }
+
+  async scrollHIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.h));
+  }
+
+  async doubleClickG(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.g));
+  }
+
+  async longPressG(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.g));
+  }
+
+  async expectGHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.g), timeoutMs);
+  }
+
+  async expectGText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.g), expected, timeoutMs);
+  }
+
+  async expectGContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.g), substring, timeoutMs);
+  }
+
+  async expectGValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.g), value, timeoutMs);
+  }
+
+  async expectGEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.g), timeoutMs);
+  }
+
+  async expectGDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.g), timeoutMs);
+  }
+
+  async expectGChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.g), timeoutMs);
+  }
+
+  async expectGUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.g), timeoutMs);
+  }
+
+  async expectGFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.g), timeoutMs);
+  }
+
+  async expectGCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.g), count, timeoutMs);
+  }
+
+  async scrollGIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.g));
+  }
+
+  async doubleClickB(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.b));
+  }
+
+  async longPressB(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.b));
+  }
+
+  async expectBHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.b), timeoutMs);
+  }
+
+  async expectBText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.b), expected, timeoutMs);
+  }
+
+  async expectBContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.b), substring, timeoutMs);
+  }
+
+  async expectBValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.b), value, timeoutMs);
+  }
+
+  async expectBEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.b), timeoutMs);
+  }
+
+  async expectBDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.b), timeoutMs);
+  }
+
+  async expectBChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.b), timeoutMs);
+  }
+
+  async expectBUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.b), timeoutMs);
+  }
+
+  async expectBFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.b), timeoutMs);
+  }
+
+  async expectBCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.b), count, timeoutMs);
+  }
+
+  async scrollBIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.b));
+  }
+
+  async doubleClickO(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.o));
+  }
+
+  async longPressO(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.o));
+  }
+
+  async expectOHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.o), timeoutMs);
+  }
+
+  async expectOText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.o), expected, timeoutMs);
+  }
+
+  async expectOContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.o), substring, timeoutMs);
+  }
+
+  async expectOValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.o), value, timeoutMs);
+  }
+
+  async expectOEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.o), timeoutMs);
+  }
+
+  async expectODisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.o), timeoutMs);
+  }
+
+  async expectOChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.o), timeoutMs);
+  }
+
+  async expectOUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.o), timeoutMs);
+  }
+
+  async expectOFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.o), timeoutMs);
+  }
+
+  async expectOCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.o), count, timeoutMs);
+  }
+
+  async scrollOIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.o));
+  }
+
+  async doubleClickW(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.w));
+  }
+
+  async longPressW(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.w));
+  }
+
+  async expectWHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.w), timeoutMs);
+  }
+
+  async expectWText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.w), expected, timeoutMs);
+  }
+
+  async expectWContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.w), substring, timeoutMs);
+  }
+
+  async expectWValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.w), value, timeoutMs);
+  }
+
+  async expectWEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.w), timeoutMs);
+  }
+
+  async expectWDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.w), timeoutMs);
+  }
+
+  async expectWChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.w), timeoutMs);
+  }
+
+  async expectWUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.w), timeoutMs);
+  }
+
+  async expectWFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.w), timeoutMs);
+  }
+
+  async expectWCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.w), count, timeoutMs);
+  }
+
+  async scrollWIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.w));
+  }
+
+  async doubleClickQ(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.q));
+  }
+
+  async longPressQ(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.q));
+  }
+
+  async expectQHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.q), timeoutMs);
+  }
+
+  async expectQText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.q), expected, timeoutMs);
+  }
+
+  async expectQContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.q), substring, timeoutMs);
+  }
+
+  async expectQValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.q), value, timeoutMs);
+  }
+
+  async expectQEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.q), timeoutMs);
+  }
+
+  async expectQDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.q), timeoutMs);
+  }
+
+  async expectQChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.q), timeoutMs);
+  }
+
+  async expectQUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.q), timeoutMs);
+  }
+
+  async expectQFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.q), timeoutMs);
+  }
+
+  async expectQCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.q), count, timeoutMs);
+  }
+
+  async scrollQIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.q));
+  }
+
+  async doubleClickAdd(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.add));
+  }
+
+  async longPressAdd(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.add));
+  }
+
+  async expectAddHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.add), timeoutMs);
+  }
+
+  async expectAddText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.add), expected, timeoutMs);
+  }
+
+  async expectAddContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.add), substring, timeoutMs);
+  }
+
+  async expectAddValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.add), value, timeoutMs);
+  }
+
+  async expectAddEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.add), timeoutMs);
+  }
+
+  async expectAddDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.add), timeoutMs);
+  }
+
+  async expectAddChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.add), timeoutMs);
+  }
+
+  async expectAddUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.add), timeoutMs);
+  }
+
+  async expectAddFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.add), timeoutMs);
+  }
+
+  async expectAddCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.add), count, timeoutMs);
+  }
+
+  async scrollAddIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.add));
+  }
+
+  async clickCompleted(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.completed));
+  }
+
+  async doubleClickCompleted(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.completed));
+  }
+
+  async longPressCompleted(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.completed));
+  }
+
+  async expectCompletedHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.completed), timeoutMs);
+  }
+
+  async expectCompletedText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.completed), expected, timeoutMs);
+  }
+
+  async expectCompletedContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.completed), substring, timeoutMs);
+  }
+
+  async expectCompletedValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.completed), value, timeoutMs);
+  }
+
+  async expectCompletedEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.completed), timeoutMs);
+  }
+
+  async expectCompletedDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.completed), timeoutMs);
+  }
+
+  async expectCompletedChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.completed), timeoutMs);
+  }
+
+  async expectCompletedUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.completed), timeoutMs);
+  }
+
+  async expectCompletedFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.completed), timeoutMs);
+  }
+
+  async expectCompletedCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.completed), count, timeoutMs);
+  }
+
+  async scrollCompletedIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.completed));
+  }
+
+  async doubleClickMyDay(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.myDay));
+  }
+
+  async longPressMyDay(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.myDay));
+  }
+
+  async expectMyDayHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.myDay), timeoutMs);
+  }
+
+  async expectMyDayText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.myDay), expected, timeoutMs);
+  }
+
+  async expectMyDayContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.myDay), substring, timeoutMs);
+  }
+
+  async expectMyDayValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.myDay), value, timeoutMs);
+  }
+
+  async expectMyDayEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.myDay), timeoutMs);
+  }
+
+  async expectMyDayDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.myDay), timeoutMs);
+  }
+
+  async expectMyDayChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.myDay), timeoutMs);
+  }
+
+  async expectMyDayUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.myDay), timeoutMs);
+  }
+
+  async expectMyDayFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.myDay), timeoutMs);
+  }
+
+  async expectMyDayCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.myDay), count, timeoutMs);
+  }
+
+  async scrollMyDayIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.myDay));
+  }
+
+  async doubleClickAdx(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.adx));
+  }
+
+  async longPressAdx(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.adx));
+  }
+
+  async expectAdxHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.adx), timeoutMs);
+  }
+
+  async expectAdxText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.adx), expected, timeoutMs);
+  }
+
+  async expectAdxContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.adx), substring, timeoutMs);
+  }
+
+  async expectAdxValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.adx), value, timeoutMs);
+  }
+
+  async expectAdxEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.adx), timeoutMs);
+  }
+
+  async expectAdxDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.adx), timeoutMs);
+  }
+
+  async expectAdxChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.adx), timeoutMs);
+  }
+
+  async expectAdxUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.adx), timeoutMs);
+  }
+
+  async expectAdxFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.adx), timeoutMs);
+  }
+
+  async expectAdxCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.adx), count, timeoutMs);
+  }
+
+  async scrollAdxIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.adx));
+  }
+
+  async doubleClickUkgCommonsApp(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgCommonsApp));
+  }
+
+  async longPressUkgCommonsApp(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgCommonsApp));
+  }
+
+  async expectUkgCommonsAppHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.ukgCommonsApp), timeoutMs);
+  }
+
+  async expectUkgCommonsAppText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.ukgCommonsApp), expected, timeoutMs);
+  }
+
+  async expectUkgCommonsAppContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.ukgCommonsApp), substring, timeoutMs);
+  }
+
+  async expectUkgCommonsAppValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.ukgCommonsApp), value, timeoutMs);
+  }
+
+  async expectUkgCommonsAppEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.ukgCommonsApp), timeoutMs);
+  }
+
+  async expectUkgCommonsAppDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.ukgCommonsApp), timeoutMs);
+  }
+
+  async expectUkgCommonsAppChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.ukgCommonsApp), timeoutMs);
+  }
+
+  async expectUkgCommonsAppUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.ukgCommonsApp), timeoutMs);
+  }
+
+  async expectUkgCommonsAppFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.ukgCommonsApp), timeoutMs);
+  }
+
+  async expectUkgCommonsAppCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.ukgCommonsApp), count, timeoutMs);
+  }
+
+  async scrollUkgCommonsAppIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.ukgCommonsApp));
+  }
+
+  async clickHotJobs(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.hotJobs));
+  }
+
+  async doubleClickHotJobs(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.hotJobs));
+  }
+
+  async longPressHotJobs(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.hotJobs));
+  }
+
+  async expectHotJobsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.hotJobs), timeoutMs);
+  }
+
+  async expectHotJobsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.hotJobs), expected, timeoutMs);
+  }
+
+  async expectHotJobsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.hotJobs), substring, timeoutMs);
+  }
+
+  async expectHotJobsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.hotJobs), value, timeoutMs);
+  }
+
+  async expectHotJobsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.hotJobs), timeoutMs);
+  }
+
+  async expectHotJobsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.hotJobs), timeoutMs);
+  }
+
+  async expectHotJobsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.hotJobs), timeoutMs);
+  }
+
+  async expectHotJobsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.hotJobs), timeoutMs);
+  }
+
+  async expectHotJobsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.hotJobs), timeoutMs);
+  }
+
+  async expectHotJobsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.hotJobs), count, timeoutMs);
+  }
+
+  async scrollHotJobsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.hotJobs));
+  }
+
+  async longPressProductManagerHcm(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.productManagerHcm));
+  }
+
+  async expectProductManagerHcmHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.productManagerHcm), timeoutMs);
+  }
+
+  async expectProductManagerHcmText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.productManagerHcm), expected, timeoutMs);
+  }
+
+  async expectProductManagerHcmContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.productManagerHcm), substring, timeoutMs);
+  }
+
+  async expectProductManagerHcmValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.productManagerHcm), value, timeoutMs);
+  }
+
+  async expectProductManagerHcmEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.productManagerHcm), timeoutMs);
+  }
+
+  async expectProductManagerHcmDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.productManagerHcm), timeoutMs);
+  }
+
+  async expectProductManagerHcmChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.productManagerHcm), timeoutMs);
+  }
+
+  async expectProductManagerHcmUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.productManagerHcm), timeoutMs);
+  }
+
+  async expectProductManagerHcmFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.productManagerHcm), timeoutMs);
+  }
+
+  async expectProductManagerHcmCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.productManagerHcm), count, timeoutMs);
+  }
+
+  async scrollProductManagerHcmIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.productManagerHcm));
+  }
+
+  async longPressQaAutomationLead(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.qaAutomationLead));
+  }
+
+  async expectQaAutomationLeadHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.qaAutomationLead), timeoutMs);
+  }
+
+  async expectQaAutomationLeadText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.qaAutomationLead), expected, timeoutMs);
+  }
+
+  async expectQaAutomationLeadContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.qaAutomationLead), substring, timeoutMs);
+  }
+
+  async expectQaAutomationLeadValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.qaAutomationLead), value, timeoutMs);
+  }
+
+  async expectQaAutomationLeadEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.qaAutomationLead), timeoutMs);
+  }
+
+  async expectQaAutomationLeadDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.qaAutomationLead), timeoutMs);
+  }
+
+  async expectQaAutomationLeadChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.qaAutomationLead), timeoutMs);
+  }
+
+  async expectQaAutomationLeadUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.qaAutomationLead), timeoutMs);
+  }
+
+  async expectQaAutomationLeadFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.qaAutomationLead), timeoutMs);
+  }
+
+  async expectQaAutomationLeadCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.qaAutomationLead), count, timeoutMs);
+  }
+
+  async scrollQaAutomationLeadIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.qaAutomationLead));
+  }
+
+  async longPressSeniorSoftwareEngineerDriving(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineerDriving));
+  }
+
+  async expectSeniorSoftwareEngineerDrivingHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineerDriving), timeoutMs);
+  }
+
+  async expectSeniorSoftwareEngineerDrivingText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineerDriving), expected, timeoutMs);
+  }
+
+  async expectSeniorSoftwareEngineerDrivingContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineerDriving), substring, timeoutMs);
+  }
+
+  async expectSeniorSoftwareEngineerDrivingValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineerDriving), value, timeoutMs);
+  }
+
+  async expectSeniorSoftwareEngineerDrivingEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineerDriving), timeoutMs);
+  }
+
+  async expectSeniorSoftwareEngineerDrivingDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineerDriving), timeoutMs);
+  }
+
+  async expectSeniorSoftwareEngineerDrivingChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineerDriving), timeoutMs);
+  }
+
+  async expectSeniorSoftwareEngineerDrivingUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineerDriving), timeoutMs);
+  }
+
+  async expectSeniorSoftwareEngineerDrivingFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineerDriving), timeoutMs);
+  }
+
+  async expectSeniorSoftwareEngineerDrivingCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineerDriving), count, timeoutMs);
+  }
+
+  async scrollSeniorSoftwareEngineerDrivingIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineerDriving));
+  }
+
+  async longPressSeniorSoftwareEngineer(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineer));
+  }
+
+  async expectSeniorSoftwareEngineerHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineer), timeoutMs);
+  }
+
+  async expectSeniorSoftwareEngineerText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineer), expected, timeoutMs);
+  }
+
+  async expectSeniorSoftwareEngineerContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineer), substring, timeoutMs);
+  }
+
+  async expectSeniorSoftwareEngineerValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineer), value, timeoutMs);
+  }
+
+  async expectSeniorSoftwareEngineerEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineer), timeoutMs);
+  }
+
+  async expectSeniorSoftwareEngineerDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineer), timeoutMs);
+  }
+
+  async expectSeniorSoftwareEngineerChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineer), timeoutMs);
+  }
+
+  async expectSeniorSoftwareEngineerUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineer), timeoutMs);
+  }
+
+  async expectSeniorSoftwareEngineerFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineer), timeoutMs);
+  }
+
+  async expectSeniorSoftwareEngineerCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineer), count, timeoutMs);
+  }
+
+  async scrollSeniorSoftwareEngineerIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.seniorSoftwareEngineer));
+  }
+
+  async longPressCloudInfrastructureEngineer(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.cloudInfrastructureEngineer));
+  }
+
+  async expectCloudInfrastructureEngineerHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.cloudInfrastructureEngineer), timeoutMs);
+  }
+
+  async expectCloudInfrastructureEngineerText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.cloudInfrastructureEngineer), expected, timeoutMs);
+  }
+
+  async expectCloudInfrastructureEngineerContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.cloudInfrastructureEngineer), substring, timeoutMs);
+  }
+
+  async expectCloudInfrastructureEngineerValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.cloudInfrastructureEngineer), value, timeoutMs);
+  }
+
+  async expectCloudInfrastructureEngineerEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.cloudInfrastructureEngineer), timeoutMs);
+  }
+
+  async expectCloudInfrastructureEngineerDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.cloudInfrastructureEngineer), timeoutMs);
+  }
+
+  async expectCloudInfrastructureEngineerChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.cloudInfrastructureEngineer), timeoutMs);
+  }
+
+  async expectCloudInfrastructureEngineerUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.cloudInfrastructureEngineer), timeoutMs);
+  }
+
+  async expectCloudInfrastructureEngineerFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.cloudInfrastructureEngineer), timeoutMs);
+  }
+
+  async expectCloudInfrastructureEngineerCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.cloudInfrastructureEngineer), count, timeoutMs);
+  }
+
+  async scrollCloudInfrastructureEngineerIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.cloudInfrastructureEngineer));
+  }
+
+  async longPressCustomerSuccessManager(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.customerSuccessManager));
+  }
+
+  async expectCustomerSuccessManagerHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.customerSuccessManager), timeoutMs);
+  }
+
+  async expectCustomerSuccessManagerText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.customerSuccessManager), expected, timeoutMs);
+  }
+
+  async expectCustomerSuccessManagerContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.customerSuccessManager), substring, timeoutMs);
+  }
+
+  async expectCustomerSuccessManagerValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.customerSuccessManager), value, timeoutMs);
+  }
+
+  async expectCustomerSuccessManagerEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.customerSuccessManager), timeoutMs);
+  }
+
+  async expectCustomerSuccessManagerDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.customerSuccessManager), timeoutMs);
+  }
+
+  async expectCustomerSuccessManagerChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.customerSuccessManager), timeoutMs);
+  }
+
+  async expectCustomerSuccessManagerUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.customerSuccessManager), timeoutMs);
+  }
+
+  async expectCustomerSuccessManagerFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.customerSuccessManager), timeoutMs);
+  }
+
+  async expectCustomerSuccessManagerCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.customerSuccessManager), count, timeoutMs);
+  }
+
+  async scrollCustomerSuccessManagerIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.customerSuccessManager));
+  }
+
+  async longPressUxUiDesignerChecking(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.uxUiDesignerChecking));
+  }
+
+  async expectUxUiDesignerCheckingHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.uxUiDesignerChecking), timeoutMs);
+  }
+
+  async expectUxUiDesignerCheckingText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.uxUiDesignerChecking), expected, timeoutMs);
+  }
+
+  async expectUxUiDesignerCheckingContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.uxUiDesignerChecking), substring, timeoutMs);
+  }
+
+  async expectUxUiDesignerCheckingValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.uxUiDesignerChecking), value, timeoutMs);
+  }
+
+  async expectUxUiDesignerCheckingEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.uxUiDesignerChecking), timeoutMs);
+  }
+
+  async expectUxUiDesignerCheckingDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.uxUiDesignerChecking), timeoutMs);
+  }
+
+  async expectUxUiDesignerCheckingChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.uxUiDesignerChecking), timeoutMs);
+  }
+
+  async expectUxUiDesignerCheckingUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.uxUiDesignerChecking), timeoutMs);
+  }
+
+  async expectUxUiDesignerCheckingFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.uxUiDesignerChecking), timeoutMs);
+  }
+
+  async expectUxUiDesignerCheckingCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.uxUiDesignerChecking), count, timeoutMs);
+  }
+
+  async scrollUxUiDesignerCheckingIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.uxUiDesignerChecking));
+  }
+
+  async longPressSeniorPrincipalSoftwareEngineerArchitect(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.seniorPrincipalSoftwareEngineerArchitect));
+  }
+
+  async expectSeniorPrincipalSoftwareEngineerArchitectHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.seniorPrincipalSoftwareEngineerArchitect), timeoutMs);
+  }
+
+  async expectSeniorPrincipalSoftwareEngineerArchitectText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.seniorPrincipalSoftwareEngineerArchitect), expected, timeoutMs);
+  }
+
+  async expectSeniorPrincipalSoftwareEngineerArchitectContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.seniorPrincipalSoftwareEngineerArchitect), substring, timeoutMs);
+  }
+
+  async expectSeniorPrincipalSoftwareEngineerArchitectValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.seniorPrincipalSoftwareEngineerArchitect), value, timeoutMs);
+  }
+
+  async expectSeniorPrincipalSoftwareEngineerArchitectEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.seniorPrincipalSoftwareEngineerArchitect), timeoutMs);
+  }
+
+  async expectSeniorPrincipalSoftwareEngineerArchitectDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.seniorPrincipalSoftwareEngineerArchitect), timeoutMs);
+  }
+
+  async expectSeniorPrincipalSoftwareEngineerArchitectChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.seniorPrincipalSoftwareEngineerArchitect), timeoutMs);
+  }
+
+  async expectSeniorPrincipalSoftwareEngineerArchitectUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.seniorPrincipalSoftwareEngineerArchitect), timeoutMs);
+  }
+
+  async expectSeniorPrincipalSoftwareEngineerArchitectFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.seniorPrincipalSoftwareEngineerArchitect), timeoutMs);
+  }
+
+  async expectSeniorPrincipalSoftwareEngineerArchitectCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.seniorPrincipalSoftwareEngineerArchitect), count, timeoutMs);
+  }
+
+  async scrollSeniorPrincipalSoftwareEngineerArchitectIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.seniorPrincipalSoftwareEngineerArchitect));
+  }
+
+  async clickMySpaceReservations(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.mySpaceReservations));
+  }
+
+  async doubleClickMySpaceReservations(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.mySpaceReservations));
+  }
+
+  async longPressMySpaceReservations(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.mySpaceReservations));
+  }
+
+  async expectMySpaceReservationsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.mySpaceReservations), timeoutMs);
+  }
+
+  async expectMySpaceReservationsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.mySpaceReservations), expected, timeoutMs);
+  }
+
+  async expectMySpaceReservationsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.mySpaceReservations), substring, timeoutMs);
+  }
+
+  async expectMySpaceReservationsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.mySpaceReservations), value, timeoutMs);
+  }
+
+  async expectMySpaceReservationsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.mySpaceReservations), timeoutMs);
+  }
+
+  async expectMySpaceReservationsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.mySpaceReservations), timeoutMs);
+  }
+
+  async expectMySpaceReservationsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.mySpaceReservations), timeoutMs);
+  }
+
+  async expectMySpaceReservationsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.mySpaceReservations), timeoutMs);
+  }
+
+  async expectMySpaceReservationsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.mySpaceReservations), timeoutMs);
+  }
+
+  async expectMySpaceReservationsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.mySpaceReservations), count, timeoutMs);
+  }
+
+  async scrollMySpaceReservationsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.mySpaceReservations));
+  }
+
+  async clickNoReservationsFound(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.noReservationsFound));
+  }
+
+  async doubleClickNoReservationsFound(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.noReservationsFound));
+  }
+
+  async longPressNoReservationsFound(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.noReservationsFound));
+  }
+
+  async expectNoReservationsFoundHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.noReservationsFound), timeoutMs);
+  }
+
+  async expectNoReservationsFoundText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.noReservationsFound), expected, timeoutMs);
+  }
+
+  async expectNoReservationsFoundContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.noReservationsFound), substring, timeoutMs);
+  }
+
+  async expectNoReservationsFoundValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.noReservationsFound), value, timeoutMs);
+  }
+
+  async expectNoReservationsFoundEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.noReservationsFound), timeoutMs);
+  }
+
+  async expectNoReservationsFoundDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.noReservationsFound), timeoutMs);
+  }
+
+  async expectNoReservationsFoundChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.noReservationsFound), timeoutMs);
+  }
+
+  async expectNoReservationsFoundUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.noReservationsFound), timeoutMs);
+  }
+
+  async expectNoReservationsFoundFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.noReservationsFound), timeoutMs);
+  }
+
+  async expectNoReservationsFoundCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.noReservationsFound), count, timeoutMs);
+  }
+
+  async scrollNoReservationsFoundIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.noReservationsFound));
+  }
+
+  async clickYouDonTHaveAny(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.youDonTHaveAny));
+  }
+
+  async doubleClickYouDonTHaveAny(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.youDonTHaveAny));
+  }
+
+  async longPressYouDonTHaveAny(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.youDonTHaveAny));
+  }
+
+  async expectYouDonTHaveAnyHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.youDonTHaveAny), timeoutMs);
+  }
+
+  async expectYouDonTHaveAnyText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.youDonTHaveAny), expected, timeoutMs);
+  }
+
+  async expectYouDonTHaveAnyContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.youDonTHaveAny), substring, timeoutMs);
+  }
+
+  async expectYouDonTHaveAnyValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.youDonTHaveAny), value, timeoutMs);
+  }
+
+  async expectYouDonTHaveAnyEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.youDonTHaveAny), timeoutMs);
+  }
+
+  async expectYouDonTHaveAnyDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.youDonTHaveAny), timeoutMs);
+  }
+
+  async expectYouDonTHaveAnyChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.youDonTHaveAny), timeoutMs);
+  }
+
+  async expectYouDonTHaveAnyUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.youDonTHaveAny), timeoutMs);
+  }
+
+  async expectYouDonTHaveAnyFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.youDonTHaveAny), timeoutMs);
+  }
+
+  async expectYouDonTHaveAnyCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.youDonTHaveAny), count, timeoutMs);
+  }
+
+  async scrollYouDonTHaveAnyIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.youDonTHaveAny));
+  }
+
+  async doubleClickBookASpaceReservation(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.bookASpaceReservation));
+  }
+
+  async longPressBookASpaceReservation(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.bookASpaceReservation));
+  }
+
+  async expectBookASpaceReservationHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.bookASpaceReservation), timeoutMs);
+  }
+
+  async expectBookASpaceReservationText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.bookASpaceReservation), expected, timeoutMs);
+  }
+
+  async expectBookASpaceReservationContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.bookASpaceReservation), substring, timeoutMs);
+  }
+
+  async expectBookASpaceReservationValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.bookASpaceReservation), value, timeoutMs);
+  }
+
+  async expectBookASpaceReservationEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.bookASpaceReservation), timeoutMs);
+  }
+
+  async expectBookASpaceReservationDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.bookASpaceReservation), timeoutMs);
+  }
+
+  async expectBookASpaceReservationChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.bookASpaceReservation), timeoutMs);
+  }
+
+  async expectBookASpaceReservationUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.bookASpaceReservation), timeoutMs);
+  }
+
+  async expectBookASpaceReservationFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.bookASpaceReservation), timeoutMs);
+  }
+
+  async expectBookASpaceReservationCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.bookASpaceReservation), count, timeoutMs);
+  }
+
+  async scrollBookASpaceReservationIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.bookASpaceReservation));
+  }
+
+  async longPressEnglishUnitedStates(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.englishUnitedStates));
+  }
+
+  async expectEnglishUnitedStatesHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.englishUnitedStates), timeoutMs);
+  }
+
+  async expectEnglishUnitedStatesText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.englishUnitedStates), expected, timeoutMs);
+  }
+
+  async expectEnglishUnitedStatesContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.englishUnitedStates), substring, timeoutMs);
+  }
+
+  async expectEnglishUnitedStatesValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.englishUnitedStates), value, timeoutMs);
+  }
+
+  async expectEnglishUnitedStatesEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.englishUnitedStates), timeoutMs);
+  }
+
+  async expectEnglishUnitedStatesDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.englishUnitedStates), timeoutMs);
+  }
+
+  async expectEnglishUnitedStatesChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.englishUnitedStates), timeoutMs);
+  }
+
+  async expectEnglishUnitedStatesUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.englishUnitedStates), timeoutMs);
+  }
+
+  async expectEnglishUnitedStatesFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.englishUnitedStates), timeoutMs);
+  }
+
+  async expectEnglishUnitedStatesCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.englishUnitedStates), count, timeoutMs);
+  }
+
+  async scrollEnglishUnitedStatesIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.englishUnitedStates));
+  }
+
+  async longPressChat(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.chat));
+  }
+
+  async expectChatHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.chat), timeoutMs);
+  }
+
+  async expectChatText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.chat), expected, timeoutMs);
+  }
+
+  async expectChatContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.chat), substring, timeoutMs);
+  }
+
+  async expectChatValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.chat), value, timeoutMs);
+  }
+
+  async expectChatEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.chat), timeoutMs);
+  }
+
+  async expectChatDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.chat), timeoutMs);
+  }
+
+  async expectChatChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.chat), timeoutMs);
+  }
+
+  async expectChatUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.chat), timeoutMs);
+  }
+
+  async expectChatFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.chat), timeoutMs);
+  }
+
+  async expectChatCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.chat), count, timeoutMs);
+  }
+
+  async scrollChatIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.chat));
+  }
+
+  async clickNewsSavedSuccessfully(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.newsSavedSuccessfully));
+  }
+
+  async doubleClickNewsSavedSuccessfully(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.newsSavedSuccessfully));
+  }
+
+  async longPressNewsSavedSuccessfully(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.newsSavedSuccessfully));
+  }
+
+  async expectNewsSavedSuccessfullyHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.newsSavedSuccessfully), timeoutMs);
+  }
+
+  async expectNewsSavedSuccessfullyText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.newsSavedSuccessfully), expected, timeoutMs);
+  }
+
+  async expectNewsSavedSuccessfullyContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.newsSavedSuccessfully), substring, timeoutMs);
+  }
+
+  async expectNewsSavedSuccessfullyValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.newsSavedSuccessfully), value, timeoutMs);
+  }
+
+  async expectNewsSavedSuccessfullyEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.newsSavedSuccessfully), timeoutMs);
+  }
+
+  async expectNewsSavedSuccessfullyDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.newsSavedSuccessfully), timeoutMs);
+  }
+
+  async expectNewsSavedSuccessfullyChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.newsSavedSuccessfully), timeoutMs);
+  }
+
+  async expectNewsSavedSuccessfullyUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.newsSavedSuccessfully), timeoutMs);
+  }
+
+  async expectNewsSavedSuccessfullyFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.newsSavedSuccessfully), timeoutMs);
+  }
+
+  async expectNewsSavedSuccessfullyCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.newsSavedSuccessfully), count, timeoutMs);
+  }
+
+  async scrollNewsSavedSuccessfullyIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.newsSavedSuccessfully));
+  }
+
+  async doubleClickViewSavedNewsUnder(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewSavedNewsUnder));
+  }
+
+  async longPressViewSavedNewsUnder(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewSavedNewsUnder));
+  }
+
+  async expectViewSavedNewsUnderHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.viewSavedNewsUnder), timeoutMs);
+  }
+
+  async expectViewSavedNewsUnderText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.viewSavedNewsUnder), expected, timeoutMs);
+  }
+
+  async expectViewSavedNewsUnderContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.viewSavedNewsUnder), substring, timeoutMs);
+  }
+
+  async expectViewSavedNewsUnderValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.viewSavedNewsUnder), value, timeoutMs);
+  }
+
+  async expectViewSavedNewsUnderEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.viewSavedNewsUnder), timeoutMs);
+  }
+
+  async expectViewSavedNewsUnderDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.viewSavedNewsUnder), timeoutMs);
+  }
+
+  async expectViewSavedNewsUnderChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.viewSavedNewsUnder), timeoutMs);
+  }
+
+  async expectViewSavedNewsUnderUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.viewSavedNewsUnder), timeoutMs);
+  }
+
+  async expectViewSavedNewsUnderFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.viewSavedNewsUnder), timeoutMs);
+  }
+
+  async expectViewSavedNewsUnderCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.viewSavedNewsUnder), count, timeoutMs);
+  }
+
+  async scrollViewSavedNewsUnderIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewSavedNewsUnder));
+  }
+
+  async clickDrakeTiwaryUkgCom(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.drakeTiwaryUkgCom));
+  }
+
+  async doubleClickDrakeTiwaryUkgCom(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.drakeTiwaryUkgCom));
+  }
+
+  async longPressDrakeTiwaryUkgCom(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.drakeTiwaryUkgCom));
+  }
+
+  async expectDrakeTiwaryUkgComHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.drakeTiwaryUkgCom), timeoutMs);
+  }
+
+  async expectDrakeTiwaryUkgComText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.drakeTiwaryUkgCom), expected, timeoutMs);
+  }
+
+  async expectDrakeTiwaryUkgComContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.drakeTiwaryUkgCom), substring, timeoutMs);
+  }
+
+  async expectDrakeTiwaryUkgComValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.drakeTiwaryUkgCom), value, timeoutMs);
+  }
+
+  async expectDrakeTiwaryUkgComEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.drakeTiwaryUkgCom), timeoutMs);
+  }
+
+  async expectDrakeTiwaryUkgComDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.drakeTiwaryUkgCom), timeoutMs);
+  }
+
+  async expectDrakeTiwaryUkgComChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.drakeTiwaryUkgCom), timeoutMs);
+  }
+
+  async expectDrakeTiwaryUkgComUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.drakeTiwaryUkgCom), timeoutMs);
+  }
+
+  async expectDrakeTiwaryUkgComFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.drakeTiwaryUkgCom), timeoutMs);
+  }
+
+  async expectDrakeTiwaryUkgComCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.drakeTiwaryUkgCom), count, timeoutMs);
+  }
+
+  async scrollDrakeTiwaryUkgComIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.drakeTiwaryUkgCom));
+  }
+
+  async clickViewAccount(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewAccount));
+  }
+
+  async doubleClickViewAccount(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewAccount));
+  }
+
+  async longPressViewAccount(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewAccount));
+  }
+
+  async expectViewAccountHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.viewAccount), timeoutMs);
+  }
+
+  async expectViewAccountText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.viewAccount), expected, timeoutMs);
+  }
+
+  async expectViewAccountContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.viewAccount), substring, timeoutMs);
+  }
+
+  async expectViewAccountValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.viewAccount), value, timeoutMs);
+  }
+
+  async expectViewAccountEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.viewAccount), timeoutMs);
+  }
+
+  async expectViewAccountDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.viewAccount), timeoutMs);
+  }
+
+  async expectViewAccountChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.viewAccount), timeoutMs);
+  }
+
+  async expectViewAccountUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.viewAccount), timeoutMs);
+  }
+
+  async expectViewAccountFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.viewAccount), timeoutMs);
+  }
+
+  async expectViewAccountCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.viewAccount), count, timeoutMs);
+  }
+
+  async scrollViewAccountIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.viewAccount));
+  }
+
+  async clickMySavedNews(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.mySavedNews));
+  }
+
+  async doubleClickMySavedNews(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.mySavedNews));
+  }
+
+  async longPressMySavedNews(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.mySavedNews));
+  }
+
+  async expectMySavedNewsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.mySavedNews), timeoutMs);
+  }
+
+  async expectMySavedNewsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.mySavedNews), expected, timeoutMs);
+  }
+
+  async expectMySavedNewsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.mySavedNews), substring, timeoutMs);
+  }
+
+  async expectMySavedNewsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.mySavedNews), value, timeoutMs);
+  }
+
+  async expectMySavedNewsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.mySavedNews), timeoutMs);
+  }
+
+  async expectMySavedNewsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.mySavedNews), timeoutMs);
+  }
+
+  async expectMySavedNewsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.mySavedNews), timeoutMs);
+  }
+
+  async expectMySavedNewsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.mySavedNews), timeoutMs);
+  }
+
+  async expectMySavedNewsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.mySavedNews), timeoutMs);
+  }
+
+  async expectMySavedNewsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.mySavedNews), count, timeoutMs);
+  }
+
+  async scrollMySavedNewsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.mySavedNews));
+  }
+
+  async clickImpersonateAnotherUser(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.impersonateAnotherUser));
+  }
+
+  async doubleClickImpersonateAnotherUser(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.impersonateAnotherUser));
+  }
+
+  async longPressImpersonateAnotherUser(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.impersonateAnotherUser));
+  }
+
+  async expectImpersonateAnotherUserHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.impersonateAnotherUser), timeoutMs);
+  }
+
+  async expectImpersonateAnotherUserText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.impersonateAnotherUser), expected, timeoutMs);
+  }
+
+  async expectImpersonateAnotherUserContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.impersonateAnotherUser), substring, timeoutMs);
+  }
+
+  async expectImpersonateAnotherUserValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.impersonateAnotherUser), value, timeoutMs);
+  }
+
+  async expectImpersonateAnotherUserEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.impersonateAnotherUser), timeoutMs);
+  }
+
+  async expectImpersonateAnotherUserDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.impersonateAnotherUser), timeoutMs);
+  }
+
+  async expectImpersonateAnotherUserChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.impersonateAnotherUser), timeoutMs);
+  }
+
+  async expectImpersonateAnotherUserUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.impersonateAnotherUser), timeoutMs);
+  }
+
+  async expectImpersonateAnotherUserFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.impersonateAnotherUser), timeoutMs);
+  }
+
+  async expectImpersonateAnotherUserCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.impersonateAnotherUser), count, timeoutMs);
+  }
+
+  async scrollImpersonateAnotherUserIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.impersonateAnotherUser));
+  }
+
+  async clickCustomizeHomePageLayout(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, UkgcommonsPage.L.customizeHomePageLayout));
+  }
+
+  async doubleClickCustomizeHomePageLayout(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, UkgcommonsPage.L.customizeHomePageLayout));
+  }
+
+  async longPressCustomizeHomePageLayout(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, UkgcommonsPage.L.customizeHomePageLayout));
+  }
+
+  async expectCustomizeHomePageLayoutHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, UkgcommonsPage.L.customizeHomePageLayout), timeoutMs);
+  }
+
+  async expectCustomizeHomePageLayoutText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, UkgcommonsPage.L.customizeHomePageLayout), expected, timeoutMs);
+  }
+
+  async expectCustomizeHomePageLayoutContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, UkgcommonsPage.L.customizeHomePageLayout), substring, timeoutMs);
+  }
+
+  async expectCustomizeHomePageLayoutValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, UkgcommonsPage.L.customizeHomePageLayout), value, timeoutMs);
+  }
+
+  async expectCustomizeHomePageLayoutEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, UkgcommonsPage.L.customizeHomePageLayout), timeoutMs);
+  }
+
+  async expectCustomizeHomePageLayoutDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, UkgcommonsPage.L.customizeHomePageLayout), timeoutMs);
+  }
+
+  async expectCustomizeHomePageLayoutChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, UkgcommonsPage.L.customizeHomePageLayout), timeoutMs);
+  }
+
+  async expectCustomizeHomePageLayoutUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, UkgcommonsPage.L.customizeHomePageLayout), timeoutMs);
+  }
+
+  async expectCustomizeHomePageLayoutFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, UkgcommonsPage.L.customizeHomePageLayout), timeoutMs);
+  }
+
+  async expectCustomizeHomePageLayoutCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, UkgcommonsPage.L.customizeHomePageLayout), count, timeoutMs);
+  }
+
+  async scrollCustomizeHomePageLayoutIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, UkgcommonsPage.L.customizeHomePageLayout));
+  }
+
+}

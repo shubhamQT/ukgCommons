@@ -1,0 +1,94 @@
+{
+  "id": "open-saved-item-opens-full-article",
+  "testPlanId": "60b604ea-a15b-49ce-b336-15436d1630c7",
+  "requirementId": "036c98a1-410a-4636-b10d-cab5f56abbdc",
+  "suiteName": "Employee — Save News Articles (Functional Happy Paths)",
+  "case": {
+    "id": "open-saved-item-opens-full-article",
+    "title": "Opening a saved item from My saved news shows the full article",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "open-home",
+        "action": "openUrl",
+        "targetDescription": "Open Commons QA home",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "wait-home",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for home content",
+        "locatorHint": "[data-testid='home-content']"
+      },
+      {
+        "id": "scroll-latest",
+        "action": "scrollIntoView",
+        "targetDescription": "Scroll to Latest News",
+        "locatorHint": "[data-testid='latest-news']"
+      },
+      {
+        "id": "save-theta",
+        "action": "tap",
+        "targetDescription": "Save 'QA Latest Article Theta'",
+        "locatorHint": "[data-testid='latest-news'] [data-testid='news-card'][data-title='QA Latest Article Theta'] [data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "open-profile-menu",
+        "action": "tap",
+        "targetDescription": "Open Profile menu",
+        "locatorHint": "[data-testid='profile-menu-button']"
+      },
+      {
+        "id": "open-saved-news",
+        "action": "tap",
+        "targetDescription": "Go to My saved news",
+        "locatorHint": "[data-testid='menu-saved-news']"
+      },
+      {
+        "id": "wait-saved-list",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for Saved News list",
+        "locatorHint": "[data-testid='saved-news-list']"
+      },
+      {
+        "id": "open-saved-item",
+        "action": "tap",
+        "targetDescription": "Open the saved article from the list",
+        "locatorHint": "[data-testid='saved-news-item'][data-title='QA Latest Article Theta'] [data-testid='news-title-link']"
+      },
+      {
+        "id": "wait-article-detail",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for article detail view",
+        "locatorHint": "[data-testid='article-title']"
+      },
+      {
+        "id": "assert-article-title",
+        "action": "assertText",
+        "targetDescription": "Verify article title matches selected saved item",
+        "locatorHint": "[data-testid='article-title']",
+        "assertion": "QA Latest Article Theta"
+      },
+      {
+        "id": "assert-saved-icon-on-detail",
+        "action": "assertVisible",
+        "targetDescription": "Verify bookmark filled icon on article detail",
+        "locatorHint": "[data-testid='bookmark-filled']"
+      },
+      {
+        "id": "cleanup-unsave-on-detail",
+        "action": "tap",
+        "targetDescription": "Cleanup: Unsave from article detail",
+        "locatorHint": "[data-testid='bookmark-toggle']"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}

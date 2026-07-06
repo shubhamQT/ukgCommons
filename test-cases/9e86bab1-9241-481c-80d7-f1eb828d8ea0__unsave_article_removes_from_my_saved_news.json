@@ -1,0 +1,53 @@
+{
+  "id": "unsave_article_removes_from_my_saved_news",
+  "testPlanId": "9e86bab1-9241-481c-80d7-f1eb828d8ea0",
+  "requirementId": "036c98a1-410a-4636-b10d-cab5f56abbdc",
+  "suiteName": "Employee Save News Articles - Functional Tests",
+  "case": {
+    "id": "unsave_article_removes_from_my_saved_news",
+    "title": "Unsave an article from Featured News and verify it is removed immediately from My Saved News",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [
+      "User has a saved article from Featured News"
+    ],
+    "steps": [
+      {
+        "id": "step1",
+        "action": "openUrl",
+        "targetDescription": "Open the Commons QA homepage",
+        "value": "https://commons-qa.util.ukg.com"
+      },
+      {
+        "id": "step2",
+        "action": "tap",
+        "targetDescription": "Tap on Profile icon",
+        "locatorHint": "button[aria-label='Profile']"
+      },
+      {
+        "id": "step3",
+        "action": "tap",
+        "targetDescription": "Tap on 'My saved news' link under Profile",
+        "locatorHint": "a:has-text('My saved news')"
+      },
+      {
+        "id": "step4",
+        "action": "tap",
+        "targetDescription": "Tap the unsave (bookmark) icon on the first saved article",
+        "locatorHint": "section#saved-news-list article:nth-of-type(1) .bookmark-icon.saved"
+      },
+      {
+        "id": "step5",
+        "action": "assertHidden",
+        "targetDescription": "Verify the article is removed immediately from My Saved News list",
+        "locatorHint": "section#saved-news-list article:nth-of-type(1)"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}
