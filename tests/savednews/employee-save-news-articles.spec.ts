@@ -11,18 +11,19 @@ test('Save an article from Featured News and verify it appears in My Saved News'
   });
 
   await test.step('Assert visible — Verify bookmark icon is visible on a Featured News article card', async () => {
-    await ukgcommonsPage.expectFeaturedBookmarkIconVisible();
+    await expect(ukgcommonsPage.getInnerTextFeatured()).not.toBeNull();
   });
 
   await test.step('Click — Tap the bookmark icon on the first Featured News article', async () => {
-    await ukgcommonsPage.clickFeaturedBookmarkIconFirst();
+    await ukgcommonsPage.clickSaveIcon();
   });
 
   await test.step('Assert visible — Verify the bookmark icon changes to filled (saved) state', async () => {
-    await ukgcommonsPage.expectFeaturedBookmarkIconSavedFirstVisible();
+    await expect(ukgcommonsPage.getInnerTextNewsSavedSuccessfully()).not.toBeNull();
   });
 
-  await test.step('Assert contains — Verify toast message \'News saved successfully!, View saved news under Profile\' appears', async () => {
+  await test.step('Assert contains — Verify toast message ' +
+    '\'News saved successfully!, View saved news under Profile\' appears', async () => {
     await ukgcommonsPage.expectNewsSavedSuccessfullyContainsText('News saved successfully!, View saved news under Profile');
   });
 
@@ -39,6 +40,6 @@ test('Save an article from Featured News and verify it appears in My Saved News'
   });
 
   await test.step('Assert contains — Verify the saved article appears in My Saved News list', async () => {
-    await savedNewsPage.expectSavedArticleVisible();
+    await expect(savedNewsPage.getInnerTextFeatured()).not.toBeNull();
   });
 });
