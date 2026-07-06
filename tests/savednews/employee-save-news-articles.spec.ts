@@ -1,15 +1,9 @@
-import { test, expect } from '../support/fixtures';
-import env from '../support/env';
+import { test, expect } from '@support/fixtures';
+import env from '@support/env';
 
 test('Save an article from Featured News and verify it appears in My Saved News', { tag: ["@functional","@regression","@P0","@save_article_from_featured_news"] }, async ({ page, ukgcommonsPage, savedNewsPage }) => {
   await test.step('Open — Open the Commons QA homepage', async () => {
     await page.goto(env.baseURL);
-  });
-
-  await test.step('Click — Tap \'Continue with SSO\' button if visible', async () => {
-    if (await ukgcommonsPage.isContinueWithSsoVisible()) {
-      await ukgcommonsPage.clickContinueWithSso();
-    }
   });
 
   await test.step('Scroll — Scroll to Featured News section', async () => {
