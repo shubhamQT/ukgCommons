@@ -1,4 +1,4 @@
-import { test, expect } from '@support/fixtures';
+import { test, expect } from '../support/fixtures';
 import env from '@support/env';
 
 test('Save article from Featured, verify toast, saved icon, appears in My Saved News and opens full article', { tag: ["@functional","@regression","@P0","@save-from-featured-and-open-article"] }, async ({ page, ukgcommonsPage, savedNewsPage }) => {
@@ -6,12 +6,12 @@ test('Save article from Featured, verify toast, saved icon, appears in My Saved 
     await page.goto(env.baseURL);
   });
 
-  await test.step('Assert visible — Featured News section', async () => {
-    await ukgcommonsPage.expectFeaturedVisible();
+  await test.step('Assert visible — Announcements section', async () => {
+    await ukgcommonsPage.expectAnnouncementsVisible();
   });
 
-  await test.step('Scroll — Scroll to target Featured article card', async () => {
-    await ukgcommonsPage.scrollFeaturedIntoView();
+  await test.step('Scroll — Scroll to Save action in news card', async () => {
+    await ukgcommonsPage.scrollSaveNewsIntoView();
   });
 
   await test.step('Click — Tap bookmark icon on Featured article', async () => {
@@ -55,14 +55,13 @@ test('Save article from Featured, verify toast, saved icon, appears in My Saved 
   });
 });
 
-
 test('Unsaving from My Saved News removes the item immediately from the list and updates card state', { tag: ["@functional","@regression","@P0","@unsave-from-saved-list-removes-immediately"] }, async ({ page, ukgcommonsPage, savedNewsPage }) => {
   await test.step('Open — Open Commons QA homepage', async () => {
     await page.goto(env.baseURL);
   });
 
-  await test.step('Assert visible — Featured section visible', async () => {
-    await ukgcommonsPage.expectFeaturedVisible();
+  await test.step('Assert visible — Announcements section visible', async () => {
+    await ukgcommonsPage.expectAnnouncementsVisible();
   });
 
   await test.step('Click — Save featured-001 (ensure present in Saved)', async () => {
@@ -93,8 +92,8 @@ test('Unsaving from My Saved News removes the item immediately from the list and
     await page.goto(env.baseURL);
   });
 
-  await test.step('Assert visible — Featured section visible', async () => {
-    await ukgcommonsPage.expectFeaturedVisible();
+  await test.step('Assert visible — Announcements section visible', async () => {
+    await ukgcommonsPage.expectAnnouncementsVisible();
   });
 
   await test.step('Assert visible — Featured article card shows unfilled bookmark state', async () => {
