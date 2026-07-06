@@ -1,0 +1,81 @@
+{
+  "id": "unsave-from-saved-list-removes-item-immediately",
+  "testPlanId": "60b604ea-a15b-49ce-b336-15436d1630c7",
+  "requirementId": "036c98a1-410a-4636-b10d-cab5f56abbdc",
+  "suiteName": "Employee — Save News Articles (Functional Happy Paths)",
+  "case": {
+    "id": "unsave-from-saved-list-removes-item-immediately",
+    "title": "Unsave from Saved News list removes the item immediately",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "open-home",
+        "action": "openUrl",
+        "targetDescription": "Open Commons QA home",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "wait-home",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for home content",
+        "locatorHint": "[data-testid='home-content']"
+      },
+      {
+        "id": "scroll-featured",
+        "action": "scrollIntoView",
+        "targetDescription": "Scroll to Featured News",
+        "locatorHint": "[data-testid='featured-news']"
+      },
+      {
+        "id": "save-remove-candidate",
+        "action": "tap",
+        "targetDescription": "Save 'QA Featured Article To Remove'",
+        "locatorHint": "[data-testid='featured-news'] [data-testid='news-card'][data-title='QA Featured Article To Remove'] [data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "open-profile",
+        "action": "tap",
+        "targetDescription": "Open Profile menu",
+        "locatorHint": "[data-testid='profile-menu-button']"
+      },
+      {
+        "id": "go-saved-news",
+        "action": "tap",
+        "targetDescription": "Go to My saved news",
+        "locatorHint": "[data-testid='menu-saved-news']"
+      },
+      {
+        "id": "wait-saved",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for Saved News list",
+        "locatorHint": "[data-testid='saved-news-list']"
+      },
+      {
+        "id": "assert-item-present",
+        "action": "assertVisible",
+        "targetDescription": "Verify the saved item is present",
+        "locatorHint": "[data-testid='saved-news-item'][data-title='QA Featured Article To Remove']"
+      },
+      {
+        "id": "unsave-in-list",
+        "action": "tap",
+        "targetDescription": "Tap bookmark to un-save within saved list",
+        "locatorHint": "[data-testid='saved-news-item'][data-title='QA Featured Article To Remove'] [data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "wait-item-gone",
+        "action": "waitForHidden",
+        "targetDescription": "Confirm item removed immediately from list",
+        "locatorHint": "[data-testid='saved-news-item'][data-title='QA Featured Article To Remove']"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}

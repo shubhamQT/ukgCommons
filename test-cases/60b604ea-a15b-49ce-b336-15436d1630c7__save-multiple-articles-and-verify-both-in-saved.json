@@ -1,0 +1,111 @@
+{
+  "id": "save-multiple-articles-and-verify-both-in-saved",
+  "testPlanId": "60b604ea-a15b-49ce-b336-15436d1630c7",
+  "requirementId": "036c98a1-410a-4636-b10d-cab5f56abbdc",
+  "suiteName": "Employee — Save News Articles (Functional Happy Paths)",
+  "case": {
+    "id": "save-multiple-articles-and-verify-both-in-saved",
+    "title": "Save one Featured and one Latest article and verify both appear in My saved news",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "open-home",
+        "action": "openUrl",
+        "targetDescription": "Open Commons QA home",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "wait-home",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for home content",
+        "locatorHint": "[data-testid='home-content']"
+      },
+      {
+        "id": "scroll-featured",
+        "action": "scrollIntoView",
+        "targetDescription": "Scroll to Featured News",
+        "locatorHint": "[data-testid='featured-news']"
+      },
+      {
+        "id": "save-featured-omega",
+        "action": "tap",
+        "targetDescription": "Save 'QA Featured Article Omega'",
+        "locatorHint": "[data-testid='featured-news'] [data-testid='news-card'][data-title='QA Featured Article Omega'] [data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "scroll-latest",
+        "action": "scrollIntoView",
+        "targetDescription": "Scroll to Latest News",
+        "locatorHint": "[data-testid='latest-news']"
+      },
+      {
+        "id": "save-latest-sigma",
+        "action": "tap",
+        "targetDescription": "Save 'QA Latest Article Sigma'",
+        "locatorHint": "[data-testid='latest-news'] [data-testid='news-card'][data-title='QA Latest Article Sigma'] [data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "open-profile",
+        "action": "tap",
+        "targetDescription": "Open Profile menu",
+        "locatorHint": "[data-testid='profile-menu-button']"
+      },
+      {
+        "id": "go-saved-news",
+        "action": "tap",
+        "targetDescription": "Go to My saved news",
+        "locatorHint": "[data-testid='menu-saved-news']"
+      },
+      {
+        "id": "wait-saved",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for Saved News list",
+        "locatorHint": "[data-testid='saved-news-list']"
+      },
+      {
+        "id": "assert-featured-omega-present",
+        "action": "assertVisible",
+        "targetDescription": "Verify Featured Omega is in saved list",
+        "locatorHint": "[data-testid='saved-news-item'][data-title='QA Featured Article Omega']"
+      },
+      {
+        "id": "assert-latest-sigma-present",
+        "action": "assertVisible",
+        "targetDescription": "Verify Latest Sigma is in saved list",
+        "locatorHint": "[data-testid='saved-news-item'][data-title='QA Latest Article Sigma']"
+      },
+      {
+        "id": "cleanup-unsave-omega",
+        "action": "tap",
+        "targetDescription": "Cleanup: Unsave Featured Omega from list",
+        "locatorHint": "[data-testid='saved-news-item'][data-title='QA Featured Article Omega'] [data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "cleanup-unsave-sigma",
+        "action": "tap",
+        "targetDescription": "Cleanup: Unsave Latest Sigma from list",
+        "locatorHint": "[data-testid='saved-news-item'][data-title='QA Latest Article Sigma'] [data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "wait-omega-gone",
+        "action": "waitForHidden",
+        "targetDescription": "Wait for Featured Omega removal",
+        "locatorHint": "[data-testid='saved-news-item'][data-title='QA Featured Article Omega']"
+      },
+      {
+        "id": "wait-sigma-gone",
+        "action": "waitForHidden",
+        "targetDescription": "Wait for Latest Sigma removal",
+        "locatorHint": "[data-testid='saved-news-item'][data-title='QA Latest Article Sigma']"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}

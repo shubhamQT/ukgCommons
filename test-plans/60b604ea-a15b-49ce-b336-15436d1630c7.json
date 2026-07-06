@@ -1,0 +1,844 @@
+{
+  "id": "60b604ea-a15b-49ce-b336-15436d1630c7",
+  "requirementId": "036c98a1-410a-4636-b10d-cab5f56abbdc",
+  "model": "gpt-5",
+  "createdAt": "2026-07-06T16:33:03.060Z",
+  "plan": {
+    "version": 1,
+    "suiteName": "Employee — Save News Articles (Functional Happy Paths)",
+    "cases": [
+      {
+        "id": "save-featured-article-and-view-in-saved",
+        "title": "Save a Featured News article and verify it appears in My saved news",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "step-open-home",
+            "action": "openUrl",
+            "targetDescription": "Open Commons QA home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "step-wait-home",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for home content",
+            "locatorHint": "[data-testid='home-content']"
+          },
+          {
+            "id": "step-scroll-featured",
+            "action": "scrollIntoView",
+            "targetDescription": "Scroll to Featured News section",
+            "locatorHint": "[data-testid='featured-news']"
+          },
+          {
+            "id": "step-assert-card-visible",
+            "action": "assertVisible",
+            "targetDescription": "Verify specific Featured article card is visible",
+            "locatorHint": "[data-testid='featured-news'] [data-testid='news-card'][data-title='QA Featured Article Alpha']"
+          },
+          {
+            "id": "step-assert-bookmark-icon-visible",
+            "action": "assertVisible",
+            "targetDescription": "Verify bookmark icon is visible on the card",
+            "locatorHint": "[data-testid='featured-news'] [data-testid='news-card'][data-title='QA Featured Article Alpha'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "step-save-article",
+            "action": "tap",
+            "targetDescription": "Tap bookmark icon to save Featured article",
+            "locatorHint": "[data-testid='featured-news'] [data-testid='news-card'][data-title='QA Featured Article Alpha'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "step-wait-toast",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for success toast",
+            "locatorHint": "[data-testid='toast']"
+          },
+          {
+            "id": "step-assert-toast-text",
+            "action": "assertContainsText",
+            "targetDescription": "Verify success toast message",
+            "locatorHint": "[data-testid='toast']",
+            "assertion": "News saved successfully!, View saved news under Profile"
+          },
+          {
+            "id": "step-assert-filled-icon",
+            "action": "assertVisible",
+            "targetDescription": "Verify filled bookmark icon indicates saved",
+            "locatorHint": "[data-testid='featured-news'] [data-testid='news-card'][data-title='QA Featured Article Alpha'] [data-testid='bookmark-filled']"
+          },
+          {
+            "id": "step-open-profile-menu",
+            "action": "tap",
+            "targetDescription": "Open Profile menu",
+            "locatorHint": "[data-testid='profile-menu-button']"
+          },
+          {
+            "id": "step-open-my-saved-news",
+            "action": "tap",
+            "targetDescription": "Navigate to My saved news from Profile",
+            "locatorHint": "[data-testid='menu-saved-news']"
+          },
+          {
+            "id": "step-wait-saved-list",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for My saved news list",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "step-assert-saved-item-visible",
+            "action": "assertVisible",
+            "targetDescription": "Verify saved item appears in list",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Featured Article Alpha']"
+          },
+          {
+            "id": "step-cleanup-unsave-in-list",
+            "action": "tap",
+            "targetDescription": "Cleanup: Unsave the article from saved list",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Featured Article Alpha'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "step-wait-item-removed",
+            "action": "waitForHidden",
+            "targetDescription": "Wait for item to be removed from saved list",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Featured Article Alpha']"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "save-latest-article-and-view-in-saved",
+        "title": "Save a Latest News article and verify it appears in My saved news",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "step-open-home",
+            "action": "openUrl",
+            "targetDescription": "Open Commons QA home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "step-wait-home",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for home content",
+            "locatorHint": "[data-testid='home-content']"
+          },
+          {
+            "id": "step-scroll-latest",
+            "action": "scrollIntoView",
+            "targetDescription": "Scroll to Latest News section",
+            "locatorHint": "[data-testid='latest-news']"
+          },
+          {
+            "id": "step-assert-latest-card",
+            "action": "assertVisible",
+            "targetDescription": "Verify specific Latest article card is visible",
+            "locatorHint": "[data-testid='latest-news'] [data-testid='news-card'][data-title='QA Latest Article Beta']"
+          },
+          {
+            "id": "step-assert-bookmark-latest",
+            "action": "assertVisible",
+            "targetDescription": "Verify bookmark icon visible on Latest card",
+            "locatorHint": "[data-testid='latest-news'] [data-testid='news-card'][data-title='QA Latest Article Beta'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "step-save-latest",
+            "action": "tap",
+            "targetDescription": "Tap bookmark icon to save Latest article",
+            "locatorHint": "[data-testid='latest-news'] [data-testid='news-card'][data-title='QA Latest Article Beta'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "step-wait-toast",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for success toast",
+            "locatorHint": "[data-testid='toast']"
+          },
+          {
+            "id": "step-assert-toast-text",
+            "action": "assertContainsText",
+            "targetDescription": "Verify success toast message",
+            "locatorHint": "[data-testid='toast']",
+            "assertion": "News saved successfully!, View saved news under Profile"
+          },
+          {
+            "id": "step-assert-filled-latest",
+            "action": "assertVisible",
+            "targetDescription": "Verify filled bookmark icon indicates saved",
+            "locatorHint": "[data-testid='latest-news'] [data-testid='news-card'][data-title='QA Latest Article Beta'] [data-testid='bookmark-filled']"
+          },
+          {
+            "id": "step-open-profile-menu",
+            "action": "tap",
+            "targetDescription": "Open Profile menu",
+            "locatorHint": "[data-testid='profile-menu-button']"
+          },
+          {
+            "id": "step-open-my-saved-news",
+            "action": "tap",
+            "targetDescription": "Navigate to My saved news from Profile",
+            "locatorHint": "[data-testid='menu-saved-news']"
+          },
+          {
+            "id": "step-wait-saved-list",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for My saved news list",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "step-assert-saved-item-visible",
+            "action": "assertVisible",
+            "targetDescription": "Verify saved Latest item appears in list",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Latest Article Beta']"
+          },
+          {
+            "id": "step-cleanup-unsave-in-list",
+            "action": "tap",
+            "targetDescription": "Cleanup: Unsave the article from saved list",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Latest Article Beta'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "step-wait-item-removed",
+            "action": "waitForHidden",
+            "targetDescription": "Wait for item to be removed from saved list",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Latest Article Beta']"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "persistence-across-reload-and-new-tab",
+        "title": "Saved state persists after page reload and in a new tab",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "open-home",
+            "action": "openUrl",
+            "targetDescription": "Open Commons QA home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "wait-home",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for home content",
+            "locatorHint": "[data-testid='home-content']"
+          },
+          {
+            "id": "scroll-featured",
+            "action": "scrollIntoView",
+            "targetDescription": "Scroll to Featured News section",
+            "locatorHint": "[data-testid='featured-news']"
+          },
+          {
+            "id": "save-delta",
+            "action": "tap",
+            "targetDescription": "Save 'QA Featured Article Delta' via bookmark",
+            "locatorHint": "[data-testid='featured-news'] [data-testid='news-card'][data-title='QA Featured Article Delta'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "wait-toast",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for success toast",
+            "locatorHint": "[data-testid='toast']"
+          },
+          {
+            "id": "reload-home",
+            "action": "openUrl",
+            "targetDescription": "Reload by navigating to home again",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "scroll-featured-after-reload",
+            "action": "scrollIntoView",
+            "targetDescription": "Scroll to Featured after reload",
+            "locatorHint": "[data-testid='featured-news']"
+          },
+          {
+            "id": "assert-saved-delta-after-reload",
+            "action": "assertVisible",
+            "targetDescription": "Verify saved state (filled icon) persists after reload",
+            "locatorHint": "[data-testid='featured-news'] [data-testid='news-card'][data-title='QA Featured Article Delta'] [data-testid='bookmark-filled']"
+          },
+          {
+            "id": "new-tab",
+            "action": "switchToNewTab",
+            "targetDescription": "Open a new tab"
+          },
+          {
+            "id": "open-home-new-tab",
+            "action": "openUrl",
+            "targetDescription": "Open home in new tab",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "scroll-featured-new-tab",
+            "action": "scrollIntoView",
+            "targetDescription": "Scroll to Featured in new tab",
+            "locatorHint": "[data-testid='featured-news']"
+          },
+          {
+            "id": "assert-saved-delta-new-tab",
+            "action": "assertVisible",
+            "targetDescription": "Verify saved state visible in new tab (sync across devices/browsers)",
+            "locatorHint": "[data-testid='featured-news'] [data-testid='news-card'][data-title='QA Featured Article Delta'] [data-testid='bookmark-filled']"
+          },
+          {
+            "id": "close-new-tab",
+            "action": "closeTab",
+            "targetDescription": "Close the new tab"
+          },
+          {
+            "id": "cleanup-unsave-delta",
+            "action": "tap",
+            "targetDescription": "Cleanup: Unsave the article from home",
+            "locatorHint": "[data-testid='featured-news'] [data-testid='news-card'][data-title='QA Featured Article Delta'] [data-testid='bookmark-toggle']"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "open-saved-item-opens-full-article",
+        "title": "Opening a saved item from My saved news shows the full article",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "open-home",
+            "action": "openUrl",
+            "targetDescription": "Open Commons QA home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "wait-home",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for home content",
+            "locatorHint": "[data-testid='home-content']"
+          },
+          {
+            "id": "scroll-latest",
+            "action": "scrollIntoView",
+            "targetDescription": "Scroll to Latest News",
+            "locatorHint": "[data-testid='latest-news']"
+          },
+          {
+            "id": "save-theta",
+            "action": "tap",
+            "targetDescription": "Save 'QA Latest Article Theta'",
+            "locatorHint": "[data-testid='latest-news'] [data-testid='news-card'][data-title='QA Latest Article Theta'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "open-profile-menu",
+            "action": "tap",
+            "targetDescription": "Open Profile menu",
+            "locatorHint": "[data-testid='profile-menu-button']"
+          },
+          {
+            "id": "open-saved-news",
+            "action": "tap",
+            "targetDescription": "Go to My saved news",
+            "locatorHint": "[data-testid='menu-saved-news']"
+          },
+          {
+            "id": "wait-saved-list",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for Saved News list",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "open-saved-item",
+            "action": "tap",
+            "targetDescription": "Open the saved article from the list",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Latest Article Theta'] [data-testid='news-title-link']"
+          },
+          {
+            "id": "wait-article-detail",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for article detail view",
+            "locatorHint": "[data-testid='article-title']"
+          },
+          {
+            "id": "assert-article-title",
+            "action": "assertText",
+            "targetDescription": "Verify article title matches selected saved item",
+            "locatorHint": "[data-testid='article-title']",
+            "assertion": "QA Latest Article Theta"
+          },
+          {
+            "id": "assert-saved-icon-on-detail",
+            "action": "assertVisible",
+            "targetDescription": "Verify bookmark filled icon on article detail",
+            "locatorHint": "[data-testid='bookmark-filled']"
+          },
+          {
+            "id": "cleanup-unsave-on-detail",
+            "action": "tap",
+            "targetDescription": "Cleanup: Unsave from article detail",
+            "locatorHint": "[data-testid='bookmark-toggle']"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "unsave-from-saved-list-removes-item-immediately",
+        "title": "Unsave from Saved News list removes the item immediately",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "open-home",
+            "action": "openUrl",
+            "targetDescription": "Open Commons QA home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "wait-home",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for home content",
+            "locatorHint": "[data-testid='home-content']"
+          },
+          {
+            "id": "scroll-featured",
+            "action": "scrollIntoView",
+            "targetDescription": "Scroll to Featured News",
+            "locatorHint": "[data-testid='featured-news']"
+          },
+          {
+            "id": "save-remove-candidate",
+            "action": "tap",
+            "targetDescription": "Save 'QA Featured Article To Remove'",
+            "locatorHint": "[data-testid='featured-news'] [data-testid='news-card'][data-title='QA Featured Article To Remove'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "open-profile",
+            "action": "tap",
+            "targetDescription": "Open Profile menu",
+            "locatorHint": "[data-testid='profile-menu-button']"
+          },
+          {
+            "id": "go-saved-news",
+            "action": "tap",
+            "targetDescription": "Go to My saved news",
+            "locatorHint": "[data-testid='menu-saved-news']"
+          },
+          {
+            "id": "wait-saved",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for Saved News list",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "assert-item-present",
+            "action": "assertVisible",
+            "targetDescription": "Verify the saved item is present",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Featured Article To Remove']"
+          },
+          {
+            "id": "unsave-in-list",
+            "action": "tap",
+            "targetDescription": "Tap bookmark to un-save within saved list",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Featured Article To Remove'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "wait-item-gone",
+            "action": "waitForHidden",
+            "targetDescription": "Confirm item removed immediately from list",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Featured Article To Remove']"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "unsave-from-card-removes-from-saved-list",
+        "title": "Unsave from article card removes it from My saved news",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "open-home",
+            "action": "openUrl",
+            "targetDescription": "Open Commons QA home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "wait-home",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for home content",
+            "locatorHint": "[data-testid='home-content']"
+          },
+          {
+            "id": "scroll-latest",
+            "action": "scrollIntoView",
+            "targetDescription": "Scroll to Latest News",
+            "locatorHint": "[data-testid='latest-news']"
+          },
+          {
+            "id": "save-to-remove",
+            "action": "tap",
+            "targetDescription": "Save 'QA Latest Article To Remove'",
+            "locatorHint": "[data-testid='latest-news'] [data-testid='news-card'][data-title='QA Latest Article To Remove'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "open-profile",
+            "action": "tap",
+            "targetDescription": "Open Profile menu",
+            "locatorHint": "[data-testid='profile-menu-button']"
+          },
+          {
+            "id": "go-saved-news",
+            "action": "tap",
+            "targetDescription": "Go to My saved news",
+            "locatorHint": "[data-testid='menu-saved-news']"
+          },
+          {
+            "id": "wait-saved",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for Saved News list",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "assert-item-present",
+            "action": "assertVisible",
+            "targetDescription": "Verify the saved item is present",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Latest Article To Remove']"
+          },
+          {
+            "id": "return-home",
+            "action": "openUrl",
+            "targetDescription": "Navigate back to home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "scroll-latest-again",
+            "action": "scrollIntoView",
+            "targetDescription": "Scroll to Latest News",
+            "locatorHint": "[data-testid='latest-news']"
+          },
+          {
+            "id": "unsave-on-card",
+            "action": "tap",
+            "targetDescription": "Unsave the article directly on the card",
+            "locatorHint": "[data-testid='latest-news'] [data-testid='news-card'][data-title='QA Latest Article To Remove'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "go-to-saved-news",
+            "action": "openUrl",
+            "targetDescription": "Open My saved news directly",
+            "value": "https://commons-qa.util.ukg.com/profile/saved-news"
+          },
+          {
+            "id": "wait-saved-list",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for Saved News list",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "assert-item-removed",
+            "action": "assertHidden",
+            "targetDescription": "Verify the item no longer appears in saved list",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Latest Article To Remove']"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "bookmark-icon-visible-on-all-cards",
+        "title": "Bookmark icon is visible on each article card in Featured and Latest sections",
+        "priority": "P1",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "open-home",
+            "action": "openUrl",
+            "targetDescription": "Open Commons QA home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "wait-home",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for home content",
+            "locatorHint": "[data-testid='home-content']"
+          },
+          {
+            "id": "scroll-featured",
+            "action": "scrollIntoView",
+            "targetDescription": "Scroll to Featured News",
+            "locatorHint": "[data-testid='featured-news']"
+          },
+          {
+            "id": "assert-featured-has-cards",
+            "action": "assertCountGreaterThan",
+            "targetDescription": "Ensure Featured section has at least one card",
+            "locatorHint": "[data-testid='featured-news'] [data-testid='news-card']"
+          },
+          {
+            "id": "assert-all-featured-cards-have-bookmark",
+            "action": "assertCount",
+            "targetDescription": "Verify there are no Featured cards missing bookmark icon",
+            "locatorHint": "[data-testid='featured-news'] [data-testid='news-card']:not(:has([data-testid='bookmark-toggle']))"
+          },
+          {
+            "id": "scroll-latest",
+            "action": "scrollIntoView",
+            "targetDescription": "Scroll to Latest News",
+            "locatorHint": "[data-testid='latest-news']"
+          },
+          {
+            "id": "assert-latest-has-cards",
+            "action": "assertCountGreaterThan",
+            "targetDescription": "Ensure Latest section has at least one card",
+            "locatorHint": "[data-testid='latest-news'] [data-testid='news-card']"
+          },
+          {
+            "id": "assert-all-latest-cards-have-bookmark",
+            "action": "assertCount",
+            "targetDescription": "Verify there are no Latest cards missing bookmark icon",
+            "locatorHint": "[data-testid='latest-news'] [data-testid='news-card']:not(:has([data-testid='bookmark-toggle']))"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "archived-or-deleted-article-auto-removed-from-saved",
+        "title": "Archived/deleted article disappears from My saved news automatically",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "open-home",
+            "action": "openUrl",
+            "targetDescription": "Open Commons QA home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "wait-home",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for home content",
+            "locatorHint": "[data-testid='home-content']"
+          },
+          {
+            "id": "scroll-latest",
+            "action": "scrollIntoView",
+            "targetDescription": "Scroll to Latest News",
+            "locatorHint": "[data-testid='latest-news']"
+          },
+          {
+            "id": "save-ephemeral",
+            "action": "tap",
+            "targetDescription": "Save 'QA Ephemeral Article Gamma'",
+            "locatorHint": "[data-testid='latest-news'] [data-testid='news-card'][data-title='QA Ephemeral Article Gamma'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "open-profile",
+            "action": "tap",
+            "targetDescription": "Open Profile menu",
+            "locatorHint": "[data-testid='profile-menu-button']"
+          },
+          {
+            "id": "go-saved-news",
+            "action": "tap",
+            "targetDescription": "Go to My saved news",
+            "locatorHint": "[data-testid='menu-saved-news']"
+          },
+          {
+            "id": "wait-saved",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for Saved News list",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "assert-ephemeral-present",
+            "action": "assertVisible",
+            "targetDescription": "Verify ephemeral item is present in saved list",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Ephemeral Article Gamma']"
+          },
+          {
+            "id": "archive-article-backend",
+            "action": "openUrl",
+            "targetDescription": "QA admin archive endpoint for the test article",
+            "value": "https://commons-qa.util.ukg.com/qa-tools/articles/archive?id=qa-ephemeral-article-gamma"
+          },
+          {
+            "id": "wait-backend-process",
+            "action": "wait",
+            "targetDescription": "Allow backend to process archiving",
+            "value": "1500"
+          },
+          {
+            "id": "open-saved-news-direct",
+            "action": "openUrl",
+            "targetDescription": "Re-open My saved news to refresh list",
+            "value": "https://commons-qa.util.ukg.com/profile/saved-news"
+          },
+          {
+            "id": "wait-saved-refresh",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for saved list after refresh",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "assert-ephemeral-removed",
+            "action": "assertHidden",
+            "targetDescription": "Verify archived item no longer appears in saved list",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Ephemeral Article Gamma']"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "save-multiple-articles-and-verify-both-in-saved",
+        "title": "Save one Featured and one Latest article and verify both appear in My saved news",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "open-home",
+            "action": "openUrl",
+            "targetDescription": "Open Commons QA home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "wait-home",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for home content",
+            "locatorHint": "[data-testid='home-content']"
+          },
+          {
+            "id": "scroll-featured",
+            "action": "scrollIntoView",
+            "targetDescription": "Scroll to Featured News",
+            "locatorHint": "[data-testid='featured-news']"
+          },
+          {
+            "id": "save-featured-omega",
+            "action": "tap",
+            "targetDescription": "Save 'QA Featured Article Omega'",
+            "locatorHint": "[data-testid='featured-news'] [data-testid='news-card'][data-title='QA Featured Article Omega'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "scroll-latest",
+            "action": "scrollIntoView",
+            "targetDescription": "Scroll to Latest News",
+            "locatorHint": "[data-testid='latest-news']"
+          },
+          {
+            "id": "save-latest-sigma",
+            "action": "tap",
+            "targetDescription": "Save 'QA Latest Article Sigma'",
+            "locatorHint": "[data-testid='latest-news'] [data-testid='news-card'][data-title='QA Latest Article Sigma'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "open-profile",
+            "action": "tap",
+            "targetDescription": "Open Profile menu",
+            "locatorHint": "[data-testid='profile-menu-button']"
+          },
+          {
+            "id": "go-saved-news",
+            "action": "tap",
+            "targetDescription": "Go to My saved news",
+            "locatorHint": "[data-testid='menu-saved-news']"
+          },
+          {
+            "id": "wait-saved",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for Saved News list",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "assert-featured-omega-present",
+            "action": "assertVisible",
+            "targetDescription": "Verify Featured Omega is in saved list",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Featured Article Omega']"
+          },
+          {
+            "id": "assert-latest-sigma-present",
+            "action": "assertVisible",
+            "targetDescription": "Verify Latest Sigma is in saved list",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Latest Article Sigma']"
+          },
+          {
+            "id": "cleanup-unsave-omega",
+            "action": "tap",
+            "targetDescription": "Cleanup: Unsave Featured Omega from list",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Featured Article Omega'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "cleanup-unsave-sigma",
+            "action": "tap",
+            "targetDescription": "Cleanup: Unsave Latest Sigma from list",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Latest Article Sigma'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "wait-omega-gone",
+            "action": "waitForHidden",
+            "targetDescription": "Wait for Featured Omega removal",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Featured Article Omega']"
+          },
+          {
+            "id": "wait-sigma-gone",
+            "action": "waitForHidden",
+            "targetDescription": "Wait for Latest Sigma removal",
+            "locatorHint": "[data-testid='saved-news-item'][data-title='QA Latest Article Sigma']"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      }
+    ]
+  }
+}
