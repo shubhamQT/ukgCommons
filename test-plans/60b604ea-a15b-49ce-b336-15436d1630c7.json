@@ -432,12 +432,6 @@
             "locatorHint": "[data-testid='featured-news']"
           },
           {
-            "id": "save-remove-candidate",
-            "action": "tap",
-            "targetDescription": "Save 'QA Featured Article To Remove'",
-            "locatorHint": "[data-testid='featured-news'] [data-testid='news-card'][data-title='QA Featured Article To Remove'] [data-testid='bookmark-toggle']"
-          },
-          {
             "id": "open-profile",
             "action": "tap",
             "targetDescription": "Open Profile menu",

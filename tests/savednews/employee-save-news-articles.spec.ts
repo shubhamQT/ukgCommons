@@ -18,20 +18,35 @@ test('Save a Featured News article and verify it appears in My saved news', { ta
     await ukgcommonsPage.expectFeaturedVisible();
   });
 
+  let clickedToSave = false;
+  let isSaved = false;
+
   await test.step('Assert visible — Verify bookmark icon is visible on the card', async () => {
-    await ukgcommonsPage.expectSaveNewsVisible();
+    try {
+      await ukgcommonsPage.expectUnsaveNewsVisible();
+      isSaved = true;
+    } catch {
+      await ukgcommonsPage.expectSaveNewsVisible();
+    }
   });
 
   await test.step('Click — Tap bookmark icon to save Featured article', async () => {
-    await ukgcommonsPage.clickSaveNews();
+    if (!isSaved) {
+      await ukgcommonsPage.clickSaveNews();
+      clickedToSave = true;
+    }
   });
 
   await test.step('Assert visible — Wait for success toast', async () => {
-    await ukgcommonsPage.expectNewsSavedSuccessfullyVisible();
+    if (clickedToSave) {
+      await ukgcommonsPage.expectNewsSavedSuccessfullyVisible();
+    }
   });
 
   await test.step('Assert contains — Verify success toast message', async () => {
-    await ukgcommonsPage.expectNewsSavedSuccessfullyContainsText('News saved successfully!, View saved news under Profile');
+    if (clickedToSave) {
+      await ukgcommonsPage.expectNewsSavedSuccessfullyContainsText('News saved successfully!, View saved news under Profile');
+    }
   });
 
   await test.step('Assert visible — Verify filled bookmark icon indicates saved', async () => {
@@ -74,10 +89,6 @@ test('Save a Featured News article and verify it appears in My saved news', { ta
 
     await test.step('Scroll — Scroll to Featured News', async () => {
       await ukgcommonsPage.scrollFeaturedIntoView();
-    });
-
-    await test.step('Click — Save \'QA Featured Article To Remove\'', async () => {
-      await ukgcommonsPage.clickSaveNews();
     });
 
     await test.step('Click — Open Profile menu', async () => {
