@@ -1,4 +1,4 @@
-import { test, expect } from '../support/fixtures';
+import { test, expect } from '@support/fixtures';
 import env from '@support/env';
 
 test('Save article from Featured, verify toast, saved icon, appears in My Saved News and opens full article', { tag: ["@functional","@regression","@P0","@save-from-featured-and-open-article"] }, async ({ page, ukgcommonsPage, savedNewsPage }) => {
