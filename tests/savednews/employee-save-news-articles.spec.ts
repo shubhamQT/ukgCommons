@@ -6,22 +6,6 @@ test('Save an article from Featured News and verify it appears in My Saved News'
     await page.goto(env.baseURL);
   });
 
-  await test.step('Click — Tap \'Continue with SSO\' button if visible', async () => {
-    if (await ukgcommonsPage.expectSaveNewsVisible().catch(() => false)) {
-      await ukgcommonsPage.clickSaveNews();
-    } else {
-      const continueWithSSOLocator = ukgcommonsPage['L']?.['saveNews'] ? ukgcommonsPage['L']['saveNews'] : null;
-      if (continueWithSSOLocator) {
-        await ukgcommonsPage.clickSaveNews();
-      } else {
-        const locator = await page.locator('button:has-text("Continue with SSO")');
-        if (await locator.isVisible()) {
-          await locator.click();
-        }
-      }
-    }
-  });
-
   await test.step('Scroll — Scroll to Featured News section', async () => {
     await ukgcommonsPage.scrollFeaturedIntoView();
   });
