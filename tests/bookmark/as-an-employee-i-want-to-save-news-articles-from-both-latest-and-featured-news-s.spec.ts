@@ -6,6 +6,11 @@ test('Save article from Featured, verify toast, saved icon, appears in My Saved 
     await page.goto(env.baseURL);
   });
 
+  await test.step('SSO — Continue with SSO if prompted', async () => {
+    try { await page.getByRole('button', { name: /Continue with SSO/i }).click({ timeout: 5000 }); } catch {}
+    try { await page.getByRole('link', { name: /Continue with SSO/i }).click({ timeout: 5000 }); } catch {}
+  });
+  
   await test.step('Assert visible — Announcements section', async () => {
     await ukgcommonsPage.expectAnnouncementsVisible();
   });
@@ -58,6 +63,11 @@ test('Save article from Featured, verify toast, saved icon, appears in My Saved 
 test('Unsaving from My Saved News removes the item immediately from the list and updates card state', { tag: ["@functional","@regression","@P0","@unsave-from-saved-list-removes-immediately"] }, async ({ page, ukgcommonsPage, savedNewsPage }) => {
   await test.step('Open — Open Commons QA homepage', async () => {
     await page.goto(env.baseURL);
+  });
+
+  await test.step('SSO — Continue with SSO if prompted', async () => {
+    try { await page.getByRole('button', { name: /Continue with SSO/i }).click({ timeout: 5000 }); } catch {}
+    try { await page.getByRole('link', { name: /Continue with SSO/i }).click({ timeout: 5000 }); } catch {}
   });
 
   await test.step('Assert visible — Announcements section visible', async () => {
