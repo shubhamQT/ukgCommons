@@ -1,4 +1,4 @@
-import { test, expect } from '@support/fixtures';
+import { test, expect } from '@upport/fixtures';
 import env from '@support/env';
 
 test('Save an article from Featured News and verify it appears in My Saved News', { tag: ["@functional","@regression","@P0","@save_article_from_featured_news"] }, async ({ page, ukgcommonsPage, savedNewsPage }) => {
@@ -15,7 +15,7 @@ test('Save an article from Featured News and verify it appears in My Saved News'
   });
 
   await test.step('Click — Tap the bookmark icon on the first Featured News article', async () => {
-    await ukgcommonsPage.clickSaveIcon();
+    await ukgcommonsPage.clickSaveNews();
   });
 
   await test.step('Assert visible — Verify the bookmark icon changes to filled (saved) state', async () => {
