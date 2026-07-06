@@ -223,7 +223,7 @@ export class UkgcommonsPage {
     chat: { strategy: 'role' as const, value: 'Hello! How may I assist you?', role: 'button', frame: 'iframe#mw4web_iframe', actionKind: 'button' as const },
     newsSavedSuccessfully: { strategy: 'text' as const, value: 'News saved successfully!', actionKind: 'text' as const },
     viewSavedNewsUnder: { strategy: 'role' as const, value: 'View saved news under your profile.', role: 'link', actionKind: 'link' as const },
-    drakeTiwaryUkgCom: { strategy: 'text' as const, value: 'drake.tiwary@ukg.com', actionKind: 'text' as const },
+    drakeTiwaryUkgCom: { strategy: 'css' as const, value: '.Header_headerTopRight__uHRnM', actionKind: 'button' as const },
     viewAccount: { strategy: 'text' as const, value: 'View Account', actionKind: 'text' as const },
     mySavedNews: { strategy: 'text' as const, value: 'My saved news', actionKind: 'text' as const },
     impersonateAnotherUser: { strategy: 'text' as const, value: 'Impersonate another user', actionKind: 'text' as const },
