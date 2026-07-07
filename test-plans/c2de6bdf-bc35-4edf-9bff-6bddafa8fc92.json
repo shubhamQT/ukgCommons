@@ -1,0 +1,756 @@
+{
+  "id": "c2de6bdf-bc35-4edf-9bff-6bddafa8fc92",
+  "requirementId": "1e00dbc0-4a03-49b1-8077-40b6f38dda88",
+  "model": "gpt-5",
+  "createdAt": "2026-07-07T06:21:49.300Z",
+  "plan": {
+    "version": 1,
+    "suiteName": "Save News Articles - E2E",
+    "cases": [
+      {
+        "id": "e2e-visible-bookmark-icons-featured-latest",
+        "title": "Bookmark icon is visible on news cards in Featured and Latest sections",
+        "priority": "P1",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Commons QA Home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Featured News section visible",
+            "locatorHint": "[data-testid='section-featured-news']"
+          },
+          {
+            "id": "s3",
+            "action": "assertCountGreaterThan",
+            "targetDescription": "Featured has at least 1 news card",
+            "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card']"
+          },
+          {
+            "id": "s4",
+            "action": "scrollIntoView",
+            "targetDescription": "First Featured news card",
+            "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card']:nth-of-type(1)"
+          },
+          {
+            "id": "s5",
+            "action": "assertVisible",
+            "targetDescription": "Bookmark icon is present on first Featured card",
+            "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card']:nth-of-type(1) [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s6",
+            "action": "waitForVisible",
+            "targetDescription": "Latest News section visible",
+            "locatorHint": "[data-testid='section-latest-news']"
+          },
+          {
+            "id": "s7",
+            "action": "assertCountGreaterThan",
+            "targetDescription": "Latest has at least 1 news card",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card']"
+          },
+          {
+            "id": "s8",
+            "action": "scrollIntoView",
+            "targetDescription": "First Latest news card",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card']:nth-of-type(1)"
+          },
+          {
+            "id": "s9",
+            "action": "assertVisible",
+            "targetDescription": "Bookmark icon is present on first Latest card",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card']:nth-of-type(1) [data-testid='bookmark-toggle']"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "e2e-save-featured-open-from-saved",
+        "title": "Save a Featured article, verify in My Saved News, and open full article",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Commons QA Home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Featured News section",
+            "locatorHint": "[data-testid='section-featured-news']"
+          },
+          {
+            "id": "s3",
+            "action": "scrollIntoView",
+            "targetDescription": "Featured card for fixture: Feature Article 1",
+            "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card'][data-article-slug='feature-1']"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Tap bookmark on Feature Article 1",
+            "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card'][data-article-slug='feature-1'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s5",
+            "action": "waitForVisible",
+            "targetDescription": "Filled bookmark indicator appears",
+            "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card'][data-article-slug='feature-1'] [data-testid='bookmark-fill']"
+          },
+          {
+            "id": "s6",
+            "action": "tap",
+            "targetDescription": "Open profile menu",
+            "locatorHint": "[data-testid='profile-menu-trigger']"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Navigate to My saved news",
+            "locatorHint": "[data-testid='menu-my-saved-news']"
+          },
+          {
+            "id": "s8",
+            "action": "waitForVisible",
+            "targetDescription": "Saved News list visible",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "s9",
+            "action": "assertVisible",
+            "targetDescription": "Saved item present: Feature Article 1",
+            "locatorHint": "[data-testid='saved-news-item'][data-article-slug='feature-1']"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Open saved item to full article",
+            "locatorHint": "[data-testid='saved-news-item'][data-article-slug='feature-1'] [data-testid='saved-news-title']"
+          },
+          {
+            "id": "s11",
+            "action": "waitForVisible",
+            "targetDescription": "Article detail title visible",
+            "locatorHint": "[data-testid='article-title']"
+          },
+          {
+            "id": "s12",
+            "action": "assertContainsText",
+            "targetDescription": "Detail page shows expected article title",
+            "locatorHint": "[data-testid='article-title']",
+            "assertion": "Feature Article 1"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "e2e-save-latest-persist-and-listed",
+        "title": "Save a Latest article, verify persistence after navigation, and presence in My Saved News",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Commons QA Home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Latest News section",
+            "locatorHint": "[data-testid='section-latest-news']"
+          },
+          {
+            "id": "s3",
+            "action": "scrollIntoView",
+            "targetDescription": "Latest card for fixture: Latest Article 1",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='latest-1']"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Tap bookmark on Latest Article 1",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='latest-1'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s5",
+            "action": "waitForVisible",
+            "targetDescription": "Filled bookmark indicator appears on Latest Article 1",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='latest-1'] [data-testid='bookmark-fill']"
+          },
+          {
+            "id": "s6",
+            "action": "openUrl",
+            "targetDescription": "Navigate again to Home to simulate reload",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "s7",
+            "action": "waitForVisible",
+            "targetDescription": "Latest News section visible after navigation",
+            "locatorHint": "[data-testid='section-latest-news']"
+          },
+          {
+            "id": "s8",
+            "action": "scrollIntoView",
+            "targetDescription": "Latest card Latest Article 1",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='latest-1']"
+          },
+          {
+            "id": "s9",
+            "action": "assertVisible",
+            "targetDescription": "Saved state persists (filled icon) on Latest Article 1",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='latest-1'] [data-testid='bookmark-fill']"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Open profile menu",
+            "locatorHint": "[data-testid='profile-menu-trigger']"
+          },
+          {
+            "id": "s11",
+            "action": "tap",
+            "targetDescription": "Navigate to My saved news",
+            "locatorHint": "[data-testid='menu-my-saved-news']"
+          },
+          {
+            "id": "s12",
+            "action": "waitForVisible",
+            "targetDescription": "Saved News list visible",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "s13",
+            "action": "assertVisible",
+            "targetDescription": "Saved item present: Latest Article 1",
+            "locatorHint": "[data-testid='saved-news-item'][data-article-slug='latest-1']"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "e2e-unsave-from-saved-list-removes-immediately",
+        "title": "Unsaving from My Saved News removes the item immediately",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Commons QA Home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Latest News section",
+            "locatorHint": "[data-testid='section-latest-news']"
+          },
+          {
+            "id": "s3",
+            "action": "scrollIntoView",
+            "targetDescription": "Latest card for fixture: Latest Article 2",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='latest-2']"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Save Latest Article 2",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='latest-2'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s5",
+            "action": "waitForVisible",
+            "targetDescription": "Filled bookmark indicator appears on Latest Article 2",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='latest-2'] [data-testid='bookmark-fill']"
+          },
+          {
+            "id": "s6",
+            "action": "tap",
+            "targetDescription": "Open profile menu",
+            "locatorHint": "[data-testid='profile-menu-trigger']"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Navigate to My saved news",
+            "locatorHint": "[data-testid='menu-my-saved-news']"
+          },
+          {
+            "id": "s8",
+            "action": "waitForVisible",
+            "targetDescription": "Saved News list visible",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "s9",
+            "action": "assertVisible",
+            "targetDescription": "Verify Latest Article 2 is listed",
+            "locatorHint": "[data-testid='saved-news-item'][data-article-slug='latest-2']"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Unsave Latest Article 2 from Saved list",
+            "locatorHint": "[data-testid='saved-news-item'][data-article-slug='latest-2'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s11",
+            "action": "wait",
+            "targetDescription": "Wait for list to update"
+          },
+          {
+            "id": "s12",
+            "action": "assertCount",
+            "targetDescription": "Latest Article 2 removed from Saved list",
+            "locatorHint": "[data-testid='saved-news-item'][data-article-slug='latest-2']"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "e2e-save-crosslisted-shows-saved-in-both-sections",
+        "title": "Saving a cross-listed article reflects Saved state in both Featured and Latest",
+        "priority": "P1",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Commons QA Home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Featured section visible",
+            "locatorHint": "[data-testid='section-featured-news']"
+          },
+          {
+            "id": "s3",
+            "action": "scrollIntoView",
+            "targetDescription": "Featured card for cross-listed fixture",
+            "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card'][data-article-slug='crosslisted-1']"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Save cross-listed article from Featured",
+            "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card'][data-article-slug='crosslisted-1'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s5",
+            "action": "waitForVisible",
+            "targetDescription": "Filled bookmark indicator on Featured card",
+            "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card'][data-article-slug='crosslisted-1'] [data-testid='bookmark-fill']"
+          },
+          {
+            "id": "s6",
+            "action": "waitForVisible",
+            "targetDescription": "Latest section visible",
+            "locatorHint": "[data-testid='section-latest-news']"
+          },
+          {
+            "id": "s7",
+            "action": "scrollIntoView",
+            "targetDescription": "Locate same article in Latest",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='crosslisted-1']"
+          },
+          {
+            "id": "s8",
+            "action": "assertVisible",
+            "targetDescription": "Saved state reflected in Latest (filled icon)",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='crosslisted-1'] [data-testid='bookmark-fill']"
+          },
+          {
+            "id": "s9",
+            "action": "tap",
+            "targetDescription": "Unsave cross-listed article from Featured (cleanup)",
+            "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card'][data-article-slug='crosslisted-1'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s10",
+            "action": "waitForHidden",
+            "targetDescription": "Filled icon hidden on Featured after unsave",
+            "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card'][data-article-slug='crosslisted-1'] [data-testid='bookmark-fill']"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "e2e-unsave-from-article-detail-propagates",
+        "title": "Unsave from Article Detail removes from Saved and updates list card state",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Commons QA Home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Featured section visible",
+            "locatorHint": "[data-testid='section-featured-news']"
+          },
+          {
+            "id": "s3",
+            "action": "scrollIntoView",
+            "targetDescription": "Featured card for fixture: Feature Article 2",
+            "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card'][data-article-slug='feature-2']"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Save Feature Article 2",
+            "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card'][data-article-slug='feature-2'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s5",
+            "action": "waitForVisible",
+            "targetDescription": "Filled icon on Feature Article 2",
+            "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card'][data-article-slug='feature-2'] [data-testid='bookmark-fill']"
+          },
+          {
+            "id": "s6",
+            "action": "tap",
+            "targetDescription": "Open Feature Article 2 detail from card title",
+            "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card'][data-article-slug='feature-2'] [data-testid='news-card-title-link']"
+          },
+          {
+            "id": "s7",
+            "action": "waitForVisible",
+            "targetDescription": "Article detail title",
+            "locatorHint": "[data-testid='article-title']"
+          },
+          {
+            "id": "s8",
+            "action": "assertVisible",
+            "targetDescription": "Saved state visible on detail save toggle",
+            "locatorHint": "[data-testid='save-toggle'] [data-testid='bookmark-fill']"
+          },
+          {
+            "id": "s9",
+            "action": "tap",
+            "targetDescription": "Unsave from detail page",
+            "locatorHint": "[data-testid='save-toggle']"
+          },
+          {
+            "id": "s10",
+            "action": "waitForHidden",
+            "targetDescription": "Filled icon hidden on detail after unsave",
+            "locatorHint": "[data-testid='save-toggle'] [data-testid='bookmark-fill']"
+          },
+          {
+            "id": "s11",
+            "action": "tap",
+            "targetDescription": "Open profile menu",
+            "locatorHint": "[data-testid='profile-menu-trigger']"
+          },
+          {
+            "id": "s12",
+            "action": "tap",
+            "targetDescription": "Navigate to My saved news",
+            "locatorHint": "[data-testid='menu-my-saved-news']"
+          },
+          {
+            "id": "s13",
+            "action": "waitForVisible",
+            "targetDescription": "Saved News list visible",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "s14",
+            "action": "assertCount",
+            "targetDescription": "Feature Article 2 not present in Saved list",
+            "locatorHint": "[data-testid='saved-news-item'][data-article-slug='feature-2']"
+          },
+          {
+            "id": "s15",
+            "action": "tap",
+            "targetDescription": "Return to Home via site logo",
+            "locatorHint": "[data-testid='site-logo']"
+          },
+          {
+            "id": "s16",
+            "action": "waitForVisible",
+            "targetDescription": "Featured section visible",
+            "locatorHint": "[data-testid='section-featured-news']"
+          },
+          {
+            "id": "s17",
+            "action": "scrollIntoView",
+            "targetDescription": "Locate Feature Article 2 card again",
+            "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card'][data-article-slug='feature-2']"
+          },
+          {
+            "id": "s18",
+            "action": "waitForHidden",
+            "targetDescription": "Filled icon not visible on card (unsaved state)",
+            "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card'][data-article-slug='feature-2'] [data-testid='bookmark-fill']"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "e2e-save-multiple-unsave-one",
+        "title": "Save multiple Latest articles and unsave one without affecting others",
+        "priority": "P1",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Commons QA Home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Latest section visible",
+            "locatorHint": "[data-testid='section-latest-news']"
+          },
+          {
+            "id": "s3",
+            "action": "scrollIntoView",
+            "targetDescription": "Latest Article 3 card",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='latest-3']"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Save Latest Article 3",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='latest-3'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s5",
+            "action": "waitForVisible",
+            "targetDescription": "Filled icon on Latest Article 3",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='latest-3'] [data-testid='bookmark-fill']"
+          },
+          {
+            "id": "s6",
+            "action": "scrollIntoView",
+            "targetDescription": "Latest Article 4 card",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='latest-4']"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Save Latest Article 4",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='latest-4'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s8",
+            "action": "waitForVisible",
+            "targetDescription": "Filled icon on Latest Article 4",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='latest-4'] [data-testid='bookmark-fill']"
+          },
+          {
+            "id": "s9",
+            "action": "tap",
+            "targetDescription": "Open profile menu",
+            "locatorHint": "[data-testid='profile-menu-trigger']"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Go to My saved news",
+            "locatorHint": "[data-testid='menu-my-saved-news']"
+          },
+          {
+            "id": "s11",
+            "action": "waitForVisible",
+            "targetDescription": "Saved News list visible",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "s12",
+            "action": "assertVisible",
+            "targetDescription": "Latest Article 3 present in Saved",
+            "locatorHint": "[data-testid='saved-news-item'][data-article-slug='latest-3']"
+          },
+          {
+            "id": "s13",
+            "action": "assertVisible",
+            "targetDescription": "Latest Article 4 present in Saved",
+            "locatorHint": "[data-testid='saved-news-item'][data-article-slug='latest-4']"
+          },
+          {
+            "id": "s14",
+            "action": "tap",
+            "targetDescription": "Unsave Latest Article 3 from Saved list",
+            "locatorHint": "[data-testid='saved-news-item'][data-article-slug='latest-3'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s15",
+            "action": "wait",
+            "targetDescription": "Wait for removal"
+          },
+          {
+            "id": "s16",
+            "action": "assertCount",
+            "targetDescription": "Latest Article 3 removed from Saved list",
+            "locatorHint": "[data-testid='saved-news-item'][data-article-slug='latest-3']"
+          },
+          {
+            "id": "s17",
+            "action": "assertVisible",
+            "targetDescription": "Latest Article 4 remains in Saved list",
+            "locatorHint": "[data-testid='saved-news-item'][data-article-slug='latest-4']"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "e2e-archived-article-removed-from-saved",
+        "title": "Archived article disappears automatically from My Saved News",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Commons QA Home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Latest section visible",
+            "locatorHint": "[data-testid='section-latest-news']"
+          },
+          {
+            "id": "s3",
+            "action": "scrollIntoView",
+            "targetDescription": "Latest card for archivable fixture",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='archivable-1']"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Save archivable article",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='archivable-1'] [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s5",
+            "action": "waitForVisible",
+            "targetDescription": "Filled icon on archivable article",
+            "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='archivable-1'] [data-testid='bookmark-fill']"
+          },
+          {
+            "id": "s6",
+            "action": "openUrl",
+            "targetDescription": "Trigger QA hook to archive the article",
+            "value": "https://commons-qa.util.ukg.com/qa/hooks/archive?slug=archivable-1"
+          },
+          {
+            "id": "s7",
+            "action": "waitForVisible",
+            "targetDescription": "Hook response shown",
+            "locatorHint": "body"
+          },
+          {
+            "id": "s8",
+            "action": "assertContainsText",
+            "targetDescription": "Hook response confirms archive",
+            "locatorHint": "body",
+            "assertion": "archived"
+          },
+          {
+            "id": "s9",
+            "action": "openUrl",
+            "targetDescription": "Return to Home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Open profile menu",
+            "locatorHint": "[data-testid='profile-menu-trigger']"
+          },
+          {
+            "id": "s11",
+            "action": "tap",
+            "targetDescription": "Navigate to My saved news",
+            "locatorHint": "[data-testid='menu-my-saved-news']"
+          },
+          {
+            "id": "s12",
+            "action": "waitForVisible",
+            "targetDescription": "Saved News list visible",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "s13",
+            "action": "assertCount",
+            "targetDescription": "Archived article no longer appears in Saved list",
+            "locatorHint": "[data-testid='saved-news-item'][data-article-slug='archivable-1']"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      }
+    ]
+  }
+}
