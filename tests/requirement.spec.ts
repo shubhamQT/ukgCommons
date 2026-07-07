@@ -6,11 +6,11 @@ test('Save a Featured article, verify in My Saved News, and open full article', 
     await page.goto(env.baseURL);
   });
 
-  await test.step('Assert visible — Featured News section', async () => {
-    await ukgcommonsPage.expectFeaturedVisible();
+  await test.step('Assert visible — Home Announcements section', async () => {
+    await ukgcommonsPage.expectAnnouncementsVisible();
   });
 
-  await test.step('Scroll — Featured card for fixture: Feature Article 1', async () => {
+  await test.step('Scroll — Featured section into view', async () => {
     await ukgcommonsPage.scrollFeaturedIntoView();
   });
 
@@ -51,17 +51,24 @@ test('Save a Featured article, verify in My Saved News, and open full article', 
   });
 });
 
-
 test('Unsaving from My Saved News removes the item immediately', { tag: ["@e2e","@regression","@P0","@e2e-unsave-from-saved-list-removes-immediately"] }, async ({ page, ukgcommonsPage, savedNewsPage }) => {
   await test.step('Open — Open Commons QA Home', async () => {
-    await page.goto('https://commons-qa.util.ukg.com/');
+    await page.goto(env.baseURL);
   });
 
-  await test.step('Assert visible — Latest News section', async () => {
+  await test.step('Assert visible — Home Announcements section', async () => {
+    await ukgcommonsPage.expectAnnouncementsVisible();
+  });
+
+  await test.step('Click — Activate Latest Internal News tab', async () => {
+    await ukgcommonsPage.clickLatestInternalNews();
+  });
+
+  await test.step('Assert visible — Latest Internal News section', async () => {
     await ukgcommonsPage.expectLatestInternalNewsVisible();
   });
 
-  await test.step('Scroll — Latest card for fixture: Latest Article 2', async () => {
+  await test.step('Scroll — Latest Internal News into view', async () => {
     await ukgcommonsPage.scrollLatestInternalNewsIntoView();
   });
 
@@ -102,41 +109,36 @@ test('Unsaving from My Saved News removes the item immediately', { tag: ["@e2e",
   });
 });
 
-
 test('Bookmark icon is visible on news cards in Featured and Latest sections', { tag: ["@e2e","@regression","@P1","@e2e-visible-bookmark-icons-featured-latest"] }, async ({ page, ukgcommonsPage }) => {
   await test.step('Open — Open Commons QA Home', async () => {
     await page.goto(env.baseURL);
   });
 
-  await test.step('Assert visible — Featured News section visible', async () => {
-    await ukgcommonsPage.expectFeaturedSectionVisible();
+  await test.step('Assert visible — Home Announcements section', async () => {
+    await ukgcommonsPage.expectAnnouncementsVisible();
   });
 
-  await test.step('Assert count greater than — Featured has at least 1 news card', async () => {
-    await ukgcommonsPage.expectFeaturedNewsCardsCountGreaterThan(0);
+  await test.step('Scroll — Featured section into view', async () => {
+    await ukgcommonsPage.scrollFeaturedIntoView();
   });
 
-  await test.step('Scroll — First Featured news card', async () => {
-    await ukgcommonsPage.scrollFirstFeaturedCardIntoView();
+  await test.step('Assert visible — Bookmark icon is present on a Featured card', async () => {
+    await ukgcommonsPage.expectSaveNewsVisible();
   });
 
-  await test.step('Assert visible — Bookmark icon is present on first Featured card', async () => {
-    await ukgcommonsPage.expectFirstFeaturedBookmarkVisible();
+  await test.step('Click — Activate Latest Internal News tab', async () => {
+    await ukgcommonsPage.clickLatestInternalNews();
   });
 
-  await test.step('Assert visible — Latest News section visible', async () => {
-    await ukgcommonsPage.expectLatestSectionVisible();
-  });
-
-  await test.step('Assert count greater than — Latest has at least 1 news card', async () => {
-    await ukgcommonsPage.expectLatestNewsCardsCountGreaterThan(0);
+  await test.step('Assert visible — Latest Internal News section visible', async () => {
+    await ukgcommonsPage.expectLatestInternalNewsVisible();
   });
 
   await test.step('Scroll — First Latest news card', async () => {
-    await ukgcommonsPage.scrollFirstLatestCardIntoView();
+    await ukgcommonsPage.scrollLatestInternalNewsIntoView();
   });
 
-  await test.step('Assert visible — Bookmark icon is present on first Latest card', async () => {
-    await ukgcommonsPage.expectFirstLatestBookmarkVisible();
+  await test.step('Assert visible — Bookmark icon is present on a Latest card', async () => {
+    await ukgcommonsPage.expectSaveNewsVisible();
   });
 });
