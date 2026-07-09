@@ -1,0 +1,108 @@
+{
+  "id": "unsave-from-article-detail-removes-from-saved",
+  "testPlanId": "415fac90-66de-4750-a83c-bccd233022f0",
+  "requirementId": "1e00dbc0-4a03-49b1-8077-40b6f38dda88",
+  "suiteName": "Save News Articles — E2E",
+  "case": {
+    "id": "unsave-from-article-detail-removes-from-saved",
+    "title": "Unsave an article from its detail page and verify it is removed from My saved news",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [
+      "Latest article 'Automation Latest Article 2' is visible on Home and is not saved for the test user"
+    ],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Open Commons Home",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "s2",
+        "action": "waitForVisible",
+        "targetDescription": "Latest News section",
+        "locatorHint": "[data-testid='latest-news-section']"
+      },
+      {
+        "id": "s3",
+        "action": "tap",
+        "targetDescription": "Bookmark 'Automation Latest Article 2'",
+        "locatorHint": "[data-testid='latest-news-section'] [data-testid='news-card']:has-text('Automation Latest Article 2') [data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "s4",
+        "action": "tap",
+        "targetDescription": "Open profile menu",
+        "locatorHint": "[data-testid='profile-menu-button']"
+      },
+      {
+        "id": "s5",
+        "action": "tap",
+        "targetDescription": "Go to 'My saved news'",
+        "locatorHint": "[role='menuitem'][name='My saved news']"
+      },
+      {
+        "id": "s6",
+        "action": "waitForVisible",
+        "targetDescription": "Saved News list",
+        "locatorHint": "[data-testid='saved-news-list']"
+      },
+      {
+        "id": "s7",
+        "action": "tap",
+        "targetDescription": "Open 'Automation Latest Article 2' from Saved list",
+        "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Latest Article 2') a"
+      },
+      {
+        "id": "s8",
+        "action": "waitForVisible",
+        "targetDescription": "Article detail title",
+        "locatorHint": "[data-testid='article-title']"
+      },
+      {
+        "id": "s9",
+        "action": "assertContainsText",
+        "targetDescription": "Verify article title",
+        "locatorHint": "[data-testid='article-title']",
+        "assertion": "Automation Latest Article 2"
+      },
+      {
+        "id": "s10",
+        "action": "tap",
+        "targetDescription": "Unsave via bookmark toggle on article detail",
+        "locatorHint": "[data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "s11",
+        "action": "tap",
+        "targetDescription": "Open profile menu from article detail",
+        "locatorHint": "[data-testid='profile-menu-button']"
+      },
+      {
+        "id": "s12",
+        "action": "tap",
+        "targetDescription": "Navigate to 'My saved news' again",
+        "locatorHint": "[role='menuitem'][name='My saved news']"
+      },
+      {
+        "id": "s13",
+        "action": "waitForVisible",
+        "targetDescription": "Saved News list visible",
+        "locatorHint": "[data-testid='saved-news-list']"
+      },
+      {
+        "id": "s14",
+        "action": "assertHidden",
+        "targetDescription": "'Automation Latest Article 2' no longer appears in Saved list",
+        "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Latest Article 2')"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

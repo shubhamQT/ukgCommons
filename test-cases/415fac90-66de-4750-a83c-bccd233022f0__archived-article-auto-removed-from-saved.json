@@ -1,0 +1,72 @@
+{
+  "id": "archived-article-auto-removed-from-saved",
+  "testPlanId": "415fac90-66de-4750-a83c-bccd233022f0",
+  "requirementId": "1e00dbc0-4a03-49b1-8077-40b6f38dda88",
+  "suiteName": "Save News Articles — E2E",
+  "case": {
+    "id": "archived-article-auto-removed-from-saved",
+    "title": "Verify that an archived/deleted article is automatically removed from My saved news",
+    "priority": "P1",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [
+      "Article 'Automation Archive Candidate' exists in Home and is not saved for the test user",
+      "'Automation Archive Candidate' will be archived or deleted during the test execution window by background job or admin action"
+    ],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Open Commons Home",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "s2",
+        "action": "waitForVisible",
+        "targetDescription": "Latest or Featured section containing 'Automation Archive Candidate'",
+        "locatorHint": "[data-testid='latest-news-section'], [data-testid='featured-news-section']"
+      },
+      {
+        "id": "s3",
+        "action": "tap",
+        "targetDescription": "Bookmark 'Automation Archive Candidate' (from whichever section it appears)",
+        "locatorHint": "[data-testid='news-card']:has-text('Automation Archive Candidate') [data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "s4",
+        "action": "tap",
+        "targetDescription": "Open profile menu",
+        "locatorHint": "[data-testid='profile-menu-button']"
+      },
+      {
+        "id": "s5",
+        "action": "tap",
+        "targetDescription": "Go to 'My saved news'",
+        "locatorHint": "[role='menuitem'][name='My saved news']"
+      },
+      {
+        "id": "s6",
+        "action": "waitForVisible",
+        "targetDescription": "Saved News list",
+        "locatorHint": "[data-testid='saved-news-list']"
+      },
+      {
+        "id": "s7",
+        "action": "assertVisible",
+        "targetDescription": "'Automation Archive Candidate' initially present in Saved list",
+        "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Archive Candidate')"
+      },
+      {
+        "id": "s8",
+        "action": "waitForHidden",
+        "targetDescription": "Wait until 'Automation Archive Candidate' disappears from Saved list due to archive/delete",
+        "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Archive Candidate')"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

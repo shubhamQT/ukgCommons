@@ -1,0 +1,75 @@
+{
+  "id": "e2e-visible-bookmark-icons-featured-latest",
+  "testPlanId": "c2de6bdf-bc35-4edf-9bff-6bddafa8fc92",
+  "requirementId": "1e00dbc0-4a03-49b1-8077-40b6f38dda88",
+  "suiteName": "Save News Articles - E2E",
+  "case": {
+    "id": "e2e-visible-bookmark-icons-featured-latest",
+    "title": "Bookmark icon is visible on news cards in Featured and Latest sections",
+    "priority": "P1",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Open Commons QA Home",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "s2",
+        "action": "waitForVisible",
+        "targetDescription": "Featured News section visible",
+        "locatorHint": "[data-testid='section-featured-news']"
+      },
+      {
+        "id": "s3",
+        "action": "assertCountGreaterThan",
+        "targetDescription": "Featured has at least 1 news card",
+        "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card']"
+      },
+      {
+        "id": "s4",
+        "action": "scrollIntoView",
+        "targetDescription": "First Featured news card",
+        "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card']:nth-of-type(1)"
+      },
+      {
+        "id": "s5",
+        "action": "assertVisible",
+        "targetDescription": "Bookmark icon is present on first Featured card",
+        "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card']:nth-of-type(1) [data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "s6",
+        "action": "waitForVisible",
+        "targetDescription": "Latest News section visible",
+        "locatorHint": "[data-testid='section-latest-news']"
+      },
+      {
+        "id": "s7",
+        "action": "assertCountGreaterThan",
+        "targetDescription": "Latest has at least 1 news card",
+        "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card']"
+      },
+      {
+        "id": "s8",
+        "action": "scrollIntoView",
+        "targetDescription": "First Latest news card",
+        "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card']:nth-of-type(1)"
+      },
+      {
+        "id": "s9",
+        "action": "assertVisible",
+        "targetDescription": "Bookmark icon is present on first Latest card",
+        "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card']:nth-of-type(1) [data-testid='bookmark-toggle']"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

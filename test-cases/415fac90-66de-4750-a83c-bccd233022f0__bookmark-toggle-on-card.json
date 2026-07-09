@@ -1,0 +1,66 @@
+{
+  "id": "bookmark-toggle-on-card",
+  "testPlanId": "415fac90-66de-4750-a83c-bccd233022f0",
+  "requirementId": "1e00dbc0-4a03-49b1-8077-40b6f38dda88",
+  "suiteName": "Save News Articles — E2E",
+  "case": {
+    "id": "bookmark-toggle-on-card",
+    "title": "Verify bookmark icon toggles save/unsave on a Featured article card",
+    "priority": "P2",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [
+      "Featured article 'Automation Featured Article 4' is visible on Home and is not saved for the test user"
+    ],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Open Commons Home",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "s2",
+        "action": "waitForVisible",
+        "targetDescription": "Featured News section",
+        "locatorHint": "[data-testid='featured-news-section']"
+      },
+      {
+        "id": "s3",
+        "action": "assertHidden",
+        "targetDescription": "Saved badge not shown initially on 'Automation Featured Article 4' card",
+        "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']:has-text('Automation Featured Article 4') [data-testid='saved-badge']"
+      },
+      {
+        "id": "s4",
+        "action": "tap",
+        "targetDescription": "Tap bookmark to save",
+        "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']:has-text('Automation Featured Article 4') [data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "s5",
+        "action": "assertContainsText",
+        "targetDescription": "Saved indicator appears on card",
+        "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']:has-text('Automation Featured Article 4')",
+        "assertion": "Saved"
+      },
+      {
+        "id": "s6",
+        "action": "tap",
+        "targetDescription": "Tap bookmark again to unsave",
+        "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']:has-text('Automation Featured Article 4') [data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "s7",
+        "action": "assertHidden",
+        "targetDescription": "Saved badge/indicator disappears from card",
+        "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']:has-text('Automation Featured Article 4') [data-testid='saved-badge']"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

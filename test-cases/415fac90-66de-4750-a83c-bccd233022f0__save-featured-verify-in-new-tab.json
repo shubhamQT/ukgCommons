@@ -1,0 +1,88 @@
+{
+  "id": "save-featured-verify-in-new-tab",
+  "testPlanId": "415fac90-66de-4750-a83c-bccd233022f0",
+  "requirementId": "1e00dbc0-4a03-49b1-8077-40b6f38dda88",
+  "suiteName": "Save News Articles — E2E",
+  "case": {
+    "id": "save-featured-verify-in-new-tab",
+    "title": "Save a Featured article and verify it appears in My saved news when opened in a new browser tab (sync across sessions)",
+    "priority": "P1",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [
+      "Featured article 'Automation Featured Article 2' is visible on Home and is not saved for the test user"
+    ],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Open Commons Home",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "s2",
+        "action": "waitForVisible",
+        "targetDescription": "Featured News section",
+        "locatorHint": "[data-testid='featured-news-section']"
+      },
+      {
+        "id": "s3",
+        "action": "tap",
+        "targetDescription": "Bookmark 'Automation Featured Article 2'",
+        "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']:has-text('Automation Featured Article 2') [data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "s4",
+        "action": "assertContainsText",
+        "targetDescription": "Saved indicator on 'Automation Featured Article 2' card",
+        "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']:has-text('Automation Featured Article 2')",
+        "assertion": "Saved"
+      },
+      {
+        "id": "s5",
+        "action": "switchToNewTab",
+        "targetDescription": "Open a new tab context"
+      },
+      {
+        "id": "s6",
+        "action": "openUrl",
+        "targetDescription": "Open Commons Home in new tab",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "s7",
+        "action": "tap",
+        "targetDescription": "Open profile menu in new tab",
+        "locatorHint": "[data-testid='profile-menu-button']"
+      },
+      {
+        "id": "s8",
+        "action": "tap",
+        "targetDescription": "Navigate to 'My saved news' in new tab",
+        "locatorHint": "[role='menuitem'][name='My saved news']"
+      },
+      {
+        "id": "s9",
+        "action": "waitForVisible",
+        "targetDescription": "Saved News list in new tab",
+        "locatorHint": "[data-testid='saved-news-list']"
+      },
+      {
+        "id": "s10",
+        "action": "assertVisible",
+        "targetDescription": "'Automation Featured Article 2' appears in Saved list in new tab",
+        "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Featured Article 2')"
+      },
+      {
+        "id": "s11",
+        "action": "closeTab",
+        "targetDescription": "Close the new tab"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

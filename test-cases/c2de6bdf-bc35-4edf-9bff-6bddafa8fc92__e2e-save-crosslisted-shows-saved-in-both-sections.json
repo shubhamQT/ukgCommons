@@ -1,0 +1,81 @@
+{
+  "id": "e2e-save-crosslisted-shows-saved-in-both-sections",
+  "testPlanId": "c2de6bdf-bc35-4edf-9bff-6bddafa8fc92",
+  "requirementId": "1e00dbc0-4a03-49b1-8077-40b6f38dda88",
+  "suiteName": "Save News Articles - E2E",
+  "case": {
+    "id": "e2e-save-crosslisted-shows-saved-in-both-sections",
+    "title": "Saving a cross-listed article reflects Saved state in both Featured and Latest",
+    "priority": "P1",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Open Commons QA Home",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "s2",
+        "action": "waitForVisible",
+        "targetDescription": "Featured section visible",
+        "locatorHint": "[data-testid='section-featured-news']"
+      },
+      {
+        "id": "s3",
+        "action": "scrollIntoView",
+        "targetDescription": "Featured card for cross-listed fixture",
+        "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card'][data-article-slug='crosslisted-1']"
+      },
+      {
+        "id": "s4",
+        "action": "tap",
+        "targetDescription": "Save cross-listed article from Featured",
+        "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card'][data-article-slug='crosslisted-1'] [data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "s5",
+        "action": "waitForVisible",
+        "targetDescription": "Filled bookmark indicator on Featured card",
+        "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card'][data-article-slug='crosslisted-1'] [data-testid='bookmark-fill']"
+      },
+      {
+        "id": "s6",
+        "action": "waitForVisible",
+        "targetDescription": "Latest section visible",
+        "locatorHint": "[data-testid='section-latest-news']"
+      },
+      {
+        "id": "s7",
+        "action": "scrollIntoView",
+        "targetDescription": "Locate same article in Latest",
+        "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='crosslisted-1']"
+      },
+      {
+        "id": "s8",
+        "action": "assertVisible",
+        "targetDescription": "Saved state reflected in Latest (filled icon)",
+        "locatorHint": "[data-testid='section-latest-news'] [data-testid='news-card'][data-article-slug='crosslisted-1'] [data-testid='bookmark-fill']"
+      },
+      {
+        "id": "s9",
+        "action": "tap",
+        "targetDescription": "Unsave cross-listed article from Featured (cleanup)",
+        "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card'][data-article-slug='crosslisted-1'] [data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "s10",
+        "action": "waitForHidden",
+        "targetDescription": "Filled icon hidden on Featured after unsave",
+        "locatorHint": "[data-testid='section-featured-news'] [data-testid='news-card'][data-article-slug='crosslisted-1'] [data-testid='bookmark-fill']"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

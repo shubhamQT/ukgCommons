@@ -1,0 +1,623 @@
+{
+  "id": "415fac90-66de-4750-a83c-bccd233022f0",
+  "requirementId": "1e00dbc0-4a03-49b1-8077-40b6f38dda88",
+  "model": "gpt-5",
+  "createdAt": "2026-07-09T15:25:25.507Z",
+  "plan": {
+    "version": 1,
+    "suiteName": "Save News Articles — E2E",
+    "cases": [
+      {
+        "id": "save-featured-to-saved-open-detail-unsave-in-saved",
+        "title": "Save a Featured news article, verify in My saved news, open detail, then unsave from Saved list",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [
+          "Featured article 'Automation Featured Article 1' is visible on Home and is not saved for the test user"
+        ],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Commons Home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Featured News section",
+            "locatorHint": "[data-testid='featured-news-section']"
+          },
+          {
+            "id": "s3",
+            "action": "assertCountGreaterThan",
+            "targetDescription": "Featured news cards present",
+            "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Bookmark icon on 'Automation Featured Article 1' card",
+            "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']:has-text('Automation Featured Article 1') [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s5",
+            "action": "assertContainsText",
+            "targetDescription": "Saved indicator on the same Featured card",
+            "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']:has-text('Automation Featured Article 1')",
+            "assertion": "Saved"
+          },
+          {
+            "id": "s6",
+            "action": "tap",
+            "targetDescription": "Open profile menu",
+            "locatorHint": "[data-testid='profile-menu-button']"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Select 'My saved news' from profile menu",
+            "locatorHint": "[role='menuitem'][name='My saved news']"
+          },
+          {
+            "id": "s8",
+            "action": "waitForVisible",
+            "targetDescription": "Saved News list",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "s9",
+            "action": "assertVisible",
+            "targetDescription": "Saved item 'Automation Featured Article 1' present in list",
+            "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Featured Article 1')"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Open the saved item to article detail",
+            "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Featured Article 1') a"
+          },
+          {
+            "id": "s11",
+            "action": "waitForVisible",
+            "targetDescription": "Article detail title",
+            "locatorHint": "[data-testid='article-title']"
+          },
+          {
+            "id": "s12",
+            "action": "assertContainsText",
+            "targetDescription": "Verify article detail shows correct title",
+            "locatorHint": "[data-testid='article-title']",
+            "assertion": "Automation Featured Article 1"
+          },
+          {
+            "id": "s13",
+            "action": "back",
+            "targetDescription": "Return to Saved News list"
+          },
+          {
+            "id": "s14",
+            "action": "waitForVisible",
+            "targetDescription": "Saved News list visible again",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "s15",
+            "action": "tap",
+            "targetDescription": "Unsave the item from Saved list",
+            "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Featured Article 1') [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s16",
+            "action": "waitForHidden",
+            "targetDescription": "Item removed from Saved list immediately",
+            "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Featured Article 1')"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "save-latest-persist-after-reload",
+        "title": "Save a Latest news article and verify persistence after page reload and presence in My saved news",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [
+          "Latest article 'Automation Latest Article 1' is visible on Home and is not saved for the test user"
+        ],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Commons Home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Latest News section",
+            "locatorHint": "[data-testid='latest-news-section']"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Bookmark icon on 'Automation Latest Article 1' card",
+            "locatorHint": "[data-testid='latest-news-section'] [data-testid='news-card']:has-text('Automation Latest Article 1') [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s4",
+            "action": "assertContainsText",
+            "targetDescription": "Saved indicator on the same Latest card",
+            "locatorHint": "[data-testid='latest-news-section'] [data-testid='news-card']:has-text('Automation Latest Article 1')",
+            "assertion": "Saved"
+          },
+          {
+            "id": "s5",
+            "action": "openUrl",
+            "targetDescription": "Reload Commons Home to validate persistence",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "s6",
+            "action": "waitForVisible",
+            "targetDescription": "Latest News section after reload",
+            "locatorHint": "[data-testid='latest-news-section']"
+          },
+          {
+            "id": "s7",
+            "action": "assertContainsText",
+            "targetDescription": "Saved indicator persists on 'Automation Latest Article 1' card",
+            "locatorHint": "[data-testid='latest-news-section'] [data-testid='news-card']:has-text('Automation Latest Article 1')",
+            "assertion": "Saved"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Open profile menu",
+            "locatorHint": "[data-testid='profile-menu-button']"
+          },
+          {
+            "id": "s9",
+            "action": "tap",
+            "targetDescription": "Select 'My saved news'",
+            "locatorHint": "[role='menuitem'][name='My saved news']"
+          },
+          {
+            "id": "s10",
+            "action": "waitForVisible",
+            "targetDescription": "Saved News list",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "s11",
+            "action": "assertVisible",
+            "targetDescription": "'Automation Latest Article 1' appears in Saved list",
+            "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Latest Article 1')"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "save-featured-verify-in-new-tab",
+        "title": "Save a Featured article and verify it appears in My saved news when opened in a new browser tab (sync across sessions)",
+        "priority": "P1",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [
+          "Featured article 'Automation Featured Article 2' is visible on Home and is not saved for the test user"
+        ],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Commons Home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Featured News section",
+            "locatorHint": "[data-testid='featured-news-section']"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Bookmark 'Automation Featured Article 2'",
+            "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']:has-text('Automation Featured Article 2') [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s4",
+            "action": "assertContainsText",
+            "targetDescription": "Saved indicator on 'Automation Featured Article 2' card",
+            "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']:has-text('Automation Featured Article 2')",
+            "assertion": "Saved"
+          },
+          {
+            "id": "s5",
+            "action": "switchToNewTab",
+            "targetDescription": "Open a new tab context"
+          },
+          {
+            "id": "s6",
+            "action": "openUrl",
+            "targetDescription": "Open Commons Home in new tab",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Open profile menu in new tab",
+            "locatorHint": "[data-testid='profile-menu-button']"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Navigate to 'My saved news' in new tab",
+            "locatorHint": "[role='menuitem'][name='My saved news']"
+          },
+          {
+            "id": "s9",
+            "action": "waitForVisible",
+            "targetDescription": "Saved News list in new tab",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "s10",
+            "action": "assertVisible",
+            "targetDescription": "'Automation Featured Article 2' appears in Saved list in new tab",
+            "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Featured Article 2')"
+          },
+          {
+            "id": "s11",
+            "action": "closeTab",
+            "targetDescription": "Close the new tab"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "unsave-from-article-detail-removes-from-saved",
+        "title": "Unsave an article from its detail page and verify it is removed from My saved news",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [
+          "Latest article 'Automation Latest Article 2' is visible on Home and is not saved for the test user"
+        ],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Commons Home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Latest News section",
+            "locatorHint": "[data-testid='latest-news-section']"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Bookmark 'Automation Latest Article 2'",
+            "locatorHint": "[data-testid='latest-news-section'] [data-testid='news-card']:has-text('Automation Latest Article 2') [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Open profile menu",
+            "locatorHint": "[data-testid='profile-menu-button']"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Go to 'My saved news'",
+            "locatorHint": "[role='menuitem'][name='My saved news']"
+          },
+          {
+            "id": "s6",
+            "action": "waitForVisible",
+            "targetDescription": "Saved News list",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Open 'Automation Latest Article 2' from Saved list",
+            "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Latest Article 2') a"
+          },
+          {
+            "id": "s8",
+            "action": "waitForVisible",
+            "targetDescription": "Article detail title",
+            "locatorHint": "[data-testid='article-title']"
+          },
+          {
+            "id": "s9",
+            "action": "assertContainsText",
+            "targetDescription": "Verify article title",
+            "locatorHint": "[data-testid='article-title']",
+            "assertion": "Automation Latest Article 2"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Unsave via bookmark toggle on article detail",
+            "locatorHint": "[data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s11",
+            "action": "tap",
+            "targetDescription": "Open profile menu from article detail",
+            "locatorHint": "[data-testid='profile-menu-button']"
+          },
+          {
+            "id": "s12",
+            "action": "tap",
+            "targetDescription": "Navigate to 'My saved news' again",
+            "locatorHint": "[role='menuitem'][name='My saved news']"
+          },
+          {
+            "id": "s13",
+            "action": "waitForVisible",
+            "targetDescription": "Saved News list visible",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "s14",
+            "action": "assertHidden",
+            "targetDescription": "'Automation Latest Article 2' no longer appears in Saved list",
+            "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Latest Article 2')"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "archived-article-auto-removed-from-saved",
+        "title": "Verify that an archived/deleted article is automatically removed from My saved news",
+        "priority": "P1",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [
+          "Article 'Automation Archive Candidate' exists in Home and is not saved for the test user",
+          "'Automation Archive Candidate' will be archived or deleted during the test execution window by background job or admin action"
+        ],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Commons Home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Latest or Featured section containing 'Automation Archive Candidate'",
+            "locatorHint": "[data-testid='latest-news-section'], [data-testid='featured-news-section']"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Bookmark 'Automation Archive Candidate' (from whichever section it appears)",
+            "locatorHint": "[data-testid='news-card']:has-text('Automation Archive Candidate') [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Open profile menu",
+            "locatorHint": "[data-testid='profile-menu-button']"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Go to 'My saved news'",
+            "locatorHint": "[role='menuitem'][name='My saved news']"
+          },
+          {
+            "id": "s6",
+            "action": "waitForVisible",
+            "targetDescription": "Saved News list",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "s7",
+            "action": "assertVisible",
+            "targetDescription": "'Automation Archive Candidate' initially present in Saved list",
+            "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Archive Candidate')"
+          },
+          {
+            "id": "s8",
+            "action": "waitForHidden",
+            "targetDescription": "Wait until 'Automation Archive Candidate' disappears from Saved list due to archive/delete",
+            "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Archive Candidate')"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "save-multiple-articles-and-validate-count",
+        "title": "Save multiple articles from different sections and validate all appear in My saved news, then unsave one",
+        "priority": "P1",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [
+          "Featured article 'Automation Featured Article 3' is visible on Home and is not saved for the test user",
+          "Latest article 'Automation Latest Article 3' is visible on Home and is not saved for the test user"
+        ],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Commons Home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Featured section",
+            "locatorHint": "[data-testid='featured-news-section']"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Bookmark 'Automation Featured Article 3'",
+            "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']:has-text('Automation Featured Article 3') [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s4",
+            "action": "waitForVisible",
+            "targetDescription": "Latest section",
+            "locatorHint": "[data-testid='latest-news-section']"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Bookmark 'Automation Latest Article 3'",
+            "locatorHint": "[data-testid='latest-news-section'] [data-testid='news-card']:has-text('Automation Latest Article 3') [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s6",
+            "action": "tap",
+            "targetDescription": "Open profile menu",
+            "locatorHint": "[data-testid='profile-menu-button']"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Go to 'My saved news'",
+            "locatorHint": "[role='menuitem'][name='My saved news']"
+          },
+          {
+            "id": "s8",
+            "action": "waitForVisible",
+            "targetDescription": "Saved News list",
+            "locatorHint": "[data-testid='saved-news-list']"
+          },
+          {
+            "id": "s9",
+            "action": "assertVisible",
+            "targetDescription": "'Automation Featured Article 3' present in Saved list",
+            "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Featured Article 3')"
+          },
+          {
+            "id": "s10",
+            "action": "assertVisible",
+            "targetDescription": "'Automation Latest Article 3' present in Saved list",
+            "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Latest Article 3')"
+          },
+          {
+            "id": "s11",
+            "action": "assertCountGreaterThan",
+            "targetDescription": "At least 2 saved items listed",
+            "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']"
+          },
+          {
+            "id": "s12",
+            "action": "tap",
+            "targetDescription": "Unsave 'Automation Latest Article 3' from Saved list",
+            "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Latest Article 3') [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s13",
+            "action": "waitForHidden",
+            "targetDescription": "'Automation Latest Article 3' removed from Saved list",
+            "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Latest Article 3')"
+          },
+          {
+            "id": "s14",
+            "action": "assertVisible",
+            "targetDescription": "'Automation Featured Article 3' remains in Saved list",
+            "locatorHint": "[data-testid='saved-news-list'] [data-testid='saved-news-item']:has-text('Automation Featured Article 3')"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "bookmark-toggle-on-card",
+        "title": "Verify bookmark icon toggles save/unsave on a Featured article card",
+        "priority": "P2",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [
+          "Featured article 'Automation Featured Article 4' is visible on Home and is not saved for the test user"
+        ],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Commons Home",
+            "value": "https://commons-qa.util.ukg.com/"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Featured News section",
+            "locatorHint": "[data-testid='featured-news-section']"
+          },
+          {
+            "id": "s3",
+            "action": "assertHidden",
+            "targetDescription": "Saved badge not shown initially on 'Automation Featured Article 4' card",
+            "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']:has-text('Automation Featured Article 4') [data-testid='saved-badge']"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Tap bookmark to save",
+            "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']:has-text('Automation Featured Article 4') [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s5",
+            "action": "assertContainsText",
+            "targetDescription": "Saved indicator appears on card",
+            "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']:has-text('Automation Featured Article 4')",
+            "assertion": "Saved"
+          },
+          {
+            "id": "s6",
+            "action": "tap",
+            "targetDescription": "Tap bookmark again to unsave",
+            "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']:has-text('Automation Featured Article 4') [data-testid='bookmark-toggle']"
+          },
+          {
+            "id": "s7",
+            "action": "assertHidden",
+            "targetDescription": "Saved badge/indicator disappears from card",
+            "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']:has-text('Automation Featured Article 4') [data-testid='saved-badge']"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      }
+    ]
+  }
+}
