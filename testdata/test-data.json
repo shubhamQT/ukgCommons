@@ -1,1 +1,5 @@
-{}
+{
+  "whenASavedArticleIsArchivedItIsRemovedFromMySavedNewsAutomatically": {
+    "searchForTheArticleByTitle": "Take the next step in your development at UKG"
+  }
+}

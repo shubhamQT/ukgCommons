@@ -1,0 +1,112 @@
+{
+  "id": "saved-persists-after-refresh-and-new-tab",
+  "testPlanId": "55fab0d0-2b9e-4bf4-9f61-0f4f63d8fe81",
+  "requirementId": "1e00dbc0-4a03-49b1-8077-40b6f38dda88",
+  "suiteName": "Save News Articles - E2E",
+  "case": {
+    "id": "saved-persists-after-refresh-and-new-tab",
+    "title": "Saved article state persists after reload and in a new tab (simulating cross-device sync)",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "open-home",
+        "action": "openUrl",
+        "targetDescription": "Open Commons QA home",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "wait-home",
+        "action": "waitForVisible",
+        "targetDescription": "News sections visible",
+        "locatorHint": "[data-testid='featured-news-section'], [data-testid='latest-news-section']",
+        "value": "15000"
+      },
+      {
+        "id": "scroll-to-article",
+        "action": "scrollIntoView",
+        "targetDescription": "Target article card by title",
+        "locatorHint": "[data-testid='news-card']:has-text(\"Take the next step in your development at UKG\")"
+      },
+      {
+        "id": "assert-card-saved",
+        "action": "assertContainsText",
+        "targetDescription": "Card shows Saved state (pre-saved)",
+        "locatorHint": "[data-testid='news-card']:has-text(\"Take the next step in your development at UKG\") [data-testid='bookmark-toggle']",
+        "assertion": "Saved"
+      },
+      {
+        "id": "reload-home",
+        "action": "openUrl",
+        "targetDescription": "Reload home to verify persistence",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "assert-card-still-saved",
+        "action": "assertContainsText",
+        "targetDescription": "Card remains Saved after reload",
+        "locatorHint": "[data-testid='news-card']:has-text(\"Take the next step in your development at UKG\") [data-testid='bookmark-toggle']",
+        "assertion": "Saved"
+      },
+      {
+        "id": "open-profile",
+        "action": "tap",
+        "targetDescription": "Open profile menu",
+        "locatorHint": "[data-testid='profile-menu-button'], [aria-label='Profile']"
+      },
+      {
+        "id": "open-saved-news",
+        "action": "tap",
+        "targetDescription": "Go to My saved news",
+        "locatorHint": "[role='menuitem'][name='My saved news'], a[href*='saved']"
+      },
+      {
+        "id": "assert-item-in-saved",
+        "action": "assertVisible",
+        "targetDescription": "Saved item appears in list",
+        "locatorHint": "[data-testid='saved-news-section'] [data-testid='saved-news-item']:has-text(\"Take the next step in your development at UKG\")"
+      },
+      {
+        "id": "open-new-tab",
+        "action": "switchToNewTab",
+        "targetDescription": "Open a new tab to simulate another device/session"
+      },
+      {
+        "id": "open-home-in-new-tab",
+        "action": "openUrl",
+        "targetDescription": "Open Commons QA home in new tab",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "open-profile-new-tab",
+        "action": "tap",
+        "targetDescription": "Open profile menu (new tab)",
+        "locatorHint": "[data-testid='profile-menu-button'], [aria-label='Profile']"
+      },
+      {
+        "id": "open-saved-new-tab",
+        "action": "tap",
+        "targetDescription": "Go to My saved news (new tab)",
+        "locatorHint": "[role='menuitem'][name='My saved news'], a[href*='saved']"
+      },
+      {
+        "id": "assert-item-in-saved-new-tab",
+        "action": "assertVisible",
+        "targetDescription": "Saved item present in new tab too",
+        "locatorHint": "[data-testid='saved-news-section'] [data-testid='saved-news-item']:has-text(\"Take the next step in your development at UKG\")"
+      },
+      {
+        "id": "close-new-tab",
+        "action": "closeTab",
+        "targetDescription": "Close the new tab"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

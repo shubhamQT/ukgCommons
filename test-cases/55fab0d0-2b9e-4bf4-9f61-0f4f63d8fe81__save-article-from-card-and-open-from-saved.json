@@ -1,0 +1,104 @@
+{
+  "id": "save-article-from-card-and-open-from-saved",
+  "testPlanId": "55fab0d0-2b9e-4bf4-9f61-0f4f63d8fe81",
+  "requirementId": "1e00dbc0-4a03-49b1-8077-40b6f38dda88",
+  "suiteName": "Save News Articles - E2E",
+  "case": {
+    "id": "save-article-from-card-and-open-from-saved",
+    "title": "Save a specific article from card, verify Saved indicator, view it in My saved news, and open full article",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "step-open-home",
+        "action": "openUrl",
+        "targetDescription": "Open Commons QA home",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "step-wait-home",
+        "action": "waitForVisible",
+        "targetDescription": "Featured or Latest section visible",
+        "locatorHint": "[data-testid='featured-news-section'], [data-testid='latest-news-section']",
+        "value": "15000"
+      },
+      {
+        "id": "step-scroll-article-card",
+        "action": "scrollIntoView",
+        "targetDescription": "Scroll article card by title",
+        "locatorHint": "[data-testid='news-card']:has-text(\"Take the next step in your development at UKG\")"
+      },
+      {
+        "id": "step-assert-bookmark-visible",
+        "action": "assertVisible",
+        "targetDescription": "Bookmark icon visible on the article card",
+        "locatorHint": "[data-testid='news-card']:has-text(\"Take the next step in your development at UKG\") [data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "step-tap-bookmark",
+        "action": "tap",
+        "targetDescription": "Tap bookmark icon to save",
+        "locatorHint": "[data-testid='news-card']:has-text(\"Take the next step in your development at UKG\") [data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "step-assert-card-saved",
+        "action": "assertContainsText",
+        "targetDescription": "Bookmark shows Saved state on card",
+        "locatorHint": "[data-testid='news-card']:has-text(\"Take the next step in your development at UKG\") [data-testid='bookmark-toggle']",
+        "assertion": "Saved"
+      },
+      {
+        "id": "step-open-profile-menu",
+        "action": "tap",
+        "targetDescription": "Open profile menu",
+        "locatorHint": "[data-testid='profile-menu-button'], [aria-label='Profile']"
+      },
+      {
+        "id": "step-open-my-saved-news",
+        "action": "tap",
+        "targetDescription": "Go to My saved news",
+        "locatorHint": "[role='menuitem'][name='My saved news'], a[href*='saved']"
+      },
+      {
+        "id": "step-wait-saved-list",
+        "action": "waitForVisible",
+        "targetDescription": "Saved news section",
+        "locatorHint": "[data-testid='saved-news-section']",
+        "value": "10000"
+      },
+      {
+        "id": "step-assert-saved-item-present",
+        "action": "assertVisible",
+        "targetDescription": "Saved item with expected title is listed",
+        "locatorHint": "[data-testid='saved-news-section'] [data-testid='saved-news-item']:has-text(\"Take the next step in your development at UKG\")"
+      },
+      {
+        "id": "step-open-saved-item",
+        "action": "tap",
+        "targetDescription": "Open the saved news item",
+        "locatorHint": "[data-testid='saved-news-section'] [data-testid='saved-news-item']:has-text(\"Take the next step in your development at UKG\") a, [data-testid='saved-news-section'] [data-testid='saved-news-item']:has-text(\"Take the next step in your development at UKG\") [role='link']"
+      },
+      {
+        "id": "step-wait-article-detail",
+        "action": "waitForVisible",
+        "targetDescription": "Article title on detail page",
+        "locatorHint": "[data-testid='article-title'], h1",
+        "value": "10000"
+      },
+      {
+        "id": "step-assert-article-title",
+        "action": "assertContainsText",
+        "targetDescription": "Verify full article title matches",
+        "locatorHint": "[data-testid='article-title'], h1",
+        "assertion": "Take the next step in your development at UKG"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

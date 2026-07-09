@@ -1,0 +1,91 @@
+{
+  "id": "archived-article-removed-from-saved",
+  "testPlanId": "55fab0d0-2b9e-4bf4-9f61-0f4f63d8fe81",
+  "requirementId": "1e00dbc0-4a03-49b1-8077-40b6f38dda88",
+  "suiteName": "Save News Articles - E2E",
+  "case": {
+    "id": "archived-article-removed-from-saved",
+    "title": "When a saved article is archived, it is removed from My saved news automatically",
+    "priority": "P1",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "open-home",
+        "action": "openUrl",
+        "targetDescription": "Open Commons QA home",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "ensure-saved-state",
+        "action": "assertContainsText",
+        "targetDescription": "Verify target article is currently Saved",
+        "locatorHint": "[data-testid='news-card']:has-text(\"Take the next step in your development at UKG\") [data-testid='bookmark-toggle']",
+        "assertion": "Saved"
+      },
+      {
+        "id": "open-admin",
+        "action": "openUrl",
+        "targetDescription": "Open Admin News management",
+        "value": "https://commons-qa.util.ukg.com/admin/news"
+      },
+      {
+        "id": "wait-admin",
+        "action": "waitForVisible",
+        "targetDescription": "Admin news table visible",
+        "locatorHint": "[data-testid='admin-news-table']",
+        "value": "15000"
+      },
+      {
+        "id": "search-admin-article",
+        "action": "fill",
+        "targetDescription": "Search for the article by title",
+        "locatorHint": "[data-testid='admin-news-search'], input[type='search']",
+        "value": "Take the next step in your development at UKG"
+      },
+      {
+        "id": "tap-archive",
+        "action": "tap",
+        "targetDescription": "Archive the article from admin row actions",
+        "locatorHint": "[data-testid='admin-news-table'] tr:has-text(\"Take the next step in your development at UKG\") [data-testid='action-archive'], [data-testid='admin-news-table'] tr:has-text(\"Take the next step in your development at UKG\") [role='button'][name='Archive']"
+      },
+      {
+        "id": "confirm-archive",
+        "action": "tap",
+        "targetDescription": "Confirm archive action if prompted",
+        "locatorHint": "[data-testid='confirm-archive'], [role='button'][name='Confirm']"
+      },
+      {
+        "id": "open-profile-menu",
+        "action": "tap",
+        "targetDescription": "Open profile menu",
+        "locatorHint": "[data-testid='profile-menu-button'], [aria-label='Profile']"
+      },
+      {
+        "id": "open-saved-news",
+        "action": "tap",
+        "targetDescription": "Go to My saved news",
+        "locatorHint": "[role='menuitem'][name='My saved news'], a[href*='saved']"
+      },
+      {
+        "id": "wait-saved-list",
+        "action": "waitForVisible",
+        "targetDescription": "Saved news section visible",
+        "locatorHint": "[data-testid='saved-news-section']",
+        "value": "10000"
+      },
+      {
+        "id": "assert-archived-gone",
+        "action": "assertHidden",
+        "targetDescription": "Archived article no longer appears in saved list",
+        "locatorHint": "[data-testid='saved-news-item']:has-text(\"Take the next step in your development at UKG\")"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

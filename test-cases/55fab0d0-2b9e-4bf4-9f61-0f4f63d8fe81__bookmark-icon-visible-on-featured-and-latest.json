@@ -1,0 +1,65 @@
+{
+  "id": "bookmark-icon-visible-on-featured-and-latest",
+  "testPlanId": "55fab0d0-2b9e-4bf4-9f61-0f4f63d8fe81",
+  "requirementId": "1e00dbc0-4a03-49b1-8077-40b6f38dda88",
+  "suiteName": "Save News Articles - E2E",
+  "case": {
+    "id": "bookmark-icon-visible-on-featured-and-latest",
+    "title": "Bookmark icon is visible on each news article card in both Featured and Latest sections",
+    "priority": "P1",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "open-home-url",
+        "action": "openUrl",
+        "targetDescription": "Open Commons QA home",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "wait-featured",
+        "action": "waitForVisible",
+        "targetDescription": "Featured section visible",
+        "locatorHint": "[data-testid='featured-news-section']",
+        "value": "10000"
+      },
+      {
+        "id": "assert-featured-has-cards",
+        "action": "assertCountGreaterThan",
+        "targetDescription": "Featured section has at least 1 card",
+        "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']"
+      },
+      {
+        "id": "assert-featured-first-card-bookmark",
+        "action": "assertVisible",
+        "targetDescription": "Bookmark icon exists in first Featured card",
+        "locatorHint": "[data-testid='featured-news-section'] [data-testid='news-card']:nth-of-type(1) [data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "wait-latest",
+        "action": "waitForVisible",
+        "targetDescription": "Latest section visible",
+        "locatorHint": "[data-testid='latest-news-section']",
+        "value": "10000"
+      },
+      {
+        "id": "assert-latest-has-cards",
+        "action": "assertCountGreaterThan",
+        "targetDescription": "Latest section has at least 1 card",
+        "locatorHint": "[data-testid='latest-news-section'] [data-testid='news-card']"
+      },
+      {
+        "id": "assert-latest-first-card-bookmark",
+        "action": "assertVisible",
+        "targetDescription": "Bookmark icon exists in first Latest card",
+        "locatorHint": "[data-testid='latest-news-section'] [data-testid='news-card']:nth-of-type(1) [data-testid='bookmark-toggle']"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "id": "save-on-article-detail-and-sync-to-card",
+  "testPlanId": "55fab0d0-2b9e-4bf4-9f61-0f4f63d8fe81",
+  "requirementId": "1e00dbc0-4a03-49b1-8077-40b6f38dda88",
+  "suiteName": "Save News Articles - E2E",
+  "case": {
+    "id": "save-on-article-detail-and-sync-to-card",
+    "title": "Save an article from its detail page and verify Saved state syncs back to the card",
+    "priority": "P1",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "open-home",
+        "action": "openUrl",
+        "targetDescription": "Open Commons QA home",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "wait-sections",
+        "action": "waitForVisible",
+        "targetDescription": "News sections visible",
+        "locatorHint": "[data-testid='featured-news-section'], [data-testid='latest-news-section']",
+        "value": "15000"
+      },
+      {
+        "id": "open-article-from-card",
+        "action": "tap",
+        "targetDescription": "Open full article by tapping title on card",
+        "locatorHint": "[data-testid='news-card']:has-text(\"Take the next step in your development at UKG\") a, [data-testid='news-card']:has-text(\"Take the next step in your development at UKG\") [role='link']"
+      },
+      {
+        "id": "wait-detail",
+        "action": "waitForVisible",
+        "targetDescription": "Article title on detail page",
+        "locatorHint": "[data-testid='article-title'], h1",
+        "value": "10000"
+      },
+      {
+        "id": "assert-title",
+        "action": "assertContainsText",
+        "targetDescription": "Verify detail page title",
+        "locatorHint": "[data-testid='article-title'], h1",
+        "assertion": "Take the next step in your development at UKG"
+      },
+      {
+        "id": "save-on-detail",
+        "action": "tap",
+        "targetDescription": "Tap bookmark on detail page",
+        "locatorHint": "[data-testid='bookmark-toggle']"
+      },
+      {
+        "id": "assert-saved-on-detail",
+        "action": "assertContainsText",
+        "targetDescription": "Bookmark shows Saved on detail page",
+        "locatorHint": "[data-testid='bookmark-toggle']",
+        "assertion": "Saved"
+      },
+      {
+        "id": "go-back",
+        "action": "back",
+        "targetDescription": "Navigate back to listing"
+      },
+      {
+        "id": "wait-listing",
+        "action": "waitForVisible",
+        "targetDescription": "News sections visible again",
+        "locatorHint": "[data-testid='featured-news-section'], [data-testid='latest-news-section']",
+        "value": "10000"
+      },
+      {
+        "id": "assert-card-saved-state",
+        "action": "assertContainsText",
+        "targetDescription": "Card shows Saved state after saving on detail",
+        "locatorHint": "[data-testid='news-card']:has-text(\"Take the next step in your development at UKG\") [data-testid='bookmark-toggle']",
+        "assertion": "Saved"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

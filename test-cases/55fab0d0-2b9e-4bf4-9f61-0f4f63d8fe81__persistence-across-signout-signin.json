@@ -1,0 +1,84 @@
+{
+  "id": "persistence-across-signout-signin",
+  "testPlanId": "55fab0d0-2b9e-4bf4-9f61-0f4f63d8fe81",
+  "requirementId": "1e00dbc0-4a03-49b1-8077-40b6f38dda88",
+  "suiteName": "Save News Articles - E2E",
+  "case": {
+    "id": "persistence-across-signout-signin",
+    "title": "Saved articles persist after sign out and sign back in",
+    "priority": "P1",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "open-home",
+        "action": "openUrl",
+        "targetDescription": "Open Commons QA home",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "wait-home",
+        "action": "waitForVisible",
+        "targetDescription": "News sections visible",
+        "locatorHint": "[data-testid='featured-news-section'], [data-testid='latest-news-section']",
+        "value": "15000"
+      },
+      {
+        "id": "assert-article-saved",
+        "action": "assertContainsText",
+        "targetDescription": "Verify target article is Saved before sign out",
+        "locatorHint": "[data-testid='news-card']:has-text(\"Take the next step in your development at UKG\") [data-testid='bookmark-toggle']",
+        "assertion": "Saved"
+      },
+      {
+        "id": "open-profile-menu",
+        "action": "tap",
+        "targetDescription": "Open profile menu",
+        "locatorHint": "[data-testid='profile-menu-button'], [aria-label='Profile']"
+      },
+      {
+        "id": "tap-signout",
+        "action": "tap",
+        "targetDescription": "Sign out",
+        "locatorHint": "[role='menuitem'][name='Sign out'], a[href*='logout']"
+      },
+      {
+        "id": "navigate-home-post-logout",
+        "action": "openUrl",
+        "targetDescription": "Navigate back to home (SSO will log back in)",
+        "value": "https://commons-qa.util.ukg.com/"
+      },
+      {
+        "id": "wait-logged-in",
+        "action": "waitForVisible",
+        "targetDescription": "Profile menu button visible indicates logged-in",
+        "locatorHint": "[data-testid='profile-menu-button'], [aria-label='Profile']",
+        "value": "15000"
+      },
+      {
+        "id": "profile-open",
+        "action": "tap",
+        "targetDescription": "Open profile menu",
+        "locatorHint": "[data-testid='profile-menu-button'], [aria-label='Profile']"
+      },
+      {
+        "id": "open-saved",
+        "action": "tap",
+        "targetDescription": "Go to My saved news",
+        "locatorHint": "[role='menuitem'][name='My saved news'], a[href*='saved']"
+      },
+      {
+        "id": "assert-saved-item-exists",
+        "action": "assertVisible",
+        "targetDescription": "Saved article persists after sign-out/in",
+        "locatorHint": "[data-testid='saved-news-item']:has-text(\"Take the next step in your development at UKG\")"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}
