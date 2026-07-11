@@ -48,7 +48,7 @@ export class UkgcommonsPage {
     topSitesTitle: { strategy: 'role' as const, value: 'Top sites', role: 'button', actionKind: 'button' as const },
     myAppsTitle: { strategy: 'css' as const, value: '#basic-button', actionKind: 'button' as const },
     showCollapsedMenu: { strategy: 'role' as const, value: 'show collapsed menu', role: 'button', actionKind: 'button' as const },
-    userProfile: { strategy: 'css' as const, value: '[class*="Header_profilePic"]', actionKind: 'generic' as const },
+    userProfile: { strategy: 'css' as const, value: '[class*=Header_headerTopRight]', actionKind: 'generic' as const },
     headerBg: { strategy: 'altText' as const, value: 'header-bg', actionKind: 'generic' as const },
     hiJagadeeshWhatAre: { strategy: 'role' as const, value: 'Hi Jagadeesh, what are you looking for?', role: 'heading', level: 2, actionKind: 'text' as const },
     sharePoint: { strategy: 'role' as const, value: 'SharePoint', role: 'button', actionKind: 'button' as const },
